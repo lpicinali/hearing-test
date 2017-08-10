@@ -3,6 +3,28 @@
   "plugins": [
     "transform-object-rest-spread",
     "transform-class-properties",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    ["react-gettext-parser", {
+      "output": "l10n/source.pot",
+      "funcArgumentsMap": {
+        "tc": ["msgid", null],
+        "tcn": ["msgid", "msgid_plural", null, null],
+        "tcp": ["msgctxt", "msgid", null],
+        "tcnp": ["msgctxt", "msgid", "msgid_plural", null, null],
+
+        "t": ["msgid"],
+        "tn": ["msgid", "msgid_plural", null],
+        "tp": ["msgctxt", "msgid"],
+        "tnp": ["msgctxt", "msgid", "msgid_plural", null]
+      },
+      "componentPropsMap": {
+        "T": {
+          "message": "msgid",
+          "messagePlural": "msgid_plural",
+          "context": "msgctxt",
+          "comment": "comment"
+        }
+      }
+    }]
   ]
 }
