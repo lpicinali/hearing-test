@@ -1,6 +1,6 @@
 import React from 'react'
 import { T } from 'lioness'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 import { AppUrl } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
@@ -14,27 +14,17 @@ const CalibrationUrl = {
 export default function CalibrationStep() {
   return (
     <div>
-      <Switch>
-        <Route
-          exact
-          path={AppUrl.CALIBRATION}
-          render={() =>
-            <div>
-              <h1>
-                <T>We will now start the test</T>
-              </h1>
-              <LinkButton to={CalibrationUrl.AUDIO_LEVEL}>Next</LinkButton>
-            </div>}
-        />
+      <h1>Calibration</h1>
 
+      <Switch>
         <Route
           exact
           path={CalibrationUrl.AUDIO_LEVEL}
           render={() =>
             <div>
-              <h1>
+              <h2>
                 <T>Audio level</T>
-              </h1>
+              </h2>
               <p>
                 Adjust the audio level until this sound is comfortably audible.
               </p>
@@ -49,9 +39,9 @@ export default function CalibrationStep() {
           path={CalibrationUrl.HEADPHONES_POSITIONING}
           render={() =>
             <div>
-              <h1>
+              <h2>
                 <T>Headphones positioning</T>
-              </h1>
+              </h2>
               <p>Check the headphones positioning.</p>
               <LinkButton to={CalibrationUrl.LEAVE_IT_BE}>Next</LinkButton>
             </div>}
@@ -68,6 +58,8 @@ export default function CalibrationStep() {
               <LinkButton to={AppUrl.TEST}>Next</LinkButton>
             </div>}
         />
+
+        <Redirect to={CalibrationUrl.AUDIO_LEVEL} />
       </Switch>
     </div>
   )
