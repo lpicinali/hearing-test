@@ -1,3 +1,9 @@
+export const AppEnvironment = {
+  DEVELOPMENT: 'DEVELOPMENT',
+  STAGE: 'STAGE',
+  PRODUCTION: 'PRODUCTION',
+}
+
 export const AppUrl = {
   HOME: '/',
   CALIBRATION: '/calibration',

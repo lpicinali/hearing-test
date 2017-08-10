@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   entry: path.join(__dirname, 'src/index.js'),
@@ -21,6 +22,14 @@ module.exports = {
       src: path.join(__dirname, 'src'),
     },
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        APP_ENV: JSON.stringify(process.env.APP_ENV || 'development'),
+      },
+    }),
+  ],
   devtool: 'source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
