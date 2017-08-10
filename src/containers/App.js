@@ -3,10 +3,10 @@ import { Route, Switch } from 'react-router-dom'
 
 import { AppUrl } from 'src/constants.js'
 import Header from 'src/components/Header.js'
-import CalibrationStep from 'src/containers/calibration/CalibrationStep.js'
-import TestStep from 'src/containers/test/TestStep.js'
-import ResultsStep from 'src/containers/results/ResultsStep.js'
 import HomeView from 'src/containers/HomeView.js'
+import CalibrationStep from 'src/containers/calibration/CalibrationStep.js'
+import ResultsStep from 'src/containers/results/ResultsStep.js'
+import TestStep from 'src/containers/test/TestStep.js'
 
 export default function App() {
   return (
