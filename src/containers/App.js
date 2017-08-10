@@ -15,9 +15,9 @@ export default function App() {
 
       <Switch>
         <Route exact path={AppUrl.HOME} component={HomeView} />
-        <Route exact path={AppUrl.CALIBRATION} component={CalibrationStep} />
-        <Route exact path={AppUrl.TEST} component={TestStep} />
-        <Route exact path={AppUrl.RESULTS} component={ResultsStep} />
+        <Route path={AppUrl.CALIBRATION} component={CalibrationStep} />
+        <Route path={AppUrl.TEST} component={TestStep} />
+        <Route path={AppUrl.RESULTS} component={ResultsStep} />
         <Route render={() => <h1>404</h1>} />
       </Switch>
     </div>
