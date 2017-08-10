@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --colors --progress"
+    "dev": "webpack-dev-server --colors --progress",
+    "lint": "eslint './**/*.js'"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
@@ -22,10 +23,15 @@
     "webpack": "^3.5.2"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "eslint": "^4.4.1",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.3.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-react": "^7.2.0",
     "prettier": "^1.5.3",
     "webpack-dev-server": "^2.7.1"
   },
