@@ -3,4 +3,6 @@
 export const AppUrl = {
   HOME: '/',
   CALIBRATION: '/calibration',
+  TEST: '/test',
+  RESULTS: '/results',
 }
