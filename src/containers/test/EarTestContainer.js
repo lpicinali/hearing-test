@@ -7,6 +7,7 @@ import { autobind } from 'core-decorators'
 
 import { setFrequencyLevel } from 'src/actions.js'
 import { Ear, TestDirection, TEST_FREQUENCIES } from 'src/constants.js'
+import Tone from 'src/components/Tone.js'
 
 /**
  * Ear Test Container
@@ -71,6 +72,7 @@ class EarTestContainer extends Component {
           +
         </button>
         <button onClick={this.next}>Done</button>
+        <Tone ear={ear} frequency={frequency} value={currentValue} />
       </div>
     )
   }

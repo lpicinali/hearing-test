@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { LionessProvider } from 'lioness'
 
 import store from 'src/store.js'
+import audioContext from 'src/audio/audioContext.js'
+import AudioContextProvider from 'src/components/AudioContextProvider.js'
 import App from 'src/containers/App.js'
 
 export default function AppContainer() {
@@ -11,7 +13,9 @@ export default function AppContainer() {
     <Provider store={store}>
       <BrowserRouter>
         <LionessProvider messages={{}} locale="en">
-          <App />
+          <AudioContextProvider audioContext={audioContext}>
+            <App />
+          </AudioContextProvider>
         </LionessProvider>
       </BrowserRouter>
     </Provider>
