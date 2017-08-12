@@ -72,7 +72,7 @@ class EarTestContainer extends Component {
           +
         </button>
         <button onClick={this.next}>Done</button>
-        <Tone ear={ear} frequency={frequency} value={currentValue} />
+        <Tone ear={ear} frequency={parseInt(frequency)} value={currentValue} />
       </div>
     )
   }
