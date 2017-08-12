@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 
 import { AppUrl } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
+import HeadphonesPositioningGuide from 'src/components/HeadphonesPositioningGuide.js'
 
 const CalibrationUrl = {
   AUDIO_LEVEL: `${AppUrl.CALIBRATION}/audio-level`,
@@ -43,6 +44,10 @@ export default function CalibrationStep() {
                 <T>Headphones positioning</T>
               </h2>
               <p>Check the headphones positioning.</p>
+              <HeadphonesPositioningGuide
+                toneDuration={3000}
+                restDuration={1000}
+              />
               <LinkButton to={CalibrationUrl.LEAVE_IT_BE}>Next</LinkButton>
             </div>}
         />
