@@ -41,6 +41,9 @@ class Tone extends Component {
   }
 
   componentWillUnmount() {
+    this.osc.stop()
+    this.osc.disconnect()
+    this.volume.disconnect()
     this.panner.disconnect()
   }
 

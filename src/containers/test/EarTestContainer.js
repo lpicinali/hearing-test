@@ -27,7 +27,7 @@ class EarTestContainer extends Component {
 
   @autobind
   next() {
-    const { onFinish } = this.props
+    const { ear, earValues, onValueChange, onFinish } = this.props
     const { frequency, direction } = this.state
 
     if (
@@ -43,9 +43,19 @@ class EarTestContainer extends Component {
         direction: TestDirection.UP,
       }))
     } else {
-      this.setState(() => ({
-        direction: TestDirection.DOWN,
-      }))
+      this.setState(
+        () => ({
+          direction: TestDirection.DOWN,
+        }),
+        () => {
+          onValueChange(
+            ear,
+            frequency,
+            TestDirection.DOWN,
+            earValues.getIn([frequency, TestDirection.UP])
+          )
+        }
+      )
     }
   }
 
