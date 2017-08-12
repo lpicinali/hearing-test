@@ -2,7 +2,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 import { values } from 'lodash'
 
-import { Ear, TEST_FREQUENCIES } from 'src/constants.js'
+import { Ear } from 'src/constants.js'
 import { withAudioContext } from 'src/components/AudioContextProvider.js'
 
 /**
@@ -12,7 +12,7 @@ class Tone extends Component {
   static propTypes = {
     audioContext: PropTypes.shape({}).isRequired,
     ear: PropTypes.oneOf(values(Ear)).isRequired,
-    frequency: PropTypes.oneOf(TEST_FREQUENCIES).isRequired,
+    frequency: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
   }
 
