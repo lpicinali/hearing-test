@@ -19,6 +19,7 @@ class ResultsStep extends Component {
           {{ p:In the next page you’ll find your hearing threshold curves for both left and right ears. }}
           {{ p:On the top of each diagram you will be able to find your 3D Tune-In heading loss severity score, which will be useful in case you will want to play with 3D Tune-In apps in the future. }}
         `}
+          p={<p />}
         />
 
         <h2>
