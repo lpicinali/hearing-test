@@ -14,7 +14,7 @@ class HeadphonesPositiongGuide extends Component {
   }
 
   state = {
-    currentEar: null,
+    currentEar: Ear.LEFT,
     isSounding: false,
   }
 
