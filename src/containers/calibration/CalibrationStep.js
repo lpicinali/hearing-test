@@ -15,7 +15,9 @@ const CalibrationUrl = {
 export default function CalibrationStep() {
   return (
     <div>
-      <h1>Calibration</h1>
+      <h1>
+        <T>Calibration</T>
+      </h1>
 
       <Switch>
         <Route
@@ -27,10 +29,13 @@ export default function CalibrationStep() {
                 <T>Audio level</T>
               </h2>
               <p>
-                Adjust the audio level until this sound is comfortably audible.
+                <T>
+                  Adjust the audio level until this sound is comfortably
+                  audible.
+                </T>
               </p>
               <LinkButton to={CalibrationUrl.HEADPHONES_POSITIONING}>
-                Next
+                <T>Next</T>
               </LinkButton>
             </div>}
         />
@@ -43,12 +48,16 @@ export default function CalibrationStep() {
               <h2>
                 <T>Headphones positioning</T>
               </h2>
-              <p>Check the headphones positioning.</p>
+              <p>
+                <T>Check the headphones positioning.</T>
+              </p>
               <HeadphonesPositioningGuide
                 toneDuration={3000}
                 restDuration={1000}
               />
-              <LinkButton to={CalibrationUrl.LEAVE_IT_BE}>Next</LinkButton>
+              <LinkButton to={CalibrationUrl.LEAVE_IT_BE}>
+                <T>Next</T>
+              </LinkButton>
             </div>}
         />
 
@@ -58,9 +67,13 @@ export default function CalibrationStep() {
           render={() =>
             <div>
               <p>
-                Please do not change/modify the audio level during the test.
+                <T>
+                  Please do not change/modify the audio level during the test.
+                </T>
               </p>
-              <LinkButton to={AppUrl.TEST}>Next</LinkButton>
+              <LinkButton to={AppUrl.TEST}>
+                <T>Next</T>
+              </LinkButton>
             </div>}
         />
 

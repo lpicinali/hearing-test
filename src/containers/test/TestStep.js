@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import { T } from 'lioness'
 
 import { AppUrl, Ear } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
@@ -33,13 +34,17 @@ class TestStep extends Component {
             path={TestUrl.LEFT_EAR}
             render={() =>
               <div>
-                <h1>{`Let's start testing your left ear`}</h1>
+                <h1>
+                  <T>{`Let's start testing your left ear`}</T>
+                </h1>
 
                 <EarTestContainer
                   ear={Ear.LEFT}
                   onFinish={() => history.push(TestUrl.RIGHT_EAR)}
                 />
-                <LinkButton to={TestUrl.RIGHT_EAR}>Next</LinkButton>
+                <LinkButton to={TestUrl.RIGHT_EAR}>
+                  <T>Next</T>
+                </LinkButton>
               </div>}
           />
           <Route
@@ -48,13 +53,17 @@ class TestStep extends Component {
             render={() =>
               <RenderAfter delay={10}>
                 <div>
-                  <h1>{`Let's continue testing your right ear`}</h1>
+                  <h1>
+                    <T>{`Let's continue testing your right ear`}</T>
+                  </h1>
 
                   <EarTestContainer
                     ear={Ear.RIGHT}
                     onFinish={() => history.push(AppUrl.RESULTS)}
                   />
-                  <LinkButton to={AppUrl.RESULTS}>Next</LinkButton>
+                  <LinkButton to={AppUrl.RESULTS}>
+                    <T>Next</T>
+                  </LinkButton>
                 </div>
               </RenderAfter>}
           />
