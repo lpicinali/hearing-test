@@ -3,18 +3,24 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { BLACK, GRAY, WHITE } from 'src/styles/colors.js'
+import { BLUE, GRAY, WHITE } from 'src/styles/colors.js'
 
 const StyledButton = styled.button`
   appearance: none;
-  padding: 4px 8px;
-  background: ${WHITE};
-  border: 1px solid ${GRAY};
+  display: inline-block;
+  max-width: 440px;
+  padding: 8px 16px;
+  background: ${BLUE};
   border-radius: 3px;
   outline: none;
   cursor: pointer;
-  color: ${BLACK};
-  font-size: 16px;
+  color: ${WHITE};
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
   transition: all 0.15s;
 
   &:hover {
@@ -24,14 +30,13 @@ const StyledButton = styled.button`
   ${props =>
     props.isActive
       ? `
-    background-color: ${GRAY};
-    color: ${WHITE};
+    box-shadow: 0 0 0 3px ${GRAY};
   `
       : ``} ${props =>
       props.disabled
         ? `
-    border-color: gray;
-    color: gray;
+    background-color: ${GRAY};
+    color: ${WHITE};
     pointer-events: none;
   `
         : ``};
