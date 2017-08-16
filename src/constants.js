@@ -1,3 +1,5 @@
+import { min, values } from 'lodash'
+
 export const ActionType = {
   SET_FREQUENCY_LEVEL: 'SET_FREQUENCY_LEVEL',
   SET_LOCALE: 'SET_LOCALE',
@@ -38,7 +40,7 @@ export const Locale = {
   IT: 'it-IT',
 }
 
-export const SILENCE = -80
+export const SILENCE = min(values(FrequencyStartVolume))
 
 export const TestDirection = {
   UP: 'UP',
