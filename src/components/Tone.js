@@ -4,6 +4,7 @@ import { values } from 'lodash'
 
 import { Ear } from 'src/constants.js'
 import { withAudioContext } from 'src/components/AudioContextProvider.js'
+import { decibelsToGain } from 'src/utils.js'
 
 /**
  * Tone
@@ -13,7 +14,7 @@ class Tone extends Component {
     audioContext: PropTypes.shape({}).isRequired,
     ear: PropTypes.oneOf(values(Ear)).isRequired,
     frequency: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
+    volume: PropTypes.number.isRequired,
   }
 
   componentDidMount() {
@@ -48,10 +49,10 @@ class Tone extends Component {
   }
 
   updateAudio() {
-    const { ear, frequency, value } = this.props
+    const { ear, frequency, volume } = this.props
 
     this.osc.frequency.value = frequency
-    this.volume.gain.value = value / 20
+    this.volume.gain.value = decibelsToGain(volume)
     this.panner.pan.value = ear === Ear.LEFT ? -1 : 1
   }
 

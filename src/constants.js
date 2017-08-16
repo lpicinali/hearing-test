@@ -28,6 +28,8 @@ export const Locale = {
   IT: 'it-IT',
 }
 
+export const SILENCE = -80
+
 export const TestDirection = {
   UP: 'UP',
   DOWN: 'DOWN',

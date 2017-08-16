@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { Ear } from 'src/constants.js'
+import { Ear, SILENCE } from 'src/constants.js'
 import Tone from 'src/components/Tone.js'
 
 /**
@@ -56,7 +56,11 @@ class HeadphonesPositiongGuide extends Component {
           Ear: {currentEar}
         </p>
         {currentEar !== null &&
-          <Tone ear={currentEar} frequency={440} value={isSounding ? 1 : 0} />}
+          <Tone
+            ear={currentEar}
+            frequency={440}
+            volume={isSounding ? 0 : SILENCE}
+          />}
       </div>
     )
   }

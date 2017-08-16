@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IPropTypes from 'immutable-props'
 import { connect } from 'react-redux'
-import { last, values } from 'lodash'
+import { clamp, last, values } from 'lodash'
 import { autobind } from 'core-decorators'
 
 import { setFrequencyLevel } from 'src/actions.js'
-import { Ear, TestDirection, TEST_FREQUENCIES } from 'src/constants.js'
+import { Ear, SILENCE, TestDirection, TEST_FREQUENCIES } from 'src/constants.js'
 import Tone from 'src/components/Tone.js'
 
 /**
@@ -15,8 +15,8 @@ import Tone from 'src/components/Tone.js'
 class EarTestContainer extends Component {
   static propTypes = {
     ear: PropTypes.oneOf(values(Ear)).isRequired,
-    earValues: IPropTypes.Map.isRequired,
-    onValueChange: PropTypes.func.isRequired,
+    earVolumes: IPropTypes.Map.isRequired,
+    onVolumeChange: PropTypes.func.isRequired,
     onFinish: PropTypes.func.isRequired,
   }
 
@@ -27,7 +27,7 @@ class EarTestContainer extends Component {
 
   @autobind
   next() {
-    const { ear, earValues, onValueChange, onFinish } = this.props
+    const { ear, earVolumes, onVolumeChange, onFinish } = this.props
     const { frequency, direction } = this.state
 
     if (
@@ -48,11 +48,11 @@ class EarTestContainer extends Component {
           direction: TestDirection.DOWN,
         }),
         () => {
-          onValueChange(
+          onVolumeChange(
             ear,
             frequency,
             TestDirection.DOWN,
-            earValues.getIn([frequency, TestDirection.UP])
+            earVolumes.getIn([frequency, TestDirection.UP])
           )
         }
       )
@@ -60,29 +60,43 @@ class EarTestContainer extends Component {
   }
 
   render() {
-    const { ear, earValues, onValueChange } = this.props
+    const { ear, earVolumes, onVolumeChange } = this.props
     const { frequency, direction } = this.state
 
-    const currentValue = earValues.getIn([frequency, direction])
+    const currentVolume = earVolumes.getIn([frequency, direction])
 
     return (
       <div className="EarTestContainer">
-        Ear test: {ear}, {frequency}, {direction} {'->'} {currentValue}
+        Ear test: {ear}, {frequency}, {direction} {'->'} {currentVolume}
         <button
-          disabled={currentValue === 0}
+          disabled={currentVolume === 0}
           onClick={() =>
-            onValueChange(ear, frequency, direction, currentValue - 1)}
+            onVolumeChange(
+              ear,
+              frequency,
+              direction,
+              clamp(currentVolume - 2, SILENCE, 0)
+            )}
         >
           -
         </button>
         <button
           onClick={() =>
-            onValueChange(ear, frequency, direction, currentValue + 1)}
+            onVolumeChange(
+              ear,
+              frequency,
+              direction,
+              clamp(currentVolume + 2, SILENCE, 0)
+            )}
         >
           +
         </button>
         <button onClick={this.next}>Done</button>
-        <Tone ear={ear} frequency={parseInt(frequency)} value={currentValue} />
+        <Tone
+          ear={ear}
+          frequency={parseInt(frequency)}
+          volume={currentVolume}
+        />
       </div>
     )
   }
@@ -90,10 +104,10 @@ class EarTestContainer extends Component {
 
 export default connect(
   (state, { ear }) => ({
-    earValues: state.getIn(['test', ear]),
+    earVolumes: state.getIn(['test', ear]),
   }),
   dispatch => ({
-    onValueChange: (ear, frequency, direction, value) =>
-      dispatch(setFrequencyLevel(ear, frequency, direction, value)),
+    onVolumeChange: (ear, frequency, direction, volume) =>
+      dispatch(setFrequencyLevel(ear, frequency, direction, volume)),
   })
 )(EarTestContainer)
