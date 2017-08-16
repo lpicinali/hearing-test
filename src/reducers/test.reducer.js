@@ -3,7 +3,7 @@ import { fromJS } from 'immutable'
 import {
   ActionType,
   Ear,
-  SILENCE,
+  FrequencyStartVolume,
   TestDirection,
   TEST_FREQUENCIES,
 } from 'src/constants.js'
@@ -12,8 +12,8 @@ const earFrequencyTestValue = TEST_FREQUENCIES.reduce(
   (aggr, frequency) => ({
     ...aggr,
     [frequency]: {
-      [TestDirection.UP]: SILENCE,
-      [TestDirection.DOWN]: SILENCE,
+      [TestDirection.UP]: FrequencyStartVolume[frequency],
+      [TestDirection.DOWN]: FrequencyStartVolume[frequency],
     },
   }),
   {}

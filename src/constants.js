@@ -22,6 +22,16 @@ export const Ear = {
   RIGHT: 'RIGHT',
 }
 
+export const FrequencyStartVolume = {
+  '125': -70,
+  '250': -70,
+  '500': -70,
+  '1000': -80,
+  '2000': -90,
+  '4000': -80,
+  '8000': -70,
+}
+
 export const Locale = {
   EN: 'en-GB',
   ES: 'es-ES',
@@ -35,4 +45,12 @@ export const TestDirection = {
   DOWN: 'DOWN',
 }
 
-export const TEST_FREQUENCIES = ['200', '400', '800', '1600']
+export const TEST_FREQUENCIES = [
+  '125',
+  '250',
+  '500',
+  '1000',
+  '2000',
+  '4000',
+  '8000',
+]

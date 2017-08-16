@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IPropTypes from 'immutable-props'
 import { connect } from 'react-redux'
-import { last, values } from 'lodash'
-import { clamp } from 'lodash/fp'
+import { clamp, last, values } from 'lodash'
 import { autobind } from 'core-decorators'
 
 import { setFrequencyLevel } from 'src/actions.js'
-import { Ear, SILENCE, TestDirection, TEST_FREQUENCIES } from 'src/constants.js'
+import {
+  Ear,
+  FrequencyStartVolume,
+  TestDirection,
+  TEST_FREQUENCIES,
+} from 'src/constants.js'
 import Tone from 'src/components/Tone.js'
-
-const clampDb = clamp(SILENCE, 0)
 
 /**
  * Ear Test Container
@@ -25,13 +27,14 @@ class EarTestContainer extends Component {
 
   state = {
     frequency: TEST_FREQUENCIES[0],
+    minVolume: FrequencyStartVolume[TEST_FREQUENCIES[0]],
     direction: TestDirection.UP,
   }
 
   @autobind
   next() {
     const { ear, earVolumes, onVolumeChange, onFinish } = this.props
-    const { frequency, direction } = this.state
+    const { frequency, minVolume, direction } = this.state
 
     if (
       frequency === last(TEST_FREQUENCIES) &&
@@ -39,12 +42,17 @@ class EarTestContainer extends Component {
     ) {
       onFinish()
     } else if (direction === TestDirection.DOWN) {
-      this.setState(() => ({
-        frequency: TEST_FREQUENCIES.find(
+      this.setState(() => {
+        const nextFrequency = TEST_FREQUENCIES.find(
           x => parseInt(x) > parseInt(frequency)
-        ),
-        direction: TestDirection.UP,
-      }))
+        )
+
+        return {
+          frequency: nextFrequency,
+          minVolume: FrequencyStartVolume[nextFrequency],
+          direction: TestDirection.UP,
+        }
+      })
     } else {
       this.setState(
         () => ({
@@ -57,7 +65,11 @@ class EarTestContainer extends Component {
             ear,
             frequency,
             TestDirection.DOWN,
-            clampDb(earVolumes.getIn([frequency, TestDirection.UP]) + 10)
+            clamp(
+              earVolumes.getIn([frequency, TestDirection.UP]) + 10,
+              minVolume,
+              0
+            )
           )
         }
       )
@@ -66,7 +78,7 @@ class EarTestContainer extends Component {
 
   render() {
     const { ear, earVolumes, onVolumeChange } = this.props
-    const { frequency, direction } = this.state
+    const { frequency, minVolume, direction } = this.state
 
     const currentVolume = earVolumes.getIn([frequency, direction])
 
@@ -80,7 +92,7 @@ class EarTestContainer extends Component {
               ear,
               frequency,
               direction,
-              clampDb(currentVolume - 2)
+              clamp(currentVolume - 2, minVolume, 0)
             )}
         >
           -
@@ -91,7 +103,7 @@ class EarTestContainer extends Component {
               ear,
               frequency,
               direction,
-              clampDb(currentVolume + 2)
+              clamp(currentVolume + 2, minVolume, 0)
             )}
         >
           +
