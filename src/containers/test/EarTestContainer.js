@@ -2,12 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import IPropTypes from 'immutable-props'
 import { connect } from 'react-redux'
-import { clamp, last, values } from 'lodash'
+import { last, values } from 'lodash'
+import { clamp } from 'lodash/fp'
 import { autobind } from 'core-decorators'
 
 import { setFrequencyLevel } from 'src/actions.js'
 import { Ear, SILENCE, TestDirection, TEST_FREQUENCIES } from 'src/constants.js'
 import Tone from 'src/components/Tone.js'
+
+const clampDb = clamp(SILENCE, 0)
 
 /**
  * Ear Test Container
@@ -48,11 +51,13 @@ class EarTestContainer extends Component {
           direction: TestDirection.DOWN,
         }),
         () => {
+          // The start volume of the DOWN bit is +10 dB to the final
+          // UP volume.
           onVolumeChange(
             ear,
             frequency,
             TestDirection.DOWN,
-            earVolumes.getIn([frequency, TestDirection.UP])
+            clampDb(earVolumes.getIn([frequency, TestDirection.UP]) + 10)
           )
         }
       )
@@ -75,7 +80,7 @@ class EarTestContainer extends Component {
               ear,
               frequency,
               direction,
-              clamp(currentVolume - 2, SILENCE, 0)
+              clampDb(currentVolume - 2)
             )}
         >
           -
@@ -86,7 +91,7 @@ class EarTestContainer extends Component {
               ear,
               frequency,
               direction,
-              clamp(currentVolume + 2, SILENCE, 0)
+              clampDb(currentVolume + 2)
             )}
         >
           +
