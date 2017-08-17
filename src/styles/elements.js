@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { BLACK, WHITE, YELLOW } from 'src/styles/colors.js'
 
 export const H1 = styled.h1`
+  margin: 64px 0;
   color: ${WHITE};
   font-size: 72px;
   line-height: 88px;
