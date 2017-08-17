@@ -1,7 +1,8 @@
 import { all, call, put, select, take } from 'redux-saga/effects'
 
 import { setResultAudiogram } from 'src/actions.js'
-import { ActionType, Ear } from 'src/constants.js'
+import { ActionType, AppUrl, Ear } from 'src/constants.js'
+import history from 'src/history.js'
 import { calculateAudiogramFromHearingTestResult } from 'src/utils.js'
 
 function* calculateAudiograms() {
@@ -25,6 +26,8 @@ function* calculateAudiograms() {
       rightEarVolumes
     )
     yield put(setResultAudiogram(Ear.RIGHT, rightEarAudiogram))
+
+    yield call(history.push, AppUrl.RESULTS)
   }
 }
 
