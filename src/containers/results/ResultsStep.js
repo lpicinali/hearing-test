@@ -17,6 +17,9 @@ class ResultsStep extends Component {
   render() {
     const { results } = this.props
 
+    const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
+    const rightAudiogram = results.getIn(['audiograms', Ear.RIGHT])
+
     return (
       <div className="ResultsStep">
         <h1>
@@ -38,14 +41,14 @@ class ResultsStep extends Component {
           <T>Left ear</T>
         </h3>
         <code>
-          {results.getIn(['audiograms', Ear.LEFT]).toJS().join(', ')}
+          {leftAudiogram ? leftAudiogram.toJS().join(', ') : 'Audiogram'}
         </code>
 
         <h3>
           <T>Right ear</T>
         </h3>
         <code>
-          {results.getIn(['audiograms', Ear.RIGHT]).toJS().join(', ')}
+          {rightAudiogram ? rightAudiogram.toJS().join(', ') : 'Audiogram'}
         </code>
 
         <h2>
