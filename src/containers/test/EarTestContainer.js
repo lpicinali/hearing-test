@@ -86,7 +86,7 @@ class EarTestContainer extends Component {
       <div className="EarTestContainer">
         Ear test: {ear}, {frequency}, {direction} {'->'} {currentVolume}
         <button
-          disabled={currentVolume === 0}
+          disabled={currentVolume === minVolume}
           onClick={() =>
             onVolumeChange(
               ear,
@@ -98,6 +98,7 @@ class EarTestContainer extends Component {
           -
         </button>
         <button
+          disabled={currentVolume === 0}
           onClick={() =>
             onVolumeChange(
               ear,
