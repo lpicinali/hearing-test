@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
+import IPropTypes from 'immutable-props'
 import { T } from 'lioness'
+import { connect } from 'react-redux'
 
-import { AppUrl } from 'src/constants.js'
+import { AppUrl, Ear } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
 
 /**
  * Results Step
  */
 class ResultsStep extends Component {
+  static propTypes = {
+    results: IPropTypes.Map.isRequired,
+  }
+
   render() {
+    const { results } = this.props
+
     return (
       <div className="ResultsStep">
         <h1>
@@ -29,12 +37,16 @@ class ResultsStep extends Component {
         <h3>
           <T>Left ear</T>
         </h3>
-        <code>Audiogram</code>
+        <code>
+          {results.getIn(['audiograms', Ear.LEFT]).toJS().join(', ')}
+        </code>
 
         <h3>
           <T>Right ear</T>
         </h3>
-        <code>Audiogram</code>
+        <code>
+          {results.getIn(['audiograms', Ear.RIGHT]).toJS().join(', ')}
+        </code>
 
         <h2>
           <T>3D Tune-In Hearing Loss Codes</T>
@@ -67,4 +79,6 @@ class ResultsStep extends Component {
   }
 }
 
-export default ResultsStep
+export default connect(state => ({
+  results: state.get('results'),
+}))(ResultsStep)
