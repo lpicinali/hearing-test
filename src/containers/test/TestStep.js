@@ -9,6 +9,7 @@ import { AppUrl, Ear } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
 import RenderAfter from 'src/components/RenderAfter.js'
 import EarTestContainer from 'src/containers/test/EarTestContainer.js'
+import { H2 } from 'src/styles/elements.js'
 
 const TestUrl = {
   LEFT_EAR: `${AppUrl.TEST}/left-ear`,
@@ -37,9 +38,9 @@ class TestStep extends Component {
             path={TestUrl.LEFT_EAR}
             render={() =>
               <div>
-                <h1>
+                <H2>
                   <T>{`Let's start testing your left ear`}</T>
-                </h1>
+                </H2>
 
                 <EarTestContainer
                   ear={Ear.LEFT}
@@ -56,9 +57,9 @@ class TestStep extends Component {
             render={() =>
               <RenderAfter delay={10}>
                 <div>
-                  <h1>
+                  <H2>
                     <T>{`Let's continue testing your right ear`}</T>
-                  </h1>
+                  </H2>
 
                   <EarTestContainer ear={Ear.RIGHT} onFinish={onFinishTests} />
                   <LinkButton to={AppUrl.RESULTS}>

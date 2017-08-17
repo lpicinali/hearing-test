@@ -4,23 +4,25 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 import { BLUE, GRAY, WHITE } from 'src/styles/colors.js'
+import { FONT_NORMAL } from 'src/styles/type.js'
 
 const StyledButton = styled.button`
   appearance: none;
   display: inline-block;
   max-width: 440px;
-  padding: 8px 16px;
+  padding: 8px 24px;
   background: ${BLUE};
   border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   outline: none;
   cursor: pointer;
   color: ${WHITE};
-  font-size: 12px;
+  font-family: ${FONT_NORMAL};
+  font-size: 16px;
   font-weight: bold;
-  letter-spacing: 1px;
+  line-height: 24px;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
   transition: all 0.15s;
 
   &:hover {

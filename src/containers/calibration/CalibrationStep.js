@@ -5,6 +5,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import { AppUrl } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
 import HeadphonesPositioningGuide from 'src/components/HeadphonesPositioningGuide.js'
+import { H2, H3, P } from 'src/styles/elements.js'
 
 const CalibrationUrl = {
   AUDIO_LEVEL: `${AppUrl.CALIBRATION}/audio-level`,
@@ -15,9 +16,9 @@ const CalibrationUrl = {
 export default function CalibrationStep() {
   return (
     <div>
-      <h1>
+      <H2>
         <T>Calibration</T>
-      </h1>
+      </H2>
 
       <Switch>
         <Route
@@ -25,15 +26,15 @@ export default function CalibrationStep() {
           path={CalibrationUrl.AUDIO_LEVEL}
           render={() =>
             <div>
-              <h2>
+              <H3>
                 <T>Audio level</T>
-              </h2>
-              <p>
+              </H3>
+              <P>
                 <T>
                   Adjust the audio level until this sound is comfortably
                   audible.
                 </T>
-              </p>
+              </P>
               <LinkButton to={CalibrationUrl.HEADPHONES_POSITIONING}>
                 <T>Next</T>
               </LinkButton>
@@ -45,12 +46,12 @@ export default function CalibrationStep() {
           path={CalibrationUrl.HEADPHONES_POSITIONING}
           render={() =>
             <div>
-              <h2>
+              <H3>
                 <T>Headphones positioning</T>
-              </h2>
-              <p>
+              </H3>
+              <P>
                 <T>Check the headphones positioning.</T>
-              </p>
+              </P>
               <HeadphonesPositioningGuide
                 toneDuration={3000}
                 restDuration={1000}
@@ -66,11 +67,11 @@ export default function CalibrationStep() {
           path={CalibrationUrl.LEAVE_IT_BE}
           render={() =>
             <div>
-              <p>
+              <P>
                 <T>
                   Please do not change/modify the audio level during the test.
                 </T>
-              </p>
+              </P>
               <LinkButton to={AppUrl.TEST}>
                 <T>Next</T>
               </LinkButton>

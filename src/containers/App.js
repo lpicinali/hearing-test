@@ -12,10 +12,9 @@ import CalibrationStep from 'src/containers/calibration/CalibrationStep.js'
 import ResultsStep from 'src/containers/results/ResultsStep.js'
 import TestStep from 'src/containers/test/TestStep.js'
 
-const AppRoot = styled.div`
-  font-family: sans-serif;
-  line-height: 1.5;
-`
+import 'src/styles/global.js'
+
+const AppRoot = styled.div``
 
 const MainContent = styled.main`
   width: 96%;

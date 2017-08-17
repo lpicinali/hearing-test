@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import { AppUrl, Ear } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
+import { H2, H3, H4, TextInput } from 'src/styles/elements.js'
 
 /**
  * Results Step
@@ -22,9 +23,9 @@ class ResultsStep extends Component {
 
     return (
       <div className="ResultsStep">
-        <h1>
+        <H2>
           <T>The test is now completed.</T>
-        </h1>
+        </H2>
         <T
           message={`
           {{ p:In the next page you’ll find your hearing threshold curves for both left and right ears. }}
@@ -33,27 +34,27 @@ class ResultsStep extends Component {
           p={<p />}
         />
 
-        <h2>
+        <H3>
           <T>Audiograms</T>
-        </h2>
+        </H3>
 
-        <h3>
+        <H4>
           <T>Left ear</T>
-        </h3>
+        </H4>
         <code>
           {leftAudiogram ? leftAudiogram.toJS().join(', ') : 'Audiogram'}
         </code>
 
-        <h3>
+        <H4>
           <T>Right ear</T>
-        </h3>
+        </H4>
         <code>
           {rightAudiogram ? rightAudiogram.toJS().join(', ') : 'Audiogram'}
         </code>
 
-        <h2>
+        <H3>
           <T>3D Tune-In Hearing Loss Codes</T>
-        </h2>
+        </H3>
         <p>
           <T>
             You can use this code to automatically calibrate any of the 3D
@@ -62,12 +63,12 @@ class ResultsStep extends Component {
         </p>
         <code>Codes here</code>
 
-        <h2>
+        <H3>
           <T>
             Enter your e-mail address here to have this information sent to you:
           </T>
-        </h2>
-        <input type="email" placeholder="name@example.com" />
+        </H3>
+        <TextInput type="email" placeholder="name@example.com" />
 
         <p>
           <T
