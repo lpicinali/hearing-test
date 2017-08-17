@@ -3,6 +3,8 @@ import { T } from 'lioness'
 import styled from 'styled-components'
 
 import LocalePicker from 'src/containers/LocalePicker.js'
+import { WHITE } from 'src/styles/colors.js'
+import { Col, Container, Row } from 'src/styles/grid.js'
 
 const StyledHeader = styled.header`
   display: flex;
@@ -14,16 +16,33 @@ const StyledHeader = styled.header`
   padding: 16px;
 `
 
-const StyledTitle = styled.div`margin-right: 24px;`
+const Logo = Col.extend`vertical-align: middle;`
+const LogoImage = styled.img`vertical-align: middle;`
+const LogoText = styled.span`
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 16px;
+  color: ${WHITE};
+  font-size: 12px;
+`
 
 export default function Header() {
   return (
     <StyledHeader>
-      <StyledTitle>
-        <T>3D Tune-In Hearing Test</T>
-      </StyledTitle>
+      <Container>
+        <Row>
+          <Logo grow>
+            <LogoImage src="/img/3d-tune-in-logo-white.svg" alt="" />
+            <LogoText>
+              <T>3D Tune-In Hearing Test</T>
+            </LogoText>
+          </Logo>
 
-      <LocalePicker />
+          <Col>
+            <LocalePicker />
+          </Col>
+        </Row>
+      </Container>
     </StyledHeader>
   )
 }
