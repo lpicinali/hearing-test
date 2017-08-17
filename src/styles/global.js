@@ -26,6 +26,10 @@ injectGlobal`
   src: local('PT Mono'), local('PT-Mono'), url('/fonts/PTM55FT.ttf') format('truetype');
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   min-height: 100%;
