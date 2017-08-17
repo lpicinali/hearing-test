@@ -3,6 +3,9 @@ import { min, values } from 'lodash'
 export const ActionType = {
   SET_FREQUENCY_LEVEL: 'SET_FREQUENCY_LEVEL',
   SET_LOCALE: 'SET_LOCALE',
+  CALCULATE_AUDIOGRAMS: 'CALCULATE_AUDIOGRAMS',
+  SET_RESULT_AUDIOGRAM: 'SET_RESULT_AUDIOGRAM',
+  SET_RESULT_CODE: 'SET_RESULT_CODE',
 }
 
 export const AppEnvironment = {

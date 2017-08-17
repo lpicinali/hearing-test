@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { T } from 'lioness'
 
+import { calculateAudiograms } from 'src/actions.js'
 import { AppUrl, Ear } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
 import RenderAfter from 'src/components/RenderAfter.js'
@@ -21,10 +23,11 @@ class TestStep extends Component {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }).isRequired,
+    onFinishTests: PropTypes.func.isRequired,
   }
 
   render() {
-    const { history } = this.props
+    const { history, onFinishTests } = this.props
 
     return (
       <div className="TestStep">
@@ -57,10 +60,7 @@ class TestStep extends Component {
                     <T>{`Let's continue testing your right ear`}</T>
                   </h1>
 
-                  <EarTestContainer
-                    ear={Ear.RIGHT}
-                    onFinish={() => history.push(AppUrl.RESULTS)}
-                  />
+                  <EarTestContainer ear={Ear.RIGHT} onFinish={onFinishTests} />
                   <LinkButton to={AppUrl.RESULTS}>
                     <T>Next</T>
                   </LinkButton>
@@ -74,4 +74,6 @@ class TestStep extends Component {
   }
 }
 
-export default withRouter(TestStep)
+export default connect(null, dispatch => ({
+  onFinishTests: () => dispatch(calculateAudiograms()),
+}))(withRouter(TestStep))
