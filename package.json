@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack && node server.js",
+    "start": "node server.js",
     "dev": "webpack-dev-server --colors --progress",
+    "build": "webpack",
     "lint": "eslint './**/*.js'"
   },
   "dependencies": {
