@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run dev",
     "dev": "webpack-dev-server --colors --progress",
     "lint": "eslint './**/*.js'"
   },
