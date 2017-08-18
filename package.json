@@ -49,7 +49,7 @@
     "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-react": "^7.2.0",
     "prettier": "^1.5.3",
-    "react-gettext-parser": "^1.1.4",
+    "react-gettext-parser": "^1.1.4"
   },
   "author": "Alexander Wallin <office@alexanderwallin.com> (http://alexanderwallin.com)",
   "license": "ISC"
