@@ -10,7 +10,7 @@ const StyledButton = styled.button`
   appearance: none;
   display: inline-block;
   max-width: 440px;
-  padding: 8px 24px;
+  padding: 8px 32px;
   background: ${BLUE};
   border-radius: 3px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
