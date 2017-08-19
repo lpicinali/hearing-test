@@ -19,12 +19,14 @@ export const H2 = styled.h2`
 `
 
 export const H3 = styled.h3`
+  margin-bottom: 0;
   color: ${WHITE};
   font-size: 24px;
   line-height: 32px;
 `
 
 export const H4 = styled.h4`
+  margin-bottom: 0;
   color: ${WHITE};
   font-size: 20px;
   line-height: 32px;

@@ -10,6 +10,7 @@ import { LinkButton } from 'src/components/Button.js'
 import RenderAfter from 'src/components/RenderAfter.js'
 import EarTestContainer from 'src/containers/test/EarTestContainer.js'
 import { H2 } from 'src/styles/elements.js'
+import { Row, StatefulCol } from 'src/styles/grid.js'
 
 const TestUrl = {
   LEFT_EAR: `${AppUrl.TEST}/left-ear`,
@@ -32,23 +33,20 @@ class TestStep extends Component {
 
     return (
       <div className="TestStep">
+        <H2>
+          <T>Testing your hearing</T>
+        </H2>
+
         <Switch>
           <Route
             exact
             path={TestUrl.LEFT_EAR}
             render={() =>
               <div>
-                <H2>
-                  <T>{`Let's start testing your left ear`}</T>
-                </H2>
-
                 <EarTestContainer
                   ear={Ear.LEFT}
                   onFinish={() => history.push(TestUrl.RIGHT_EAR)}
                 />
-                <LinkButton to={TestUrl.RIGHT_EAR}>
-                  <T>Next</T>
-                </LinkButton>
               </div>}
           />
           <Route
@@ -57,14 +55,7 @@ class TestStep extends Component {
             render={() =>
               <RenderAfter delay={10}>
                 <div>
-                  <H2>
-                    <T>{`Let's continue testing your right ear`}</T>
-                  </H2>
-
                   <EarTestContainer ear={Ear.RIGHT} onFinish={onFinishTests} />
-                  <LinkButton to={AppUrl.RESULTS}>
-                    <T>Next</T>
-                  </LinkButton>
                 </div>
               </RenderAfter>}
           />

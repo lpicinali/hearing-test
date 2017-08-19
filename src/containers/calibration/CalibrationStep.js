@@ -8,19 +8,13 @@ import { LinkButton } from 'src/components/Button.js'
 import HeadphonesPositioningGuide from 'src/components/HeadphonesPositioningGuide.js'
 import Tone from 'src/components/Tone.js'
 import { H2, H4, P } from 'src/styles/elements.js'
-import { Col, Row } from 'src/styles/grid.js'
+import { Col, Row, StatefulCol } from 'src/styles/grid.js'
 
 const CalibrationUrl = {
   ADJUST_LEVEL: `${AppUrl.CALIBRATION}/adjust-level`,
   HEADPHONES_POSITIONING: `${AppUrl.CALIBRATION}/headphones-positioning`,
   LEAVE_IT_BE: `${AppUrl.CALIBRATION}/leave-it-be`,
 }
-
-const CalibrationStepCol = Col.extend`
-  opacity: ${props => (props.isActive ? 1 : 0.5)};
-  pointer-events: ${props => (props.isActive ? 'auto' : 'none')};
-  transition: opacity 0.3s;
-`
 
 function CalibrationStep({ match }) {
   return (
@@ -30,10 +24,7 @@ function CalibrationStep({ match }) {
       </H2>
 
       <Row>
-        <CalibrationStepCol
-          size={1 / 3}
-          isActive={match.url === AppUrl.CALIBRATION}
-        >
+        <StatefulCol size={1 / 3} isActive={match.url === AppUrl.CALIBRATION}>
           <H4>
             <T>Start with silence</T>
           </H4>
@@ -44,9 +35,9 @@ function CalibrationStep({ match }) {
           <LinkButton to={CalibrationUrl.ADJUST_LEVEL}>
             <T>Continue</T>
           </LinkButton>
-        </CalibrationStepCol>
+        </StatefulCol>
 
-        <CalibrationStepCol
+        <StatefulCol
           size={1 / 3}
           isActive={match.url === CalibrationUrl.ADJUST_LEVEL}
         >
@@ -65,9 +56,9 @@ function CalibrationStep({ match }) {
 
           {match.url === CalibrationUrl.ADJUST_LEVEL &&
             <Tone frequency={440} volume={-20} />}
-        </CalibrationStepCol>
+        </StatefulCol>
 
-        <CalibrationStepCol
+        <StatefulCol
           size={1 / 3}
           isActive={match.url === CalibrationUrl.HEADPHONES_POSITIONING}
         >
@@ -88,7 +79,7 @@ function CalibrationStep({ match }) {
           <LinkButton to={AppUrl.TEST}>
             <T>Continue</T>
           </LinkButton>
-        </CalibrationStepCol>
+        </StatefulCol>
       </Row>
     </div>
   )

@@ -28,3 +28,9 @@ export const Col = styled.div`
   width: ${({ size }) => (size ? size * 100 : 'auto')}%;
   padding: 0 ${GUTTER}px;
 `
+
+export const StatefulCol = Col.extend`
+  opacity: ${props => (props.isActive ? 1 : 0.5)};
+  pointer-events: ${props => (props.isActive ? 'auto' : 'none')};
+  transition: opacity 0.3s;
+`

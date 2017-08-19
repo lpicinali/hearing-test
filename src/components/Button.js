@@ -2,21 +2,30 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { values } from 'lodash'
 
-import { BLUE, GRAY, WHITE } from 'src/styles/colors.js'
+import { BLUE, GRAY, SILVER, WHITE } from 'src/styles/colors.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
+
+export const ButtonStyle = {
+  FRIENDLY: 'FRIENDLY',
+  ALLURING: 'ALLURING',
+}
 
 const StyledButton = styled.button`
   appearance: none;
   display: inline-block;
   max-width: 440px;
   padding: 8px 32px;
-  background: ${BLUE};
+  background: ${props =>
+    props.buttonStyle === ButtonStyle.ALLURING ? BLUE : SILVER};
+  border: none;
   border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   outline: none;
   cursor: pointer;
-  color: ${WHITE};
+  color: ${props =>
+    props.buttonStyle === ButtonStyle.ALLURING ? WHITE : BLUE};
   font-family: ${FONT_NORMAL};
   font-size: 16px;
   font-weight: bold;
@@ -25,23 +34,14 @@ const StyledButton = styled.button`
   text-decoration: none;
   transition: all 0.15s;
 
-  &:hover {
-    box-shadow: 0 0 0 3px ${GRAY};
-  }
-
   ${props =>
-    props.isActive
+    props.disabled
       ? `
-    box-shadow: 0 0 0 3px ${GRAY};
-  `
-      : ``} ${props =>
-      props.disabled
-        ? `
     background-color: ${GRAY};
     color: ${WHITE};
     pointer-events: none;
   `
-        : ``};
+      : ``};
 `
 
 /**
@@ -50,6 +50,7 @@ const StyledButton = styled.button`
 class Button extends PureComponent {
   static propTypes = {
     component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    buttonStyle: PropTypes.oneOf(values(ButtonStyle)),
     isEnabled: PropTypes.bool,
     isActive: PropTypes.bool,
     onClick: PropTypes.func,
@@ -59,6 +60,7 @@ class Button extends PureComponent {
 
   static defaultProps = {
     component: 'button',
+    buttonStyle: ButtonStyle.ALLURING,
     isEnabled: true,
     isActive: false,
     onClick: () => {},
