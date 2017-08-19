@@ -59,7 +59,7 @@ class HeadphonesPositiongGuide extends Component {
           <Tone
             ear={currentEar}
             frequency={440}
-            volume={isSounding ? 0 : SILENCE}
+            volume={isSounding ? -20 : SILENCE}
           />}
       </div>
     )

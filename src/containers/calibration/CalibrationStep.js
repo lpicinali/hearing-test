@@ -1,85 +1,103 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { T } from 'lioness'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import { AppUrl } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
 import HeadphonesPositioningGuide from 'src/components/HeadphonesPositioningGuide.js'
-import { H2, H3, P } from 'src/styles/elements.js'
+import Tone from 'src/components/Tone.js'
+import { H2, H4, P } from 'src/styles/elements.js'
+import { Col, Row } from 'src/styles/grid.js'
 
 const CalibrationUrl = {
-  AUDIO_LEVEL: `${AppUrl.CALIBRATION}/audio-level`,
+  ADJUST_LEVEL: `${AppUrl.CALIBRATION}/adjust-level`,
   HEADPHONES_POSITIONING: `${AppUrl.CALIBRATION}/headphones-positioning`,
   LEAVE_IT_BE: `${AppUrl.CALIBRATION}/leave-it-be`,
 }
 
-export default function CalibrationStep() {
+const CalibrationStepCol = Col.extend`
+  opacity: ${props => (props.isActive ? 1 : 0.5)};
+  pointer-events: ${props => (props.isActive ? 'auto' : 'none')};
+  transition: opacity 0.3s;
+`
+
+function CalibrationStep({ match }) {
   return (
     <div>
       <H2>
         <T>Calibration</T>
       </H2>
 
-      <Switch>
-        <Route
-          exact
-          path={CalibrationUrl.AUDIO_LEVEL}
-          render={() =>
-            <div>
-              <H3>
-                <T>Audio level</T>
-              </H3>
-              <P>
-                <T>
-                  Adjust the audio level until this sound is comfortably
-                  audible.
-                </T>
-              </P>
-              <LinkButton to={CalibrationUrl.HEADPHONES_POSITIONING}>
-                <T>Next</T>
-              </LinkButton>
-            </div>}
-        />
+      <Row>
+        <CalibrationStepCol
+          size={1 / 3}
+          isActive={match.url === AppUrl.CALIBRATION}
+        >
+          <H4>
+            <T>Start with silence</T>
+          </H4>
 
-        <Route
-          exact
-          path={CalibrationUrl.HEADPHONES_POSITIONING}
-          render={() =>
-            <div>
-              <H3>
-                <T>Headphones positioning</T>
-              </H3>
-              <P>
-                <T>Check the headphones positioning.</T>
-              </P>
-              <HeadphonesPositioningGuide
-                toneDuration={3000}
-                restDuration={1000}
-              />
-              <LinkButton to={CalibrationUrl.LEAVE_IT_BE}>
-                <T>Next</T>
-              </LinkButton>
-            </div>}
-        />
+          <P>
+            <T>Put on your headphones and set the volume the 0.</T>
+          </P>
+          <LinkButton to={CalibrationUrl.ADJUST_LEVEL}>
+            <T>Continue</T>
+          </LinkButton>
+        </CalibrationStepCol>
 
-        <Route
-          exact
-          path={CalibrationUrl.LEAVE_IT_BE}
-          render={() =>
-            <div>
-              <P>
-                <T>
-                  Please do not change/modify the audio level during the test.
-                </T>
-              </P>
-              <LinkButton to={AppUrl.TEST}>
-                <T>Next</T>
-              </LinkButton>
-            </div>}
-        />
+        <CalibrationStepCol
+          size={1 / 3}
+          isActive={match.url === CalibrationUrl.ADJUST_LEVEL}
+        >
+          <H4>
+            <T>Adjust audio level</T>
+          </H4>
 
-        <Redirect to={CalibrationUrl.AUDIO_LEVEL} />
-      </Switch>
+          <P>
+            <T>
+              Adjust the audio level until this sound is comfortably audible.
+            </T>
+          </P>
+          <LinkButton to={CalibrationUrl.HEADPHONES_POSITIONING}>
+            <T>Continue</T>
+          </LinkButton>
+
+          {match.url === CalibrationUrl.ADJUST_LEVEL &&
+            <Tone frequency={440} volume={-20} />}
+        </CalibrationStepCol>
+
+        <CalibrationStepCol
+          size={1 / 3}
+          isActive={match.url === CalibrationUrl.HEADPHONES_POSITIONING}
+        >
+          <H4>
+            <T>Headphones positioning</T>
+          </H4>
+
+          <P>
+            <T>Check that you are wearing your headphones correctly.</T>
+          </P>
+
+          {match.url === CalibrationUrl.HEADPHONES_POSITIONING &&
+            <HeadphonesPositioningGuide
+              toneDuration={2000}
+              restDuration={1000}
+            />}
+
+          <LinkButton to={AppUrl.TEST}>
+            <T>Continue</T>
+          </LinkButton>
+        </CalibrationStepCol>
+      </Row>
     </div>
   )
 }
+
+CalibrationStep.propTypes = {
+  match: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+}
+
+export default withRouter(CalibrationStep)

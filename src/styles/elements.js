@@ -11,6 +11,7 @@ export const H1 = styled.h1`
 `
 
 export const H2 = styled.h2`
+  margin: 56px 0 56px;
   color: ${WHITE};
   font-size: 36px;
   line-height: 40px;

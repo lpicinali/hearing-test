@@ -12,9 +12,13 @@ import { decibelsToGain } from 'src/utils.js'
 class Tone extends Component {
   static propTypes = {
     audioContext: PropTypes.shape({}).isRequired,
-    ear: PropTypes.oneOf(values(Ear)).isRequired,
+    ear: PropTypes.oneOf(values(Ear)),
     frequency: PropTypes.number.isRequired,
     volume: PropTypes.number.isRequired,
+  }
+
+  static defaultProps = {
+    ear: null,
   }
 
   componentDidMount() {
@@ -51,9 +55,16 @@ class Tone extends Component {
   updateAudio() {
     const { ear, frequency, volume } = this.props
 
+    let pan = 0
+    if (ear === Ear.LEFT) {
+      pan = -1
+    } else if (ear === Ear.RIGHT) {
+      pan = 1
+    }
+
     this.osc.frequency.value = frequency
     this.volume.gain.value = decibelsToGain(volume)
-    this.panner.pan.value = ear === Ear.LEFT ? -1 : 1
+    this.panner.pan.value = pan
   }
 
   render() {
