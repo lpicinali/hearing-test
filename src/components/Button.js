@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { values } from 'lodash'
+import { withProps } from 'recompose'
 
 import { BLUE, GRAY, SILVER, WHITE } from 'src/styles/colors.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
@@ -12,7 +13,57 @@ export const ButtonStyle = {
   ALLURING: 'ALLURING',
 }
 
-const StyledButton = styled.button`
+/**
+ * Button
+ */
+class Button extends PureComponent {
+  static propTypes = {
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    buttonStyle: PropTypes.oneOf(values(ButtonStyle)),
+    isEnabled: PropTypes.bool,
+    isActive: PropTypes.bool,
+    onClick: PropTypes.func,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+  }
+
+  static defaultProps = {
+    component: 'button',
+    buttonStyle: ButtonStyle.ALLURING,
+    isEnabled: true,
+    isActive: false,
+    onClick: () => {},
+    className: '',
+  }
+
+  render() {
+    const {
+      component,
+      buttonStyle,
+      isEnabled,
+      isActive,
+      onClick,
+      children,
+      className,
+      ...props
+    } = this.props
+
+    return React.createElement(
+      component,
+      {
+        ...props,
+        buttonStyle,
+        disabled: isEnabled === false,
+        className,
+        onClick,
+        isActive,
+      },
+      children
+    )
+  }
+}
+
+const StyledButton = styled(Button)`
   appearance: none;
   display: inline-block;
   max-width: 440px;
@@ -44,53 +95,6 @@ const StyledButton = styled.button`
       : ``};
 `
 
-/**
- * Button
- */
-class Button extends PureComponent {
-  static propTypes = {
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    buttonStyle: PropTypes.oneOf(values(ButtonStyle)),
-    isEnabled: PropTypes.bool,
-    isActive: PropTypes.bool,
-    onClick: PropTypes.func,
-    className: PropTypes.string,
-    children: PropTypes.node.isRequired,
-  }
+export default StyledButton
 
-  static defaultProps = {
-    component: 'button',
-    buttonStyle: ButtonStyle.ALLURING,
-    isEnabled: true,
-    isActive: false,
-    onClick: () => {},
-    className: '',
-  }
-
-  render() {
-    const {
-      isEnabled,
-      isActive,
-      onClick,
-      children,
-      className,
-      ...props
-    } = this.props
-
-    return (
-      <StyledButton
-        disabled={isEnabled === false}
-        className={className}
-        onClick={onClick}
-        isActive={isActive}
-        {...props}
-      >
-        {children}
-      </StyledButton>
-    )
-  }
-}
-
-export default Button
-
-export const LinkButton = StyledButton.withComponent(Link)
+export const LinkButton = withProps({ component: Link })(StyledButton)
