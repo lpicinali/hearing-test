@@ -53,9 +53,3 @@ export const TextInput = styled.input`
   font-size: 16px;
   line-height: 24px;
 `
-
-export const Container = styled.div`
-  width: 96%;
-  max-width: 800px;
-  margin: 0 auto;
-`

@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { AppUrl } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
 import { BLACK, YELLOW } from 'src/styles/colors'
-import { Container, H1, H3, H5, P } from 'src/styles/elements.js'
-import { Row, Col } from 'src/styles/grid.js'
+import { H1, H3, H5, P } from 'src/styles/elements.js'
+import { Col, Container, Row } from 'src/styles/grid.js'
 
 const ContentWrap = styled.div`padding: 0 88px;`
 
