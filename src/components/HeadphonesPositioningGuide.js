@@ -5,13 +5,28 @@ import { Ear, SILENCE } from 'src/constants.js'
 import Headphones from 'src/components/Headphones.js'
 import Tone from 'src/components/Tone.js'
 
+function getNextEar(currentEar) {
+  if (currentEar === Ear.LEFT) {
+    return Ear.RIGHT
+  } else if (currentEar === Ear.RIGHT) {
+    return null
+  }
+
+  return Ear.LEFT
+}
+
 /**
  * Headphones Positiong Guide
  */
 class HeadphonesPositiongGuide extends Component {
   static propTypes = {
+    isActive: PropTypes.bool,
     toneDuration: PropTypes.number.isRequired,
     restDuration: PropTypes.number.isRequired,
+  }
+
+  static defaultProps = {
+    isActive: false,
   }
 
   state = {
@@ -38,7 +53,7 @@ class HeadphonesPositiongGuide extends Component {
         () =>
           this.setState(
             () => ({
-              currentEar: currentEar === Ear.LEFT ? Ear.RIGHT : Ear.LEFT,
+              currentEar: getNextEar(currentEar),
               isSounding: false,
             }),
             () => this.iteration()
@@ -49,17 +64,18 @@ class HeadphonesPositiongGuide extends Component {
   }
 
   render() {
+    const { isActive } = this.props
     const { currentEar, isSounding } = this.state
 
     return (
       <div className="HeadphonesPositiongGuide">
         <Headphones activeEar={currentEar} />
 
-        {currentEar !== null &&
+        {isActive === true &&
           <Tone
             ear={currentEar}
             frequency={440}
-            volume={isSounding ? -20 : SILENCE}
+            volume={isSounding ? -30 : SILENCE}
           />}
       </div>
     )

@@ -79,11 +79,11 @@ function CalibrationStep({ match }) {
             <T>Check that you are wearing your headphones correctly.</T>
           </P>
 
-          {match.url === CalibrationUrl.HEADPHONES_POSITIONING &&
-            <HeadphonesPositioningGuide
-              toneDuration={2000}
-              restDuration={1000}
-            />}
+          <HeadphonesPositioningGuide
+            toneDuration={2000}
+            restDuration={0}
+            isActive={match.url === CalibrationUrl.HEADPHONES_POSITIONING}
+          />
 
           <LinkButton to={AppUrl.TEST}>
             <T>Continue</T>
