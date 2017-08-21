@@ -1,6 +1,19 @@
 import styled from 'styled-components'
 
-import { BLACK, WHITE, YELLOW } from 'src/styles/colors.js'
+import { BLACK, GRAY, SILVER, WHITE, YELLOW } from 'src/styles/colors.js'
+import { FONT_NORMAL } from 'src/styles/type.js'
+
+export const A = styled.a`
+  border-bottom: 1px dotted ${GRAY};
+  color: ${SILVER};
+  text-decoration: none;
+  transition: all 0.15s;
+
+  &:hover {
+    border-bottom-color: ${SILVER};
+    color: ${WHITE};
+  }
+`
 
 export const H1 = styled.h1`
   margin: 0;
@@ -53,6 +66,7 @@ export const TextInput = styled.input`
   border: none;
   border-radius: 2px;
   color: ${WHITE};
+  font-family: ${FONT_NORMAL};
   font-size: 16px;
   line-height: 24px;
 `

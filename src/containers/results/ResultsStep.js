@@ -1,11 +1,45 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import IPropTypes from 'immutable-props'
-import { T } from 'lioness'
+import { T, withTranslators } from 'lioness'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
+import { zip } from 'lodash'
+import { Map } from 'immutable'
 
-import { AppUrl, Ear } from 'src/constants.js'
-import { LinkButton } from 'src/components/Button.js'
-import { H2, H3, H4, TextInput } from 'src/styles/elements.js'
+import { Ear, TEST_FREQUENCIES } from 'src/constants.js'
+import Audiogram from 'src/components/Audiogram.js'
+import Button from 'src/components/Button.js'
+import StickyFooter from 'src/components/StickyFooter.js'
+import { WHITE } from 'src/styles/colors.js'
+import { A, H2, H3, H5, P, TextInput } from 'src/styles/elements.js'
+import { Col, Row } from 'src/styles/grid.js'
+import { FONT_MONO } from 'src/styles/type.js'
+
+const ResultsWrapper = styled.div`margin-bottom: 80px;`
+
+const ResultSection = styled.div`margin: 0 0 64px;`
+
+const EarLabel = styled(H5)`
+  margin-bottom: 0;
+`
+
+const HearingLossCode = styled.div`
+  color: ${WHITE};
+  font-family: ${FONT_MONO};
+  font-size: 48px;
+`
+
+const StyledAudiogram = styled(Audiogram)`
+  margin-top: 16px;
+`
+
+const EmailFormWrap = styled.div`display: flex;`
+
+const EmailInput = styled(TextInput)`
+  flex-grow: 1;
+  margin-right: 20px;
+`
 
 /**
  * Results Step
@@ -13,76 +47,122 @@ import { H2, H3, H4, TextInput } from 'src/styles/elements.js'
 class ResultsStep extends Component {
   static propTypes = {
     results: IPropTypes.Map.isRequired,
+    t: PropTypes.func.isRequired,
   }
 
   render() {
-    const { results } = this.props
+    const { results, t } = this.props
 
     const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
     const rightAudiogram = results.getIn(['audiograms', Ear.RIGHT])
 
+    const leftAudiogramData = new Map(
+      zip(TEST_FREQUENCIES, leftAudiogram.toJS())
+    )
+    const rightAudiogramData = new Map(
+      zip(TEST_FREQUENCIES, rightAudiogram.toJS())
+    )
+
     return (
-      <div className="ResultsStep">
+      <ResultsWrapper>
         <H2>
-          <T>The test is now completed.</T>
+          <T>Hearing test results</T>
         </H2>
-        <T
-          message={`
-          {{ p:In the next page you’ll find your hearing threshold curves for both left and right ears. }}
-          {{ p:On the top of each diagram you will be able to find your 3D Tune-In heading loss severity score, which will be useful in case you will want to play with 3D Tune-In apps in the future. }}
-        `}
-          p={<p />}
-        />
 
-        <H3>
-          <T>Audiograms</T>
-        </H3>
+        <ResultSection>
+          <H3>
+            <T>Hearing loss severity score</T>
+          </H3>
+          <P>
+            <T>
+              You can use these codes to automatically calibrate any of the 3D
+              Tune-In applications, so make a note of them.
+            </T>
+          </P>
 
-        <H4>
-          <T>Left ear</T>
-        </H4>
-        <code>
-          {leftAudiogram ? leftAudiogram.toJS().join(', ') : 'Audiogram'}
-        </code>
+          <Row>
+            <Col size={1 / 2}>
+              <EarLabel>
+                <T>Left ear</T>
+              </EarLabel>
+              <HearingLossCode>C3</HearingLossCode>
+            </Col>
 
-        <H4>
-          <T>Right ear</T>
-        </H4>
-        <code>
-          {rightAudiogram ? rightAudiogram.toJS().join(', ') : 'Audiogram'}
-        </code>
+            <Col size={1 / 2}>
+              <EarLabel>
+                <T>Right ear</T>
+              </EarLabel>
+              <HearingLossCode>F0</HearingLossCode>
+            </Col>
+          </Row>
+        </ResultSection>
 
-        <H3>
-          <T>3D Tune-In Hearing Loss Codes</T>
-        </H3>
-        <p>
-          <T>
-            You can use this code to automatically calibrate any of the 3D
-            Tune-In applications, so make a note of it.
-          </T>
-        </p>
-        <code>Codes here</code>
+        <ResultSection>
+          <H3>
+            <T>Audiograms</T>
+          </H3>
 
-        <H3>
-          <T>
-            Enter your e-mail address here to have this information sent to you:
-          </T>
-        </H3>
-        <TextInput type="email" placeholder="name@example.com" />
+          <P>
+            <T>
+              These are diagrams that describe your hearing threshold for
+              different frequencies.
+            </T>
+          </P>
+
+          <Row>
+            <Col size={1 / 2}>
+              <EarLabel>
+                <T>Left ear</T>
+              </EarLabel>
+              {leftAudiogramData &&
+                <StyledAudiogram
+                  ear={Ear.LEFT}
+                  data={leftAudiogramData}
+                  isInteractive={false}
+                />}
+
+              <code>
+                {leftAudiogram.toJS().join(', ')}
+              </code>
+            </Col>
+            <Col size={1 / 2}>
+              <EarLabel>
+                <T>Right ear</T>
+              </EarLabel>
+
+              {rightAudiogram &&
+                <StyledAudiogram
+                  ear={Ear.RIGHT}
+                  data={rightAudiogramData}
+                  isInteractive={false}
+                />}
+              <code>
+                {rightAudiogram.toJS().join(', ')}
+              </code>
+            </Col>
+          </Row>
+        </ResultSection>
+
+        <StickyFooter>
+          <EmailFormWrap>
+            <EmailInput type="email" placeholder={t('name@example.com')} />
+            <Button onClick={() => console.log('send email')}>
+              <T>Email me the results</T>
+            </Button>
+          </EmailFormWrap>
+        </StickyFooter>
 
         <p>
           <T
             message="{{ link:Click here }} for more information about the 3D Tune-In project and apps."
-            link={<a href="http://3d-tune-in.eu/" target="_blank" />}
+            link={<A href="http://3d-tune-in.eu/" target="_blank" />}
           />
         </p>
-
-        <LinkButton to={AppUrl.THANK_YOU}>Next</LinkButton>
-      </div>
+      </ResultsWrapper>
     )
   }
 }
 
 export default connect(state => ({
   results: state.get('results'),
-}))(ResultsStep)
+}))(withTranslators(ResultsStep))
