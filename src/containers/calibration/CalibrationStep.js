@@ -71,7 +71,7 @@ function CalibrationStep({ match }) {
           </P>
 
           <HeadphonesPositioningGuide
-            toneDuration={2000}
+            toneDuration={4000}
             restDuration={0}
             isActive={match.url === CalibrationUrl.HEADPHONES_POSITIONING}
           />
