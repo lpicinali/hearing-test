@@ -1,9 +1,12 @@
 import { all, call, put, select, take } from 'redux-saga/effects'
 
-import { setResultAudiogram } from 'src/actions.js'
+import { setResultAudiogram, setResultCode } from 'src/actions.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import history from 'src/history.js'
-import { calculateAudiogramFromHearingTestResult } from 'src/utils.js'
+import {
+  calculateAudiogramFromHearingTestResult,
+  calculateHearingLossCodeFromHearingTestResult,
+} from 'src/utils.js'
 
 function* calculateAudiograms() {
   while (true) {
@@ -19,6 +22,12 @@ function* calculateAudiograms() {
     )
     yield put(setResultAudiogram(Ear.LEFT, leftEarAudiogram))
 
+    const leftEarCode = yield call(
+      calculateHearingLossCodeFromHearingTestResult,
+      leftEarVolumes
+    )
+    yield put(setResultCode(Ear.LEFT, leftEarCode))
+
     // Right ear
     const rightEarVolumes = testValues.get(Ear.RIGHT).toJS()
     const rightEarAudiogram = yield call(
@@ -27,10 +36,16 @@ function* calculateAudiograms() {
     )
     yield put(setResultAudiogram(Ear.RIGHT, rightEarAudiogram))
 
+    const rightEarCode = yield call(
+      calculateHearingLossCodeFromHearingTestResult,
+      rightEarVolumes
+    )
+    yield put(setResultCode(Ear.RIGHT, rightEarCode))
+
     yield call(history.push, AppUrl.RESULTS)
   }
 }
 
-export default function* testSagas() {
+export default function* resultsSagas() {
   yield all([calculateAudiograms()])
 }

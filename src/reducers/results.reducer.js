@@ -20,6 +20,8 @@ export default function resultsReducer(
   switch (type) {
     case ActionType.SET_RESULT_AUDIOGRAM:
       return state.setIn(['audiograms', payload.ear], fromJS(payload.audiogram))
+    case ActionType.SET_RESULT_CODE:
+      return state.setIn(['codes', payload.ear], payload.code)
     default:
       return state
   }

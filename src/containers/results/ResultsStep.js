@@ -85,14 +85,18 @@ class ResultsStep extends Component {
               <EarLabel>
                 <T>Left ear</T>
               </EarLabel>
-              <HearingLossCode>C3</HearingLossCode>
+              <HearingLossCode>
+                {results.getIn(['codes', Ear.LEFT])}
+              </HearingLossCode>
             </Col>
 
             <Col size={1 / 2}>
               <EarLabel>
                 <T>Right ear</T>
               </EarLabel>
-              <HearingLossCode>F0</HearingLossCode>
+              <HearingLossCode>
+                {results.getIn(['codes', Ear.RIGHT])}
+              </HearingLossCode>
             </Col>
           </Row>
         </ResultSection>
