@@ -31,7 +31,10 @@ export default function App() {
       <MainContent>
         <Switch>
           <Route exact path={AppUrl.HOME} component={HomeView} />
-          <Route path={`${AppUrl.CALIBRATION}/:step?`} component={CalibrationStep} />
+          <Route
+            path={`${AppUrl.CALIBRATION}/:step?`}
+            component={CalibrationStep}
+          />
           <Route path={AppUrl.TEST} component={TestStep} />
           <Route path={AppUrl.RESULTS} component={ResultsStep} />
           <Route path={AppUrl.THANK_YOU} component={EndView} />

@@ -6,11 +6,9 @@ import { T } from 'lioness'
 
 import { calculateAudiograms } from 'src/actions.js'
 import { AppUrl, Ear } from 'src/constants.js'
-import { LinkButton } from 'src/components/Button.js'
 import RenderAfter from 'src/components/RenderAfter.js'
 import EarTestContainer from 'src/containers/test/EarTestContainer.js'
 import { H2 } from 'src/styles/elements.js'
-import { Row, StatefulCol } from 'src/styles/grid.js'
 
 const TestUrl = {
   LEFT_EAR: `${AppUrl.TEST}/left-ear`,

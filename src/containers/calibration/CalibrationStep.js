@@ -8,7 +8,7 @@ import Audio from 'src/components/Audio.js'
 import { LinkButton } from 'src/components/Button.js'
 import HeadphonesPositioningGuide from 'src/components/HeadphonesPositioningGuide.js'
 import { H2, H4, P } from 'src/styles/elements.js'
-import { Col, Row, StatefulCol } from 'src/styles/grid.js'
+import { Row, StatefulCol } from 'src/styles/grid.js'
 
 const CalibrationUrl = {
   ADJUST_LEVEL: `${AppUrl.CALIBRATION}/adjust-level`,
