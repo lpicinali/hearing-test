@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 module.exports = {
   entry: path.join(__dirname, 'src/index.js'),
@@ -23,6 +24,7 @@ module.exports = {
     },
   },
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
