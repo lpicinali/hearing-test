@@ -1,9 +1,12 @@
 import React from 'react'
 import { T } from 'lioness'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
+import { setAcceptTerms } from 'src/actions.js'
 import { AppUrl } from 'src/constants.js'
 import { LinkButton } from 'src/components/Button.js'
+import Checkbox from 'src/components/Checkbox.js'
 import { BLACK, YELLOW } from 'src/styles/colors'
 import { H1, H3, H5, P } from 'src/styles/elements.js'
 import { Col, Container, Row } from 'src/styles/grid.js'
@@ -40,7 +43,7 @@ const AcceptFooter = styled.footer`
 
 const AcceptLink = LinkButton.extend`width: 100%;`
 
-export default function HomeView() {
+function HomeView({ hasAcceptedTerms, onChangeAccept }) {
   return (
     <div>
       <ContentWrap>
@@ -90,13 +93,15 @@ export default function HomeView() {
         <Container>
           <Row>
             <Col size={3 / 4}>
-              <T>
-                I understand all these conditions, and I confirm that I am
-                taking this test under my sole responsibility
-              </T>
+              <Checkbox isChecked={hasAcceptedTerms} onChange={onChangeAccept}>
+                <T>
+                  I understand all these conditions, and I confirm that I am
+                  taking this test under my sole responsibility
+                </T>
+              </Checkbox>
             </Col>
             <Col size={1 / 4}>
-              <AcceptLink to={AppUrl.CALIBRATION}>
+              <AcceptLink to={AppUrl.CALIBRATION} isEnabled={hasAcceptedTerms}>
                 <T>Take the test</T>
               </AcceptLink>
             </Col>
@@ -106,3 +111,12 @@ export default function HomeView() {
     </div>
   )
 }
+
+export default connect(
+  state => ({
+    hasAcceptedTerms: state.getIn(['terms', 'hasAccepted']),
+  }),
+  dispatch => ({
+    onChangeAccept: isChecked => dispatch(setAcceptTerms(isChecked)),
+  })
+)(HomeView)

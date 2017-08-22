@@ -1,6 +1,7 @@
 import { min, values } from 'lodash'
 
 export const ActionType = {
+  SET_ACCEPT_TERMS: 'SET_ACCEPT_TERMS',
   SET_FREQUENCY_LEVEL: 'SET_FREQUENCY_LEVEL',
   SET_LOCALE: 'SET_LOCALE',
   CALCULATE_AUDIOGRAMS: 'CALCULATE_AUDIOGRAMS',
