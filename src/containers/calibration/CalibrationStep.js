@@ -4,9 +4,9 @@ import { T } from 'lioness'
 import { withRouter } from 'react-router-dom'
 
 import { AppUrl } from 'src/constants.js'
+import Audio from 'src/components/Audio.js'
 import { LinkButton } from 'src/components/Button.js'
 import HeadphonesPositioningGuide from 'src/components/HeadphonesPositioningGuide.js'
-import Tone from 'src/components/Tone.js'
 import { H2, H4, P } from 'src/styles/elements.js'
 import { Col, Row, StatefulCol } from 'src/styles/grid.js'
 
@@ -55,7 +55,7 @@ function CalibrationStep({ match }) {
           </LinkButton>
 
           {match.url === CalibrationUrl.ADJUST_LEVEL &&
-            <Tone frequency={440} volume={-20} />}
+            <Audio name="guitar" volume={-18} />}
         </StatefulCol>
 
         <StatefulCol

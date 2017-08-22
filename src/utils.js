@@ -1,3 +1,4 @@
+/* global XMLHttpRequest */
 import { mean, values } from 'lodash'
 
 import { SILENCE, TEST_FREQUENCIES } from 'src/constants.js'
@@ -33,4 +34,18 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
       []
     )
     .map((dbHL, i) => (i === 0 ? 0 : dbHL))
+}
+
+export function fetchAudioBuffer(url) {
+  return new Promise(resolve => {
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.responseType = 'arraybuffer'
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        resolve(xhr.response)
+      }
+    }
+    xhr.send()
+  })
 }

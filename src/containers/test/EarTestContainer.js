@@ -14,8 +14,8 @@ import {
   TestDirection,
   TEST_FREQUENCIES,
 } from 'src/constants.js'
+import Audio from 'src/components/Audio.js'
 import Button, { ButtonStyle } from 'src/components/Button.js'
-import Tone from 'src/components/Tone.js'
 import StepProgress from 'src/components/StepProgress.js'
 import { BLACK, GRAY, WHITE } from 'src/styles/colors.js'
 import { H3, H4, P } from 'src/styles/elements.js'
@@ -215,11 +215,7 @@ class EarTestContainer extends Component {
           volume: {currentVolume} |
         </DebugArea>
 
-        <Tone
-          ear={ear}
-          frequency={parseInt(frequency)}
-          volume={currentVolume}
-        />
+        <Audio ear={ear} name={frequency} volume={currentVolume} />
       </div>
     )
   }

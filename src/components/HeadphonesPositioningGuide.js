@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { Ear, SILENCE } from 'src/constants.js'
+import Audio from 'src/components/Audio.js'
 import Headphones from 'src/components/Headphones.js'
-import Tone from 'src/components/Tone.js'
 
 function getNextEar(currentEar) {
   if (currentEar === Ear.LEFT) {
@@ -72,9 +72,9 @@ class HeadphonesPositiongGuide extends Component {
         <Headphones activeEar={currentEar} />
 
         {isActive === true &&
-          <Tone
+          <Audio
             ear={currentEar}
-            frequency={440}
+            name="guitar"
             volume={isSounding ? -30 : SILENCE}
           />}
       </div>
