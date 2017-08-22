@@ -13,7 +13,7 @@ export default function AppContainer() {
   return (
     <Provider store={store}>
       <Router history={history}>
-        <LionessProvider messages={{}} locale="en">
+        <LionessProvider messages={{}} locale="en" debug={false}>
           <AudioContextProvider audioContext={audioContext}>
             <App />
           </AudioContextProvider>
