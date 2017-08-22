@@ -41,7 +41,7 @@ const AcceptFooter = styled.footer`
   background: ${BLACK};
 `
 
-const AcceptLink = LinkButton.extend`width: 100%;`
+const AcceptLink = styled(LinkButton)`width: 100%;`
 
 function HomeView({ hasAcceptedTerms, onChangeAccept }) {
   return (

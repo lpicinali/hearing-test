@@ -4,8 +4,8 @@ import { ActionType, Ear } from 'src/constants.js'
 
 const initialState = fromJS({
   audiograms: {
-    [Ear.LEFT]: null,
-    [Ear.RIGHT]: null,
+    [Ear.LEFT]: [0, 18, 31.5, 27.5, 16, 23, 29.5],
+    [Ear.RIGHT]: [0, 18, 31.5, 27.5, 16, 23, 29.5],
   },
   codes: {
     [Ear.LEFT]: null,

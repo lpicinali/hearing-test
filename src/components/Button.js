@@ -41,22 +41,22 @@ class Button extends PureComponent {
       component,
       buttonStyle,
       isEnabled,
-      isActive,
       onClick,
       children,
       className,
       ...props
     } = this.props
 
+    delete props.isActive
+
     return React.createElement(
       component,
       {
         ...props,
-        buttonStyle,
+        // buttonStyle,
         disabled: isEnabled === false,
         className,
         onClick,
-        isActive,
       },
       children
     )

@@ -162,6 +162,8 @@ class Audiogram extends Component {
     const frequencyWidth = GW / (data.size - 1)
     const valueHeight = GH / (AudiogramFrequencyValues.length - 1)
 
+    delete props.onFrequencyValueChange
+
     return (
       <div style={{ maxWidth: 380 }} {...props}>
         <svg

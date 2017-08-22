@@ -59,6 +59,8 @@ class TestStep extends Component {
           />
           <Redirect to={TestUrl.LEFT_EAR} />
         </Switch>
+
+        <button onClick={onFinishTests}>Finish early</button>
       </div>
     )
   }
