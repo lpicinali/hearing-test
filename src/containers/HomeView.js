@@ -1,7 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { T } from 'lioness'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { setAcceptTerms } from 'src/actions.js'
 import { AppUrl } from 'src/constants.js'
@@ -110,6 +112,11 @@ function HomeView({ hasAcceptedTerms, onChangeAccept }) {
       </AcceptFooter>
     </div>
   )
+}
+
+HomeView.propTypes = {
+  hasAcceptedTerms: PropTypes.bool.isRequired,
+  onChangeAccept: PropTypes.func.isRequired,
 }
 
 export default connect(

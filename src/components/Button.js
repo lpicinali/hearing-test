@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { values } from 'lodash'
-import { withProps } from 'recompose'
+import { compose, defaultProps, setPropTypes } from 'recompose'
 
 import { BLUE, GRAY, SILVER, WHITE } from 'src/styles/colors.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
@@ -13,58 +13,7 @@ export const ButtonStyle = {
   ALLURING: 'ALLURING',
 }
 
-/**
- * Button
- */
-class Button extends PureComponent {
-  static propTypes = {
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-    buttonStyle: PropTypes.oneOf(values(ButtonStyle)),
-    isEnabled: PropTypes.bool,
-    isActive: PropTypes.bool,
-    onClick: PropTypes.func,
-    className: PropTypes.string,
-    children: PropTypes.node.isRequired,
-  }
-
-  static defaultProps = {
-    component: 'button',
-    buttonStyle: ButtonStyle.ALLURING,
-    isEnabled: true,
-    isActive: false,
-    onClick: () => {},
-    className: '',
-  }
-
-  render() {
-    const {
-      component,
-      buttonStyle,
-      isEnabled,
-      onClick,
-      children,
-      className,
-      ...props
-    } = this.props
-
-    delete props.isActive
-
-    return React.createElement(
-      component,
-      {
-        ...props,
-        // buttonStyle,
-        disabled: isEnabled === false,
-        className,
-        onClick,
-      },
-      children
-    )
-  }
-}
-
-const StyledButton = styled(Button)`
-  appearance: none;
+const StyledButton = styled.button`
   display: inline-block;
   max-width: 440px;
   padding: 8px 32px;
@@ -86,7 +35,7 @@ const StyledButton = styled(Button)`
   transition: all 0.15s;
 
   ${props =>
-    props.disabled
+    props.isEnabled === false
       ? `
     background-color: ${GRAY};
     color: ${WHITE};
@@ -95,6 +44,36 @@ const StyledButton = styled(Button)`
       : ``};
 `
 
-export default StyledButton
+const createStyledButton = compose(
+  setPropTypes({
+    buttonStyle: PropTypes.oneOf(values(ButtonStyle)),
+    isEnabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+  }),
+  defaultProps({
+    buttonStyle: ButtonStyle.ALLURING,
+    isEnabled: true,
+    onClick: () => {},
+    className: '',
+  })
+)
 
-export const LinkButton = withProps({ component: Link })(StyledButton)
+/**
+ * Button with component <button>
+ */
+export const Button = createStyledButton(StyledButton)
+
+export default Button
+
+/**
+ * Button with component <Link>
+ */
+export const LinkButton = createStyledButton(
+  StyledButton.withComponent(({ to, className, children }) =>
+    <Link to={to} className={className}>
+      {children}
+    </Link>
+  )
+)
