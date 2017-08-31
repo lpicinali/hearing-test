@@ -77,7 +77,13 @@ const createStyledButton = compose(
 /**
  * Button with component <button>
  */
-export const Button = createStyledButton(StyledButton)
+export const Button = createStyledButton(
+  StyledButton.withComponent(({ onClick, disabled, className, children }) =>
+    <button onClick={onClick} disabled={disabled} className={className}>
+      {children}
+    </button>
+  )
+)
 
 export default Button
 
