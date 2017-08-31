@@ -35,7 +35,11 @@ const transitionStyles = {
 class RouteTransition extends PureComponent {
   static propTypes = {
     component: PropTypes.func.isRequired,
-    match: PropTypes.shape({}).isRequired,
+    match: PropTypes.shape({}),
+  }
+
+  static defaultProps = {
+    match: null,
   }
 
   render() {
