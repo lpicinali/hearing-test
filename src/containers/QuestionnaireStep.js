@@ -3,15 +3,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { T, withTranslators } from 'lioness'
 import styled from 'styled-components'
-import { compose, withProps, withState, withHandlers } from 'recompose'
-import { identity } from 'lodash'
+import { compose, withState, withHandlers } from 'recompose'
 
 import { setQuestionnaireAnswer, submitQuestionnaire } from 'src/actions.js'
 import Button from 'src/components/Button.js'
 import GradingField from 'src/components/GradingField.js'
 import GradingRanking from 'src/components/GradingRanking.js'
 import { QuestionnaireField } from 'src/constants.js'
-import { GRAY } from 'src/styles/colors.js'
+import { GRAY, WHITE } from 'src/styles/colors.js'
 import { H2, P } from 'src/styles/elements.js'
 
 const ContentWrap = styled.div`padding: 0 88px;`
@@ -31,6 +30,13 @@ const ExampleGradingField = compose(
     onChange: ({ setValue }) => value => setValue(value),
   })
 )(GradingField)
+
+const GradingFieldQuestion = styled.div`margin: 40px 0;`
+
+const GradingQuestionLabel = styled.div`
+  font-weight: bold;
+  color: ${WHITE};
+`
 
 /**
  * Questionnaire Step
@@ -269,6 +275,62 @@ class QuestionnaireStep extends PureComponent {
           </T>
         </P>
         {/* Form here */}
+        <GradingFieldQuestion>
+          <GradingQuestionLabel>
+            <T>1. The hearing test application meets my requirements</T>
+          </GradingQuestionLabel>
+          <GradingRanking />
+          <GradingField
+            value={values.get(QuestionnaireField.MEETS_REQUIREMENTS)}
+            onChange={val =>
+              onValueChange(QuestionnaireField.MEETS_REQUIREMENTS, val)}
+            minLabel={t('strongly agree')}
+            maxLabel={t('strongly disagree')}
+          />
+        </GradingFieldQuestion>
+        <GradingFieldQuestion>
+          <GradingQuestionLabel>
+            <T>
+              2. Using this hearing test application is a frustrating experience
+            </T>
+          </GradingQuestionLabel>
+          <GradingRanking />
+          <GradingField
+            value={values.get(QuestionnaireField.FRUSTRATING_EXPERIENCE)}
+            onChange={val =>
+              onValueChange(QuestionnaireField.FRUSTRATING_EXPERIENCE, val)}
+            minLabel={t('strongly agree')}
+            maxLabel={t('strongly disagree')}
+          />
+        </GradingFieldQuestion>
+        <GradingFieldQuestion>
+          <GradingQuestionLabel>
+            <T>3. This hearing test application is easy to use</T>
+          </GradingQuestionLabel>
+          <GradingRanking />
+          <GradingField
+            value={values.get(QuestionnaireField.EASY_TO_USE)}
+            onChange={val => onValueChange(QuestionnaireField.EASY_TO_USE, val)}
+            minLabel={t('strongly agree')}
+            maxLabel={t('strongly disagree')}
+          />
+        </GradingFieldQuestion>
+        <GradingFieldQuestion>
+          <GradingQuestionLabel>
+            <T>
+              4. I have to spend too much time correcting things with this
+              hearing test application.
+            </T>
+          </GradingQuestionLabel>
+          <GradingRanking />
+          <GradingField
+            value={values.get(QuestionnaireField.TIME_WASTED_CORRECTING)}
+            onChange={val =>
+              onValueChange(QuestionnaireField.TIME_WASTED_CORRECTING, val)}
+            minLabel={t('strongly agree')}
+            maxLabel={t('strongly disagree')}
+          />
+        </GradingFieldQuestion>
         <P>
           <T>
             Lastly, to what extent would you recommend this hearing test
