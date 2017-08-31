@@ -25,7 +25,7 @@ const Subtitle = styled.span`
 `
 
 const ExampleGradingField = compose(
-  withState('value', 'setValue', null),
+  withState('value', 'setValue', 1),
   withHandlers({
     onChange: ({ setValue }) => value => setValue(value),
   })
@@ -75,7 +75,10 @@ class QuestionnaireStep extends PureComponent {
           <T>Example:</T>
         </P>
         <GradingRanking />
-        <ExampleGradingField minLabel={t('agree')} maxLabel={t('disagree')} />
+        <ExampleGradingField
+          minLabel={t('attractive')}
+          maxLabel={t('unattractive')}
+        />
         <P>
           <T>
             This response would mean that you rate the application as more
