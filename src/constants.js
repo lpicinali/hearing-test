@@ -79,6 +79,8 @@ export const QuestionnaireField = {
   FRUSTRATING_EXPERIENCE: 'FRUSTRATING_EXPERIENCE',
   EASY_TO_USE: 'EASY_TO_USE',
   TIME_WASTED_CORRECTING: 'TIME_WASTED_CORRECTING',
+  // - - - - - - - - - - - - - - - - -
+  RECOMMENDATION_LIKELIHOOD: 'RECOMMENDATION_LIKELIHOOD',
 }
 
 export const SILENCE = min(values(FrequencyStartVolume))

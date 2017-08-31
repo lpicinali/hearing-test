@@ -337,6 +337,14 @@ class QuestionnaireStep extends PureComponent {
             application to another adult with cystic fibrosis?
           </T>
         </P>
+        <GradingRanking />
+        <GradingField
+          value={values.get(QuestionnaireField.RECOMMENDATION_LIKELIHOOD)}
+          onChange={val =>
+            onValueChange(QuestionnaireField.RECOMMENDATION_LIKELIHOOD, val)}
+          minLabel={t('not at all likely')}
+          maxLabel={t('extremely likely')}
+        />
         <P>
           <Button isEnabled={values.every(x => x !== null)} onClick={onSubmit}>
             <T>Submit answers</T>
