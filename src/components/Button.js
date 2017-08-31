@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { Link } from 'react-router-dom'
 import { values } from 'lodash'
 import { compose, defaultProps, setPropTypes } from 'recompose'
@@ -13,6 +13,12 @@ export const ButtonStyle = {
   FRIENDLY: 'FRIENDLY',
   ALLURING: 'ALLURING',
 }
+
+const pulsate = keyframes`
+  50% {
+    opacity: 0.8;
+  }
+`
 
 const StyledButton = styled.button.attrs({
   backgroundColor: props =>
@@ -56,12 +62,22 @@ const StyledButton = styled.button.attrs({
     pointer-events: none;
   `
       : ``};
+
+  ${props =>
+    props.isLoading === true &&
+    `
+    background-color: ${color(props.backgroundColor)(lightness(-10))()};
+    color: ${props.textColor};
+    pointer-events: none;
+    animation: ${pulsate} 1.5s ease-in-out infinite;
+    `}
 `
 
 const createStyledButton = compose(
   setPropTypes({
     buttonStyle: PropTypes.oneOf(values(ButtonStyle)),
     isEnabled: PropTypes.bool,
+    isLoading: PropTypes.bool,
     onClick: PropTypes.func,
     className: PropTypes.string,
     children: PropTypes.node.isRequired,
@@ -69,6 +85,7 @@ const createStyledButton = compose(
   defaultProps({
     buttonStyle: ButtonStyle.ALLURING,
     isEnabled: true,
+    isLoading: false,
     onClick: () => {},
     className: '',
   })

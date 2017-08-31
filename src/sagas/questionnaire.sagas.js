@@ -10,7 +10,7 @@ import { ActionType } from 'src/constants.js'
 function* doSubmitQuestionnaire() {
   while (true) {
     yield take(ActionType.SUBMIT_QUESTIONNAIRE)
-    yield delay(1000)
+    yield delay(3000)
     yield put(
       submitQuestionnaireError(new Error('The form submission is fake'))
     )

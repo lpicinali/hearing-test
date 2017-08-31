@@ -422,6 +422,7 @@ class QuestionnaireStep extends PureComponent {
             ? <T>Many thanks for your time completing this questionnaire.</T>
             : <Button
                 isEnabled={values.every(x => x !== null)}
+                isLoading={isSubmitting}
                 onClick={() => onSubmit(values)}
               >
                 {isSubmitting ? <T>Submitting...</T> : <T>Submit answers</T>}
