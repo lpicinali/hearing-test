@@ -16,6 +16,7 @@ const RankingRow = styled.div`display: flex;`
 
 const RankingDigit = styled.div`
   flex-grow: 1;
+  width: ${props => 100 / props.numGrades}%;
   text-align: center;
 `
 
@@ -41,7 +42,7 @@ class GradingRanking extends Component {
           <Col size={4 / 10}>
             <RankingRow>
               {range(0, numGrades).map(i =>
-                <RankingDigit key={i}>
+                <RankingDigit key={i} numGrades={numGrades}>
                   {i + 1}
                 </RankingDigit>
               )}
