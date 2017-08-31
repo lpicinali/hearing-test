@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { values } from 'lodash'
 import { compose, defaultProps, setPropTypes } from 'recompose'
+import { color, lightness } from 'kewler'
 
 import { BLUE, GRAY, SILVER, WHITE } from 'src/styles/colors.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
@@ -13,19 +14,22 @@ export const ButtonStyle = {
   ALLURING: 'ALLURING',
 }
 
-const StyledButton = styled.button`
+const StyledButton = styled.button.attrs({
+  backgroundColor: props =>
+    props.buttonStyle === ButtonStyle.ALLURING ? BLUE : SILVER,
+  textColor: props =>
+    props.buttonStyle === ButtonStyle.ALLURING ? WHITE : BLUE,
+})`
   display: inline-block;
   max-width: 440px;
   padding: 8px 32px;
-  background: ${props =>
-    props.buttonStyle === ButtonStyle.ALLURING ? BLUE : SILVER};
+  background: ${props => props.backgroundColor};
   border: none;
   border-radius: 3px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   outline: none;
   cursor: pointer;
-  color: ${props =>
-    props.buttonStyle === ButtonStyle.ALLURING ? WHITE : BLUE};
+  color: ${props => props.textColor};
   font-family: ${FONT_NORMAL};
   font-size: 16px;
   font-weight: bold;
@@ -33,6 +37,16 @@ const StyledButton = styled.button`
   text-align: center;
   text-decoration: none;
   transition: all 0.15s;
+
+  &:hover {
+    background-color: ${props => color(props.backgroundColor)(lightness(5))()};
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  &:active {
+    background-color: ${props =>
+      color(props.backgroundColor)(lightness(-10))()};
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  }
 
   ${props =>
     props.isEnabled === false
