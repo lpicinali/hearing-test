@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Redirect, Route, Switch, withRouter } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { T } from 'lioness'
 
@@ -68,4 +68,4 @@ class TestStep extends Component {
 
 export default connect(null, dispatch => ({
   onFinishTests: () => dispatch(calculateAudiograms()),
-}))(withRouter(TestStep))
+}))(TestStep)

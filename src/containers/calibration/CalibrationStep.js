@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { T } from 'lioness'
-import { withRouter } from 'react-router-dom'
+// import { withRouter } from 'react-router-dom'
 
 import { AppUrl } from 'src/constants.js'
 import Audio from 'src/components/Audio.js'
@@ -87,8 +87,8 @@ function CalibrationStep({ match }) {
 
 CalibrationStep.propTypes = {
   match: PropTypes.shape({
-    url: PropTypes.string.isRequired,
+    url: PropTypes.string,
   }).isRequired,
 }
 
-export default withRouter(CalibrationStep)
+export default CalibrationStep

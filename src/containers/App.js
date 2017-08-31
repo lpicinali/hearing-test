@@ -1,10 +1,13 @@
+/* eslint react/no-children-prop: 0 */
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
+import { values } from 'lodash'
 
 import { AppUrl, AppEnvironment } from 'src/constants.js'
 import environment from 'src/environment.js'
 import Header from 'src/components/Header.js'
+import RouteTransition from 'src/components/RouteTransition.js'
 import HomeView from 'src/containers/HomeView.js'
 import EndView from 'src/containers/EndView.js'
 import DevNavigation from 'src/containers/DevNavigation.js'
@@ -30,14 +33,58 @@ export default function App() {
 
       <MainContent>
         <Switch>
-          <Route exact path={AppUrl.HOME} component={HomeView} />
           <Route
-            path={`${AppUrl.CALIBRATION}/:step?`}
-            component={CalibrationStep}
+            path={`(${values(AppUrl).join('|')})`}
+            render={() =>
+              <div>
+                <Route
+                  exact
+                  path={AppUrl.HOME}
+                  children={({ match, ...rest }) =>
+                    <RouteTransition
+                      component={HomeView}
+                      match={match}
+                      {...rest}
+                    />}
+                />
+                <Route
+                  path={`${AppUrl.CALIBRATION}/:step?`}
+                  children={({ match, ...rest }) =>
+                    <RouteTransition
+                      component={CalibrationStep}
+                      match={match}
+                      {...rest}
+                    />}
+                />
+                <Route
+                  path={AppUrl.TEST}
+                  children={({ match, ...rest }) =>
+                    <RouteTransition
+                      component={TestStep}
+                      match={match}
+                      {...rest}
+                    />}
+                />
+                <Route
+                  path={AppUrl.RESULTS}
+                  children={({ match, ...rest }) =>
+                    <RouteTransition
+                      component={ResultsStep}
+                      match={match}
+                      {...rest}
+                    />}
+                />
+                <Route
+                  path={AppUrl.THANK_YOU}
+                  children={({ match, ...rest }) =>
+                    <RouteTransition
+                      component={EndView}
+                      match={match}
+                      {...rest}
+                    />}
+                />
+              </div>}
           />
-          <Route path={AppUrl.TEST} component={TestStep} />
-          <Route path={AppUrl.RESULTS} component={ResultsStep} />
-          <Route path={AppUrl.THANK_YOU} component={EndView} />
           <Route render={() => <h1>404</h1>} />
         </Switch>
       </MainContent>
