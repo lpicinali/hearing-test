@@ -1,14 +1,34 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { T } from 'lioness'
+import { T, withTranslators } from 'lioness'
 import styled from 'styled-components'
+import { compose, withState, withHandlers } from 'recompose'
 
 import { submitQuestionnaire } from 'src/actions.js'
 import Button from 'src/components/Button.js'
+import GradingField from 'src/components/GradingField.js'
+import GradingRanking from 'src/components/GradingRanking.js'
+import { GRAY } from 'src/styles/colors.js'
 import { H2, P } from 'src/styles/elements.js'
 
 const ContentWrap = styled.div`padding: 0 88px;`
+
+const Subtitle = styled.span`
+  display: block;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 24px;
+  color: ${GRAY};
+`
+
+const StatefulGradingField = compose(
+  withState('value', 'setValue', null),
+  withHandlers({
+    onChange: ({ setValue }) => value => setValue(value),
+  })
+)(GradingField)
 
 /**
  * Questionnaire Step
@@ -16,15 +36,19 @@ const ContentWrap = styled.div`padding: 0 88px;`
 class QuestionnaireStep extends PureComponent {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
+    t: PropTypes.func.isRequired,
   }
 
   render() {
-    const { onSubmit } = this.props
+    const { onSubmit, t } = this.props
 
     return (
       <ContentWrap>
         <H2>
           <T>Evaluation questionnaire</T>
+          <Subtitle>
+            <T>Web hearing test</T>
+          </Subtitle>
         </H2>
         <P>
           <T>
@@ -40,6 +64,13 @@ class QuestionnaireStep extends PureComponent {
         <P>
           <T>Example:</T>
         </P>
+        <GradingRanking />
+        <StatefulGradingField
+          value={null}
+          onChange={val => console.log({ val })}
+          minLabel={t('agree')}
+          maxLabel={t('disagree')}
+        />
         <P>
           <T>
             This response would mean that you rate the application as more
@@ -96,4 +127,4 @@ class QuestionnaireStep extends PureComponent {
 
 export default connect(null, dispatch => ({
   onSubmit: values => dispatch(submitQuestionnaire(values)),
-}))(QuestionnaireStep)
+}))(withTranslators(QuestionnaireStep))

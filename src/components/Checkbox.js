@@ -107,7 +107,7 @@ class Checkbox extends Component {
     delete props.onChange
 
     return (
-      <StyledCheckbox isEnabled={isEnabled} {...props}>
+      <StyledCheckbox isEnabled={isEnabled} className={className} {...props}>
         <StyledCheckmark
           isEnabled={isEnabled}
           isChecked={isChecked}
