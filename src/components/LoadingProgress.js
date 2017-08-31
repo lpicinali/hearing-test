@@ -26,6 +26,7 @@ const ProgressBar = styled.div`
 const ProgressBarValue = styled.div`
   height: 100%;
   background: ${WHITE};
+  transition: width 0.3s;
 `
 
 /**
