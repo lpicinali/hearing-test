@@ -28,3 +28,8 @@ export const setResultCode = (ear, code) => ({
   type: ActionType.SET_RESULT_CODE,
   payload: { ear, code },
 })
+
+export const submitQuestionnaire = values => ({
+  type: ActionType.SUBMIT_QUESTIONNAIRE,
+  payload: { values },
+})

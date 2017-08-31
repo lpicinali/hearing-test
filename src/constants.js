@@ -7,6 +7,7 @@ export const ActionType = {
   CALCULATE_AUDIOGRAMS: 'CALCULATE_AUDIOGRAMS',
   SET_RESULT_AUDIOGRAM: 'SET_RESULT_AUDIOGRAM',
   SET_RESULT_CODE: 'SET_RESULT_CODE',
+  SUBMIT_QUESTIONNAIRE: 'SUBMIT_QUESTIONNAIRE',
 }
 
 export const AppEnvironment = {
@@ -20,6 +21,7 @@ export const AppUrl = {
   CALIBRATION: '/calibration',
   TEST: '/test',
   RESULTS: '/results',
+  QUESTIONNAIRE: '/questionnaire',
   THANK_YOU: '/thank-you',
 }
 

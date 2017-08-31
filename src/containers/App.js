@@ -12,6 +12,7 @@ import HomeView from 'src/containers/HomeView.js'
 import EndView from 'src/containers/EndView.js'
 import DevNavigation from 'src/containers/DevNavigation.js'
 import CalibrationStep from 'src/containers/calibration/CalibrationStep.js'
+import QuestionnaireStep from 'src/containers/QuestionnaireStep.js'
 import ResultsStep from 'src/containers/results/ResultsStep.js'
 import TestStep from 'src/containers/test/TestStep.js'
 
@@ -70,6 +71,15 @@ export default function App() {
                   children={({ match, ...rest }) =>
                     <RouteTransition
                       component={ResultsStep}
+                      match={match}
+                      {...rest}
+                    />}
+                />
+                <Route
+                  path={AppUrl.QUESTIONNAIRE}
+                  children={({ match, ...rest }) =>
+                    <RouteTransition
+                      component={QuestionnaireStep}
                       match={match}
                       {...rest}
                     />}
