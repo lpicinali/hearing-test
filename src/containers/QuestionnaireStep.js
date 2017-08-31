@@ -11,7 +11,7 @@ import GradingField from 'src/components/GradingField.js'
 import GradingRanking from 'src/components/GradingRanking.js'
 import Icon from 'src/components/Icon.js'
 import { QuestionnaireField } from 'src/constants.js'
-import { GRAY, WHITE } from 'src/styles/colors.js'
+import { GRAY, RED, WHITE } from 'src/styles/colors.js'
 import { H2, P } from 'src/styles/elements.js'
 
 const ContentWrap = styled.div`padding: 0 88px;`
@@ -75,19 +75,47 @@ const GradingQuestionLabel = styled.div`
   color: ${WHITE};
 `
 
+const FormActions = styled.div`
+  margin: 40px 0;
+  text-align: center;
+`
+
+const ErrorMessage = P.extend`
+  margin: 24px 0;
+  padding: 16px 24px;
+  border: 1px solid ${RED};
+  border-radius: 2px;
+  color: ${RED};
+`
+
 /**
  * Questionnaire Step
  */
 class QuestionnaireStep extends PureComponent {
   static propTypes = {
     values: PropTypes.shape({}).isRequired,
+    isSubmitting: PropTypes.bool.isRequired,
+    hasSubmitted: PropTypes.bool.isRequired,
+    submissionError: PropTypes.instanceOf(Error),
     onValueChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   }
 
+  static defaultProps = {
+    submissionError: null,
+  }
+
   render() {
-    const { values, onValueChange, onSubmit, t } = this.props
+    const {
+      values,
+      isSubmitting,
+      hasSubmitted,
+      submissionError,
+      onValueChange,
+      onSubmit,
+      t,
+    } = this.props
 
     return (
       <ContentWrap>
@@ -389,18 +417,36 @@ class QuestionnaireStep extends PureComponent {
           maxLabel={t('extremely likely')}
         />
         <SectionSeparator />
-        <P>
-          <Button isEnabled={values.every(x => x !== null)} onClick={onSubmit}>
-            <T>Submit answers</T>
-          </Button>
-        </P>
+        <FormActions>
+          {hasSubmitted === true
+            ? <T>Many thanks for your time completing this questionnaire.</T>
+            : <Button
+                isEnabled={values.every(x => x !== null)}
+                onClick={() => onSubmit(values)}
+              >
+                {isSubmitting ? <T>Submitting...</T> : <T>Submit answers</T>}
+              </Button>}
+
+          {submissionError &&
+            <ErrorMessage>
+              <T>
+                We could not submit the questionnaire at this time. Please wait
+                a minute or two and try submitting the form again.
+              </T>
+            </ErrorMessage>}
+        </FormActions>
       </ContentWrap>
     )
   }
 }
 
 export default connect(
-  state => ({ values: state.getIn(['questionnaire', 'answers']) }),
+  state => ({
+    values: state.getIn(['questionnaire', 'answers']),
+    isSubmitting: state.getIn(['questionnaire', 'isSubmitting']),
+    hasSubmitted: state.getIn(['questionnaire', 'hasSubmitted']),
+    submissionError: state.getIn(['questionnaire', 'error']),
+  }),
   dispatch => ({
     onValueChange: (name, value) =>
       dispatch(setQuestionnaireAnswer(name, value)),

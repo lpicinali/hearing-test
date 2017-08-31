@@ -1,7 +1,8 @@
 import { all } from 'redux-saga/effects'
 
+import questionnaireSagas from 'src/sagas/questionnaire.sagas'
 import resultsSagas from 'src/sagas/results.sagas'
 
 export default function* rootSagas() {
-  yield all([resultsSagas()])
+  yield all([resultsSagas(), questionnaireSagas()])
 }

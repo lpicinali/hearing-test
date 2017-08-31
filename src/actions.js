@@ -38,3 +38,12 @@ export const submitQuestionnaire = values => ({
   type: ActionType.SUBMIT_QUESTIONNAIRE,
   payload: { values },
 })
+
+export const submitQuestionnaireSuccess = () => ({
+  type: ActionType.SUBMIT_QUESTIONNAIRE_SUCCESS,
+})
+
+export const submitQuestionnaireError = error => ({
+  type: ActionType.SUBMIT_QUESTIONNAIRE_ERROR,
+  error,
+})
