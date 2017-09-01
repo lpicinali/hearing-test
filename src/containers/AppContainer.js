@@ -1,7 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
-import { LionessProvider } from 'lioness'
 
 import history from 'src/history.js'
 import store from 'src/store.js'
@@ -10,6 +9,8 @@ import audioFiles from 'src/audio/audio-files.js'
 import AudioContextProvider from 'src/components/AudioContextProvider.js'
 import AudioLibraryProvider from 'src/containers/AudioLibraryProvider.js'
 import App from 'src/containers/App.js'
+import ConnectedLionessProvider from 'src/containers/ConnectedLionessProvider.js'
+import messages from 'src/l10n/messages.js'
 
 export default function AppContainer() {
   return (
@@ -17,9 +18,9 @@ export default function AppContainer() {
       <AudioContextProvider audioContext={audioContext}>
         <AudioLibraryProvider files={audioFiles}>
           <Router history={history}>
-            <LionessProvider messages={{}} locale="en" debug={false}>
+            <ConnectedLionessProvider messages={messages} debug={false}>
               <App />
-            </LionessProvider>
+            </ConnectedLionessProvider>
           </Router>
         </AudioLibraryProvider>
       </AudioContextProvider>

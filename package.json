@@ -7,7 +7,8 @@
     "start": "node server.js",
     "dev": "webpack-dev-server --colors --progress",
     "build": "webpack",
-    "lint": "eslint './**/*.js'"
+    "lint": "eslint './**/*.js'",
+    "l10n:extract": "react-gettext-parser --config .rgp-config.js --output l10n/source.pot 'src/**/*.js'"
   },
   "dependencies": {
     "audio-context": "^1.0.1",

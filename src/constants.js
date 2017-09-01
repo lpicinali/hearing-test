@@ -44,9 +44,9 @@ export const FrequencyStartVolume = {
 }
 
 export const Locale = {
-  EN: 'en-GB',
-  ES: 'es-ES',
-  IT: 'it-IT',
+  EN: 'en',
+  ES: 'es',
+  IT: 'it',
 }
 
 export const QuestionnaireField = {
