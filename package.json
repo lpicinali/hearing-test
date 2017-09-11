@@ -11,6 +11,7 @@
     "l10n:extract": "react-gettext-parser --config .rgp-config.js --output l10n/source.pot 'src/**/*.js'"
   },
   "dependencies": {
+    "animated-scrollto": "^1.1.0",
     "audio-context": "^1.0.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",

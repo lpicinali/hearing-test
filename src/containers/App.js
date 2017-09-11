@@ -1,8 +1,11 @@
+/* global document */
 /* eslint react/no-children-prop: 0 */
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 import { values } from 'lodash'
+import { lifecycle } from 'recompose'
+import scrollTo from 'animated-scrollto'
 
 import { AppUrl } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
@@ -27,6 +30,28 @@ const MainContent = styled.main`
   padding: 40px 0 80px;
 `
 
+const createScrollToTopView = lifecycle({
+  componentDidMount: () => scrollTo(document.body, 0, 500),
+})
+
+const createRouteView = ViewComponent => {
+  const ScrollTopViewComponent = createScrollToTopView(ViewComponent)
+  return ({ match, ...rest }) => (
+    <RouteTransition
+      component={ScrollTopViewComponent}
+      match={match}
+      {...rest}
+    />
+  )
+}
+
+const HomeRouteView = createRouteView(HomeView)
+const CalibrationRouteView = createRouteView(CalibrationStep)
+const TestRouteView = createRouteView(TestStep)
+const ResultsRouteView = createRouteView(ResultsStep)
+const QuestionnaireRouteView = createRouteView(QuestionnaireStep)
+const EndRouteView = createRouteView(EndView)
+
 export default function App() {
   return (
     <AppRoot>
@@ -38,67 +63,18 @@ export default function App() {
             path={`(${values(AppUrl).join('|')})`}
             render={() => (
               <div>
-                <Route
-                  exact
-                  path={AppUrl.HOME}
-                  children={({ match, ...rest }) => (
-                    <RouteTransition
-                      component={HomeView}
-                      match={match}
-                      {...rest}
-                    />
-                  )}
-                />
+                <Route exact path={AppUrl.HOME} children={HomeRouteView} />
                 <Route
                   path={`${AppUrl.CALIBRATION}/:step?`}
-                  children={({ match, ...rest }) => (
-                    <RouteTransition
-                      component={CalibrationStep}
-                      match={match}
-                      {...rest}
-                    />
-                  )}
+                  children={CalibrationRouteView}
                 />
-                <Route
-                  path={AppUrl.TEST}
-                  children={({ match, ...rest }) => (
-                    <RouteTransition
-                      component={TestStep}
-                      match={match}
-                      {...rest}
-                    />
-                  )}
-                />
-                <Route
-                  path={AppUrl.RESULTS}
-                  children={({ match, ...rest }) => (
-                    <RouteTransition
-                      component={ResultsStep}
-                      match={match}
-                      {...rest}
-                    />
-                  )}
-                />
+                <Route path={AppUrl.TEST} children={TestRouteView} />
+                <Route path={AppUrl.RESULTS} children={ResultsRouteView} />
                 <Route
                   path={AppUrl.QUESTIONNAIRE}
-                  children={({ match, ...rest }) => (
-                    <RouteTransition
-                      component={QuestionnaireStep}
-                      match={match}
-                      {...rest}
-                    />
-                  )}
+                  children={QuestionnaireRouteView}
                 />
-                <Route
-                  path={AppUrl.THANK_YOU}
-                  children={({ match, ...rest }) => (
-                    <RouteTransition
-                      component={EndView}
-                      match={match}
-                      {...rest}
-                    />
-                  )}
-                />
+                <Route path={AppUrl.THANK_YOU} children={EndRouteView} />
               </div>
             )}
           />
