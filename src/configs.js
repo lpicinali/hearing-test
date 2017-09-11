@@ -4,12 +4,15 @@ import environment from 'src/environment.js'
 const configs = {
   [AppEnvironment.DEVELOPMENT]: {
     siteUrl: 'http://localhost:8263',
+    apiUrl: 'http://localhost:8264/api',
   },
   [AppEnvironment.STAGE]: {
     siteUrl: 'http://hearing-test-stage.herokuapp.com',
+    apiUrl: 'http://hearing-test-stage.herokuapp.com/api',
   },
   [AppEnvironment.PRODUCTION]: {
     siteUrl: 'http://hearing-test.3d-tune-in.eu',
+    apiUrl: 'http://hearing-test.3d-tune-in.eu/api',
   },
 }
 

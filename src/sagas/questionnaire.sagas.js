@@ -1,19 +1,24 @@
-import { all, put, take } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
+import { all, call, put, take } from 'redux-saga/effects'
 
 import {
   submitQuestionnaireError,
-  // submitQuestionnaireSuccess,
+  submitQuestionnaireSuccess,
 } from 'src/actions.js'
+import * as api from 'src/api.js'
 import { ActionType } from 'src/constants.js'
 
 function* doSubmitQuestionnaire() {
   while (true) {
-    yield take(ActionType.SUBMIT_QUESTIONNAIRE)
-    yield delay(3000)
-    yield put(
-      submitQuestionnaireError(new Error('The form submission is fake'))
-    )
+    const { payload } = yield take(ActionType.SUBMIT_QUESTIONNAIRE)
+
+    const answers = payload.values.toJS()
+    const { errors } = yield call(api.submitQuestionnaire, { answers })
+
+    if (errors === undefined) {
+      yield put(submitQuestionnaireSuccess())
+    } else {
+      yield put(submitQuestionnaireError(errors[0]))
+    }
   }
 }
 
