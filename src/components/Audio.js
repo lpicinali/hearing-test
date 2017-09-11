@@ -8,7 +8,7 @@ import { compose, mapProps } from 'recompose'
 import audioFiles from 'src/audio/audio-files.js'
 import { withAudioContext } from 'src/components/AudioContextProvider.js'
 import { withAudioLibrary } from 'src/containers/AudioLibraryProvider.js'
-import { Ear } from 'src/constants.js'
+import { Ear, SILENCE } from 'src/constants.js'
 import { decibelsToGain } from 'src/utils.js'
 
 /**
@@ -31,6 +31,7 @@ class Audio extends PureComponent {
     const { audioContext } = this.props
 
     this.volume = audioContext.createGain()
+    this.volume.gain.value = decibelsToGain(SILENCE)
 
     // TODO: Not cross-browser
     this.panner = audioContext.createStereoPanner()
