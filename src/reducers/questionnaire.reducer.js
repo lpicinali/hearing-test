@@ -6,7 +6,7 @@ import { ActionType, QuestionnaireField } from 'src/constants.js'
 const initialState = fromJS({
   answers: zipObject(
     keys(QuestionnaireField),
-    map(QuestionnaireField, () => 1) // null)
+    map(QuestionnaireField, () => null)
   ),
   isSubmitting: false,
   hasSubmitted: false,
