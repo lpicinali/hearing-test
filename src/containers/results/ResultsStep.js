@@ -7,10 +7,12 @@ import styled from 'styled-components'
 import { zip } from 'lodash'
 import { Map } from 'immutable'
 
-import { Ear, TEST_FREQUENCIES } from 'src/constants.js'
+import { AppUrl, Ear, TEST_FREQUENCIES } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
+import appHasQuestionnaire from 'src/questionnaire.js'
 import Audiogram from 'src/components/Audiogram.js'
-import Button from 'src/components/Button.js'
+import Button, { LinkButton } from 'src/components/Button.js'
+import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
 import StickyFooter from 'src/components/StickyFooter.js'
 import { WHITE } from 'src/styles/colors.js'
 import { A, H2, H3, H5, P, TextInput } from 'src/styles/elements.js'
@@ -65,6 +67,14 @@ class ResultsStep extends Component {
         <H2>
           <T>Hearing test results</T>
         </H2>
+
+        <P>
+          <T>These are your hearing test results.</T>{' '}
+          <T
+            message="{{ link:Click here }} for more information about the 3D Tune-In project and apps."
+            link={<A href="http://3d-tune-in.eu/" target="_blank" />}
+          />
+        </P>
 
         <ResultSection>
           <H3>
@@ -144,6 +154,28 @@ class ResultsStep extends Component {
           </Row>
         </ResultSection>
 
+        {appHasQuestionnaire() && (
+          <ResultSection>
+            <QuestionnaireSectionSeparator />
+            <Row>
+              <Col size={3 / 4}>
+                <H3>
+                  <T>Help us improve</T>
+                </H3>
+                <P>
+                  <T>
+                    We would like know about your experience taking this test.
+                    Please take a few minutes to complete our questionnaire.
+                  </T>
+                </P>
+                <LinkButton to={AppUrl.QUESTIONNAIRE}>
+                  <T>Take the questionnaire</T>
+                </LinkButton>
+              </Col>
+            </Row>
+          </ResultSection>
+        )}
+
         <StickyFooter>
           <EmailFormWrap>
             <EmailInput type="email" placeholder={t('name@example.com')} />
@@ -152,13 +184,6 @@ class ResultsStep extends Component {
             </Button>
           </EmailFormWrap>
         </StickyFooter>
-
-        <p>
-          <T
-            message="{{ link:Click here }} for more information about the 3D Tune-In project and apps."
-            link={<A href="http://3d-tune-in.eu/" target="_blank" />}
-          />
-        </p>
       </ResultsWrapper>
     )
   }

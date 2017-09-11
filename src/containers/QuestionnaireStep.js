@@ -9,7 +9,8 @@ import { setQuestionnaireAnswer, submitQuestionnaire } from 'src/actions.js'
 import Button from 'src/components/Button.js'
 import GradingField from 'src/components/GradingField.js'
 import GradingRanking from 'src/components/GradingRanking.js'
-import Icon from 'src/components/Icon.js'
+import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
+
 import { QuestionnaireField } from 'src/constants.js'
 import { GRAY, RED, WHITE } from 'src/styles/colors.js'
 import { H2, P } from 'src/styles/elements.js'
@@ -31,43 +32,6 @@ const ExampleGradingField = compose(
     onChange: ({ setValue }) => value => setValue(value),
   })
 )(GradingField)
-
-const SectionSeparatorWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1px;
-  margin: 63px 0 64px;
-  opacity: 0.2;
-`
-
-const SectionSeparatorLine = styled.div`
-  flex-grow: 1;
-  height: 1px;
-  background: ${WHITE};
-
-  &:first-child {
-    margin-right: 24px;
-  }
-
-  &:last-child {
-    margin-left: 24px;
-  }
-`
-
-const SectionSeparatorIcon = styled(Icon)`
-  display: inline-block;
-  margin: 0 12px;
-`
-
-const SectionSeparator = () => (
-  <SectionSeparatorWrapper>
-    <SectionSeparatorLine />
-    <SectionSeparatorIcon name="thumbs-down" />
-    <SectionSeparatorIcon name="thumbs-up" />
-    <SectionSeparatorLine />
-  </SectionSeparatorWrapper>
-)
 
 const GradingFieldQuestion = styled.div`margin: 40px 0;`
 
@@ -126,7 +90,7 @@ class QuestionnaireStep extends PureComponent {
             <T>Web hearing test</T>
           </Subtitle>
         </H2>
-        <SectionSeparator />
+        <QuestionnaireSectionSeparator />
         <P>
           <T>
             We would now like to evaluate your experience using our web-based
@@ -172,7 +136,7 @@ class QuestionnaireStep extends PureComponent {
             no wrong or right answer!
           </T>
         </P>
-        <SectionSeparator />
+        <QuestionnaireSectionSeparator />
         <P>
           <T>
             Please assess the hearing test now by ticking one circle per line.
@@ -338,7 +302,7 @@ class QuestionnaireStep extends PureComponent {
           minLabel={t('conservative')}
           maxLabel={t('innovative')}
         />
-        <SectionSeparator />
+        <QuestionnaireSectionSeparator />
         <P>
           <T>
             Finally here are some further questions to further evaluate your
@@ -402,7 +366,7 @@ class QuestionnaireStep extends PureComponent {
             maxLabel={t('strongly disagree')}
           />
         </GradingFieldQuestion>
-        <SectionSeparator />
+        <QuestionnaireSectionSeparator />
         <P>
           <T>
             Lastly, to what extent would you recommend this hearing test
@@ -417,7 +381,7 @@ class QuestionnaireStep extends PureComponent {
           minLabel={t('not at all likely')}
           maxLabel={t('extremely likely')}
         />
-        <SectionSeparator />
+        <QuestionnaireSectionSeparator />
         <FormActions>
           {hasSubmitted === true ? (
             <T>Many thanks for your time completing this questionnaire.</T>
