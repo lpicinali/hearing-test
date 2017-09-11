@@ -5,10 +5,10 @@ const configs = {
     mongoUrl: 'mongodb://localhost/hearingtest',
   },
   stage: {
-    mongoUrl: process.env.MONGO_URL,
+    mongoUrl: process.env.MONGODB_URI,
   },
   production: {
-    mongoUrl: process.env.MONGO_URL,
+    mongoUrl: process.env.MONGODB_URI,
   },
 }
 
