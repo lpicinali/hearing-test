@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { Ear, SILENCE } from 'src/constants.js'
+import { Ear } from 'src/constants.js'
 import Audio from 'src/components/Audio.js'
 import Headphones from 'src/components/Headphones.js'
 
@@ -22,7 +22,6 @@ class HeadphonesPositiongGuide extends Component {
   static propTypes = {
     isActive: PropTypes.bool,
     toneDuration: PropTypes.number.isRequired,
-    restDuration: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -31,7 +30,6 @@ class HeadphonesPositiongGuide extends Component {
 
   state = {
     currentEar: Ear.LEFT,
-    isSounding: false,
   }
 
   componentDidMount() {
@@ -44,39 +42,32 @@ class HeadphonesPositiongGuide extends Component {
   }
 
   iteration() {
-    const { toneDuration, restDuration } = this.props
+    const { toneDuration } = this.props
     const { currentEar } = this.state
 
-    this.timerId = setTimeout(() => {
-      this.setState(() => ({ isSounding: true }))
-      this.timerId = setTimeout(
-        () =>
-          this.setState(
-            () => ({
-              currentEar: getNextEar(currentEar),
-              isSounding: false,
-            }),
-            () => this.iteration()
-          ),
-        toneDuration
-      )
-    }, restDuration)
+    this.setState(() => ({ isSounding: true }))
+    this.timerId = setTimeout(
+      () =>
+        this.setState(
+          {
+            currentEar: getNextEar(currentEar),
+          },
+          () => this.iteration()
+        ),
+      toneDuration
+    )
   }
 
   render() {
     const { isActive } = this.props
-    const { currentEar, isSounding } = this.state
+    const { currentEar } = this.state
 
     return (
       <div className="HeadphonesPositiongGuide">
         <Headphones activeEar={currentEar} />
 
         {isActive === true && (
-          <Audio
-            ear={currentEar}
-            name="guitar"
-            volume={isSounding ? -30 : SILENCE}
-          />
+          <Audio ear={currentEar} name="guitar" volume={-30} />
         )}
       </div>
     )
