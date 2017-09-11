@@ -96,10 +96,10 @@ class QuestionnaireStep extends PureComponent {
             We would now like to evaluate your experience using our web-based
             hearing test. For the assessment of the test, please fill out the
             following questionnaire. The questionnaire consists of pairs of
-            contrasting attributes that may apply to the test. The circles
+            contrasting attributes that may apply to the test. The checkboxs
             between the attributes represent gradations between the opposites.
             You can express your agreement with the attributes by ticking the
-            circle that most closely reflects your impression.
+            checkbox that most closely reflects your impression.
           </T>
         </P>
         <P>
@@ -127,7 +127,7 @@ class QuestionnaireStep extends PureComponent {
             Sometimes you may not be completely sure about your agreement with a
             particular attribute or you may find that the attribute does not
             apply completely to the particular product. Nevertheless, please
-            tick a circle in every line.
+            tick a checkbox in every line.
           </T>
         </P>
         <P>
@@ -139,7 +139,7 @@ class QuestionnaireStep extends PureComponent {
         <QuestionnaireSectionSeparator />
         <P>
           <T>
-            Please assess the hearing test now by ticking one circle per line.
+            Please assess the hearing test now by ticking one checkbox per line.
           </T>
         </P>
         <GradingRanking />
@@ -306,8 +306,7 @@ class QuestionnaireStep extends PureComponent {
         <P>
           <T>
             Finally here are some further questions to further evaluate your
-            experience with the hearing test application. Please circle a number
-            between 1 (strongly disagree) and 7 (strongly agree).
+            experience with the hearing test application.
           </T>
         </P>
         <GradingFieldQuestion>
