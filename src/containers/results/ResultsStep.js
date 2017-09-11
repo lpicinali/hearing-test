@@ -8,6 +8,7 @@ import { zip } from 'lodash'
 import { Map } from 'immutable'
 
 import { Ear, TEST_FREQUENCIES } from 'src/constants.js'
+import { mayOutputDebugInfo } from 'src/environment.js'
 import Audiogram from 'src/components/Audiogram.js'
 import Button from 'src/components/Button.js'
 import StickyFooter from 'src/components/StickyFooter.js'
@@ -121,14 +122,14 @@ class ResultsStep extends Component {
                   isInteractive={false}
                 />
               )}
-
-              <code>{leftAudiogram.toJS().join(', ')}</code>
+              {mayOutputDebugInfo() && (
+                <code>{leftAudiogram.toJS().join(', ')}</code>
+              )}
             </Col>
             <Col size={1 / 2}>
               <EarLabel>
                 <T>Right ear</T>
               </EarLabel>
-
               {rightAudiogram && (
                 <StyledAudiogram
                   ear={Ear.RIGHT}
@@ -136,7 +137,9 @@ class ResultsStep extends Component {
                   isInteractive={false}
                 />
               )}
-              <code>{rightAudiogram.toJS().join(', ')}</code>
+              {mayOutputDebugInfo() && (
+                <code>{rightAudiogram.toJS().join(', ')}</code>
+              )}
             </Col>
           </Row>
         </ResultSection>
