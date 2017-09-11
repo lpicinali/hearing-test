@@ -2,6 +2,10 @@
   "name": "3dti-hearing-test",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "8.x",
+    "npm": "5.x"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
