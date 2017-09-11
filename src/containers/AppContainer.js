@@ -15,15 +15,15 @@ import messages from 'src/l10n/messages.js'
 export default function AppContainer() {
   return (
     <Provider store={store}>
-      <AudioContextProvider audioContext={audioContext}>
-        <AudioLibraryProvider files={audioFiles}>
-          <Router history={history}>
-            <ConnectedLionessProvider messages={messages} debug={false}>
+      <ConnectedLionessProvider messages={messages} debug={false}>
+        <AudioContextProvider audioContext={audioContext}>
+          <AudioLibraryProvider files={audioFiles}>
+            <Router history={history}>
               <App />
-            </ConnectedLionessProvider>
-          </Router>
-        </AudioLibraryProvider>
-      </AudioContextProvider>
+            </Router>
+          </AudioLibraryProvider>
+        </AudioContextProvider>
+      </ConnectedLionessProvider>
     </Provider>
   )
 }
