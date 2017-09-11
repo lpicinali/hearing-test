@@ -7,8 +7,8 @@ const configs = {
     apiUrl: 'http://localhost:8264/api',
   },
   [AppEnvironment.STAGE]: {
-    siteUrl: 'http://hearing-test-stage.herokuapp.com',
-    apiUrl: 'http://hearing-test-stage.herokuapp.com/api',
+    siteUrl: 'https://hearing-test-stage.herokuapp.com',
+    apiUrl: 'https://hearing-test-stage.herokuapp.com/api',
   },
   [AppEnvironment.PRODUCTION]: {
     siteUrl: 'http://hearing-test.3d-tune-in.eu',
