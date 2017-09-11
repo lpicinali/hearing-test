@@ -1,7 +1,9 @@
+/* global window */
 import React, { Children, PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { getContext } from 'recompose'
+import { compose, getContext } from 'recompose'
 import styled from 'styled-components'
+import { withTranslators } from 'lioness'
 
 import { withAudioContext } from 'src/components/AudioContextProvider.js'
 import LoadingProgress from 'src/components/LoadingProgress.js'
@@ -20,6 +22,8 @@ const LoadingProgressWrapper = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  opacity: ${props => (props.isDone ? '0' : '1')};
+  transition: opacity 0.5s;
 `
 
 /**
@@ -36,6 +40,7 @@ class AudioLibraryProvider extends PureComponent {
     audioContext: PropTypes.shape({
       decodeAudioData: PropTypes.func.isRequired,
     }).isRequired,
+    t: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
   }
 
@@ -46,6 +51,8 @@ class AudioLibraryProvider extends PureComponent {
   state = {
     numLoaded: 0,
     sourceBuffers: [],
+    isFading: false,
+    isReady: false,
   }
 
   getChildContext() {
@@ -68,16 +75,25 @@ class AudioLibraryProvider extends PureComponent {
     ).then(sourceBuffers => this.setState({ sourceBuffers }))
   }
 
-  render() {
-    const { files, children } = this.props
-    const { numLoaded, sourceBuffers } = this.state
+  componentDidUpdate() {
+    const { sourceBuffers } = this.state
 
-    return sourceBuffers.length > 0 ? (
+    if (sourceBuffers.length > 0) {
+      window.setTimeout(() => this.setState({ isFading: true }), 500)
+      window.setTimeout(() => this.setState({ isReady: true }), 1500)
+    }
+  }
+
+  render() {
+    const { files, t, children } = this.props
+    const { numLoaded, isFading, isReady } = this.state
+
+    return isReady === true ? (
       Children.only(children)
     ) : (
-      <LoadingProgressWrapper>
+      <LoadingProgressWrapper isDone={isFading}>
         <LoadingProgress
-          label="Loading audio files..."
+          label={t('Initialising hearing test...')}
           progress={numLoaded / files.length}
         />
       </LoadingProgressWrapper>
@@ -85,7 +101,7 @@ class AudioLibraryProvider extends PureComponent {
   }
 }
 
-export default withAudioContext(AudioLibraryProvider)
+export default compose(withTranslators, withAudioContext)(AudioLibraryProvider)
 
 /**
  * withAudioLibrary
