@@ -23,7 +23,11 @@ const AnimatingPath = styled.path`
  */
 class Headphones extends Component {
   static propTypes = {
-    activeEar: PropTypes.oneOf(values(Ear)).isRequired,
+    activeEar: PropTypes.oneOf(values(Ear)),
+  }
+
+  static defaultProps = {
+    activeEar: null,
   }
 
   render() {
