@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { values } from 'lodash'
 
 import { AppUrl, AppEnvironment } from 'src/constants.js'
-import environment from 'src/environment.js'
+import environment, { mayOutputDebugInfo } from 'src/environment.js'
 import Header from 'src/components/Header.js'
 import RouteTransition from 'src/components/RouteTransition.js'
 import HomeView from 'src/containers/HomeView.js'
@@ -99,7 +99,7 @@ export default function App() {
         </Switch>
       </MainContent>
 
-      {environment !== AppEnvironment.PRODUCTION && <DevNavigation />}
+      {mayOutputDebugInfo() && <DevNavigation />}
     </AppRoot>
   )
 }

@@ -14,6 +14,7 @@ import {
   TestDirection,
   TEST_FREQUENCIES,
 } from 'src/constants.js'
+import { mayOutputDebugInfo } from 'src/environment.js'
 import Audio from 'src/components/Audio.js'
 import Button, { ButtonStyle } from 'src/components/Button.js'
 import StepProgress from 'src/components/StepProgress.js'
@@ -210,10 +211,12 @@ class EarTestContainer extends Component {
           </StatefulCol>
         </Row>
 
-        <DebugArea>
-          Ear: {ear} | Frequency: {frequency} | Direction: {direction} | Current
-          volume: {currentVolume} |
-        </DebugArea>
+        {mayOutputDebugInfo() && (
+          <DebugArea>
+            Ear: {ear} | Frequency: {frequency} | Direction: {direction} |
+            Current volume: {currentVolume} |
+          </DebugArea>
+        )}
 
         <Audio ear={ear} name={frequency} volume={currentVolume} />
       </div>

@@ -19,4 +19,8 @@ function getEnv(envVariable) {
   return appEnv
 }
 
-export default getEnv(process.env.APP_ENV)
+const environment = getEnv(process.env.APP_ENV)
+export default environment
+
+export const mayOutputDebugInfo = () =>
+  environment === AppEnvironment.DEVELOPMENT

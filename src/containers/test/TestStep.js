@@ -6,6 +6,7 @@ import { T } from 'lioness'
 
 import { calculateAudiograms } from 'src/actions.js'
 import { AppUrl, Ear } from 'src/constants.js'
+import { mayOutputDebugInfo } from 'src/environment.js'
 import RenderAfter from 'src/components/RenderAfter.js'
 import EarTestContainer from 'src/containers/test/EarTestContainer.js'
 import { H2 } from 'src/styles/elements.js'
@@ -60,7 +61,9 @@ class TestStep extends Component {
           <Redirect to={TestUrl.LEFT_EAR} />
         </Switch>
 
-        <button onClick={onFinishTests}>Finish early</button>
+        {mayOutputDebugInfo() && (
+          <button onClick={onFinishTests}>Finish early</button>
+        )}
       </div>
     )
   }
