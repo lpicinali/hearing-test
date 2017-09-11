@@ -6,7 +6,9 @@ import styled from 'styled-components'
 import { values } from 'lodash'
 import { lifecycle } from 'recompose'
 import scrollTo from 'animated-scrollto'
+import Helmet from 'react-helmet'
 
+import configs from 'src/configs.js'
 import { AppUrl } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Header from 'src/components/Header.js'
@@ -55,6 +57,17 @@ const EndRouteView = createRouteView(EndView)
 export default function App() {
   return (
     <AppRoot>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>3D Tune-In Hearing Test</title>
+        <meta
+          name="description"
+          content="Here you can take a hearing test to get an estimate of you level of hearing. The test takes about 5 minutes."
+        />
+        <meta property="og:image" content={`${configs.siteUrl}/img/ogimage.png`} />
+        <link rel="shortcut icon" href="/img/favicon.png" />
+      </Helmet>
+
       <Header />
 
       <MainContent>
