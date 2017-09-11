@@ -17,10 +17,12 @@ import {
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Audio from 'src/components/Audio.js'
 import Button, { ButtonStyle } from 'src/components/Button.js'
+import Icon from 'src/components/Icon.js'
 import StepProgress from 'src/components/StepProgress.js'
 import { BLACK, GRAY, WHITE } from 'src/styles/colors.js'
 import { H3, H4, P } from 'src/styles/elements.js'
 import { Col, Row, StatefulCol } from 'src/styles/grid.js'
+import { FONT_NORMAL } from 'src/styles/type.js'
 
 const StepProgressSummary = styled.div`
   margin: 8px 0;
@@ -35,6 +37,42 @@ const NarrowButton = styled(Button)`
   width: 100%;
   padding-left: 8px;
   padding-right: 8px;
+`
+
+const ResetIcon = styled(Icon)`
+  width: 16px;
+  height: 16px;
+`
+
+const ResetButton = styled.button`
+  appearance: none;
+  display: flex;
+  align-items: center;
+  margin: 16px 0 0;
+  padding: 8px;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: ${FONT_NORMAL};
+  font-size: 16px;
+  color: ${WHITE};
+  line-height: 24px;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.1s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:active {
+    opacity: 0.4;
+  }
+
+  svg {
+    display: inline-block;
+    margin-right: 8px;
+  }
 `
 
 const DebugArea = styled.pre`
@@ -57,6 +95,7 @@ class EarTestContainer extends Component {
 
   state = {
     frequency: TEST_FREQUENCIES[0],
+    maxVolume: 0,
     minVolume: FrequencyStartVolume[TEST_FREQUENCIES[0]],
     direction: TestDirection.UP,
   }
@@ -80,13 +119,16 @@ class EarTestContainer extends Component {
         return {
           frequency: nextFrequency,
           minVolume: FrequencyStartVolume[nextFrequency],
+          maxVolume: 0,
           direction: TestDirection.UP,
         }
       })
     } else {
+      const maxVolume = earVolumes.getIn([frequency, TestDirection.UP]) + 10
       this.setState(
         () => ({
           direction: TestDirection.DOWN,
+          maxVolume,
         }),
         () => {
           // The start volume of the DOWN bit is +10 dB to the final
@@ -95,11 +137,7 @@ class EarTestContainer extends Component {
             ear,
             frequency,
             TestDirection.DOWN,
-            clamp(
-              earVolumes.getIn([frequency, TestDirection.UP]) + 10,
-              minVolume,
-              0
-            )
+            clamp(maxVolume, minVolume, 0)
           )
         }
       )
@@ -108,7 +146,7 @@ class EarTestContainer extends Component {
 
   render() {
     const { ear, earVolumes, onVolumeChange } = this.props
-    const { frequency, minVolume, direction } = this.state
+    const { frequency, maxVolume, minVolume, direction } = this.state
 
     const currentVolume = earVolumes.getIn([frequency, direction])
 
@@ -166,6 +204,18 @@ class EarTestContainer extends Component {
                   </NarrowButton>
                 </Col>
               </Row>
+
+              <ResetButton
+                onClick={() =>
+                  onVolumeChange(
+                    Ear.LEFT,
+                    frequency,
+                    direction,
+                    FrequencyStartVolume[frequency]
+                  )}
+              >
+                <ResetIcon name="rotate-ccw" /> <T>Reset</T>
+              </ResetButton>
             </ButtonGroup>
           </StatefulCol>
 
@@ -205,6 +255,13 @@ class EarTestContainer extends Component {
                   </NarrowButton>
                 </Col>
               </Row>
+
+              <ResetButton
+                onClick={() =>
+                  onVolumeChange(Ear.LEFT, frequency, direction, maxVolume)}
+              >
+                <ResetIcon name="rotate-ccw" /> <T>Reset</T>
+              </ResetButton>
             </ButtonGroup>
           </StatefulCol>
         </Row>
