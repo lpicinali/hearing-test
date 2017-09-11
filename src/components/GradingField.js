@@ -51,25 +51,21 @@ class GradingField extends Component {
       <FieldWrapper>
         <Row>
           <Col size={3 / 10}>
-            <SpectrumEndLabel isMin>
-              {minLabel}
-            </SpectrumEndLabel>
+            <SpectrumEndLabel isMin>{minLabel}</SpectrumEndLabel>
           </Col>
           <Col size={4 / 10}>
             <CheckboxRow>
-              {range(0, numGrades).map(i =>
+              {range(0, numGrades).map(i => (
                 <FlexedCheckbox
                   key={i}
                   isChecked={i === value}
                   onChange={() => onChange(i)}
                 />
-              )}
+              ))}
             </CheckboxRow>
           </Col>
           <Col size={3 / 10}>
-            <SpectrumEndLabel>
-              {maxLabel}
-            </SpectrumEndLabel>
+            <SpectrumEndLabel>{maxLabel}</SpectrumEndLabel>
           </Col>
         </Row>
       </FieldWrapper>

@@ -54,8 +54,9 @@ function CalibrationStep({ match }) {
             <T>Continue</T>
           </LinkButton>
 
-          {match.url === CalibrationUrl.ADJUST_LEVEL &&
-            <Audio name="guitar" volume={-18} />}
+          {match.url === CalibrationUrl.ADJUST_LEVEL && (
+            <Audio name="guitar" volume={-18} />
+          )}
         </StatefulCol>
 
         <StatefulCol

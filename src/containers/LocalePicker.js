@@ -74,7 +74,7 @@ class LocalePicker extends Component {
 
     return (
       <div className="LocalePicker">
-        {locales.map(locale =>
+        {locales.map(locale => (
           <FlagButton
             key={locale}
             isActive={currentLocale === locale}
@@ -87,7 +87,7 @@ class LocalePicker extends Component {
               />
             </Flag>
           </FlagButton>
-        )}
+        ))}
       </div>
     )
   }

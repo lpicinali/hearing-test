@@ -71,12 +71,13 @@ class HeadphonesPositiongGuide extends Component {
       <div className="HeadphonesPositiongGuide">
         <Headphones activeEar={currentEar} />
 
-        {isActive === true &&
+        {isActive === true && (
           <Audio
             ear={currentEar}
             name="guitar"
             volume={isSounding ? -30 : SILENCE}
-          />}
+          />
+        )}
       </div>
     )
   }

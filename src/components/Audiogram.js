@@ -58,34 +58,36 @@ const getDecibelY = decibel => {
 }
 
 const AudiogramPoint = ({ ear, size, cx, cy, ...props }) => {
-  return ear === Ear.RIGHT
-    ? <circle
-        r={size}
-        fill={BLACK}
-        stroke={RED}
+  return ear === Ear.RIGHT ? (
+    <circle
+      r={size}
+      fill={BLACK}
+      stroke={RED}
+      strokeWidth={2}
+      cx={cx}
+      cy={cy}
+      {...props}
+    />
+  ) : (
+    <g cx={cx} cy={cy} {...props}>
+      <line
+        x1={cx - size * 0.75}
+        y1={cy - size * 0.75}
+        x2={cx + size * 0.75}
+        y2={cy + size * 0.75}
+        stroke={BLUE}
         strokeWidth={2}
-        cx={cx}
-        cy={cy}
-        {...props}
       />
-    : <g cx={cx} cy={cy} {...props}>
-        <line
-          x1={cx - size * 0.75}
-          y1={cy - size * 0.75}
-          x2={cx + size * 0.75}
-          y2={cy + size * 0.75}
-          stroke={BLUE}
-          strokeWidth={2}
-        />
-        <line
-          x1={cx - size * 0.75}
-          y1={cy + size * 0.75}
-          x2={cx + size * 0.75}
-          y2={cy - size * 0.75}
-          stroke={BLUE}
-          strokeWidth={2}
-        />
-      </g>
+      <line
+        x1={cx - size * 0.75}
+        y1={cy + size * 0.75}
+        x2={cx + size * 0.75}
+        y2={cy - size * 0.75}
+        stroke={BLUE}
+        strokeWidth={2}
+      />
+    </g>
+  )
 }
 
 AudiogramPoint.propTypes = {
@@ -182,7 +184,7 @@ class Audiogram extends Component {
           <g>
             {data
               .keySeq()
-              .map(frequency =>
+              .map(frequency => (
                 <line
                   x1={getFrequencyX(frequency)}
                   y1={PADDING.TOP}
@@ -191,13 +193,13 @@ class Audiogram extends Component {
                   stroke={DARK_BLUE}
                   key={frequency}
                 />
-              )
+              ))
               .toArray()}
           </g>
 
           {/* Decibel grid lines */}
           <g>
-            {AudiogramFrequencyValues.map(decibel =>
+            {AudiogramFrequencyValues.map(decibel => (
               <line
                 x1={PADDING.LEFT}
                 y1={getDecibelY(decibel)}
@@ -206,7 +208,7 @@ class Audiogram extends Component {
                 stroke={decibel === 0 ? GRAY : DARK_BLUE}
                 key={decibel}
               />
-            )}
+            ))}
           </g>
 
           {/* Value lines */}
@@ -234,7 +236,7 @@ class Audiogram extends Component {
 
           {/* Decibel labels */}
           <g>
-            {AudiogramFrequencyValues.map(decibel =>
+            {AudiogramFrequencyValues.map(decibel => (
               <text
                 x={PADDING.LEFT - 10}
                 y={getDecibelY(decibel) + 3}
@@ -247,12 +249,12 @@ class Audiogram extends Component {
               >
                 {decibel}
               </text>
-            )}
+            ))}
           </g>
 
           {/* Frequency labels */}
           <g>
-            {data.keySeq().map(frequency =>
+            {data.keySeq().map(frequency => (
               <text
                 x={getFrequencyX(frequency)}
                 y={PADDING.TOP - 12}
@@ -265,11 +267,11 @@ class Audiogram extends Component {
               >
                 {frequency}
               </text>
-            )}
+            ))}
           </g>
 
           {/* Interactable areas */}
-          {isInteractive &&
+          {isInteractive && (
             <g>
               {areas
                 .map(area => {
@@ -293,14 +295,14 @@ class Audiogram extends Component {
                     />
                   )
 
-                  const areaPoint =
-                    area.get('isHighlighted') &&
+                  const areaPoint = area.get('isHighlighted') && (
                     <AudiogramPoint
                       cx={getFrequencyX(frequency)}
                       cy={getDecibelY(decibel)}
                       size={CIRCLE_RADIUS}
                       ear={ear}
                     />
+                  )
 
                   return (
                     <g key={`${area.get('frequency')}-${area.get('decibel')}`}>
@@ -310,12 +312,13 @@ class Audiogram extends Component {
                   )
                 })
                 .toArray()}
-            </g>}
+            </g>
+          )}
 
           {/* Current values */}
           <g>
             {data
-              .map((value, frequency) =>
+              .map((value, frequency) => (
                 <AudiogramPoint
                   ear={ear}
                   cx={getFrequencyX(frequency)}
@@ -324,7 +327,7 @@ class Audiogram extends Component {
                   style={{ cursor: 'pointer' }}
                   key={frequency}
                 />
-              )
+              ))
               .toArray()}
           </g>
         </svg>

@@ -70,7 +70,7 @@ const StyledButton = styled.button.attrs({
     color: ${props.textColor};
     pointer-events: none;
     animation: ${pulsate} 1.5s ease-in-out infinite;
-    `}
+    `};
 `
 
 const createStyledButton = compose(
@@ -95,11 +95,11 @@ const createStyledButton = compose(
  * Button with component <button>
  */
 export const Button = createStyledButton(
-  StyledButton.withComponent(({ onClick, disabled, className, children }) =>
+  StyledButton.withComponent(({ onClick, disabled, className, children }) => (
     <button onClick={onClick} disabled={disabled} className={className}>
       {children}
     </button>
-  )
+  ))
 )
 
 export default Button
@@ -108,9 +108,9 @@ export default Button
  * Button with component <Link>
  */
 export const LinkButton = createStyledButton(
-  StyledButton.withComponent(({ to, className, children }) =>
+  StyledButton.withComponent(({ to, className, children }) => (
     <Link to={to} className={className}>
       {children}
     </Link>
-  )
+  ))
 )

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { WHITE } from 'src/styles/colors.js'
 
-const BaseSvg = ({ color, className, children }) =>
+const BaseSvg = ({ color, className, children }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -18,6 +18,7 @@ const BaseSvg = ({ color, className, children }) =>
   >
     {children}
   </svg>
+)
 
 /**
  * Icon

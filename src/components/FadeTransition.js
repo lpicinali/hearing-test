@@ -13,11 +13,7 @@ class FadeTransition extends PureComponent {
   render() {
     const { children } = this.props
 
-    return (
-      <Motion>
-        {Children.toArray(children)}
-      </Motion>
-    )
+    return <Motion>{Children.toArray(children)}</Motion>
   }
 }
 

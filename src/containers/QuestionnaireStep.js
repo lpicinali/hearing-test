@@ -60,13 +60,14 @@ const SectionSeparatorIcon = styled(Icon)`
   margin: 0 12px;
 `
 
-const SectionSeparator = () =>
+const SectionSeparator = () => (
   <SectionSeparatorWrapper>
     <SectionSeparatorLine />
     <SectionSeparatorIcon name="thumbs-down" />
     <SectionSeparatorIcon name="thumbs-up" />
     <SectionSeparatorLine />
   </SectionSeparatorWrapper>
+)
 
 const GradingFieldQuestion = styled.div`margin: 40px 0;`
 
@@ -418,23 +419,26 @@ class QuestionnaireStep extends PureComponent {
         />
         <SectionSeparator />
         <FormActions>
-          {hasSubmitted === true
-            ? <T>Many thanks for your time completing this questionnaire.</T>
-            : <Button
-                isEnabled={values.every(x => x !== null)}
-                isLoading={isSubmitting}
-                onClick={() => onSubmit(values)}
-              >
-                {isSubmitting ? <T>Submitting...</T> : <T>Submit answers</T>}
-              </Button>}
+          {hasSubmitted === true ? (
+            <T>Many thanks for your time completing this questionnaire.</T>
+          ) : (
+            <Button
+              isEnabled={values.every(x => x !== null)}
+              isLoading={isSubmitting}
+              onClick={() => onSubmit(values)}
+            >
+              {isSubmitting ? <T>Submitting...</T> : <T>Submit answers</T>}
+            </Button>
+          )}
 
-          {submissionError &&
+          {submissionError && (
             <ErrorMessage>
               <T>
                 We could not submit the questionnaire at this time. Please wait
                 a minute or two and try submitting the form again.
               </T>
-            </ErrorMessage>}
+            </ErrorMessage>
+          )}
         </FormActions>
       </ContentWrap>
     )

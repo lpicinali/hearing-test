@@ -56,9 +56,9 @@ class StepProgress extends Component {
       <ProgressBar>
         {new Array(numSteps)
           .fill(null)
-          .map((endlessVoid, i) =>
+          .map((endlessVoid, i) => (
             <ProgressStep key={i} stepState={getStepState(i + 1, step)} />
-          )}
+          ))}
       </ProgressBar>
     )
   }

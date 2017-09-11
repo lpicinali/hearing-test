@@ -36,64 +36,71 @@ export default function App() {
         <Switch>
           <Route
             path={`(${values(AppUrl).join('|')})`}
-            render={() =>
+            render={() => (
               <div>
                 <Route
                   exact
                   path={AppUrl.HOME}
-                  children={({ match, ...rest }) =>
+                  children={({ match, ...rest }) => (
                     <RouteTransition
                       component={HomeView}
                       match={match}
                       {...rest}
-                    />}
+                    />
+                  )}
                 />
                 <Route
                   path={`${AppUrl.CALIBRATION}/:step?`}
-                  children={({ match, ...rest }) =>
+                  children={({ match, ...rest }) => (
                     <RouteTransition
                       component={CalibrationStep}
                       match={match}
                       {...rest}
-                    />}
+                    />
+                  )}
                 />
                 <Route
                   path={AppUrl.TEST}
-                  children={({ match, ...rest }) =>
+                  children={({ match, ...rest }) => (
                     <RouteTransition
                       component={TestStep}
                       match={match}
                       {...rest}
-                    />}
+                    />
+                  )}
                 />
                 <Route
                   path={AppUrl.RESULTS}
-                  children={({ match, ...rest }) =>
+                  children={({ match, ...rest }) => (
                     <RouteTransition
                       component={ResultsStep}
                       match={match}
                       {...rest}
-                    />}
+                    />
+                  )}
                 />
                 <Route
                   path={AppUrl.QUESTIONNAIRE}
-                  children={({ match, ...rest }) =>
+                  children={({ match, ...rest }) => (
                     <RouteTransition
                       component={QuestionnaireStep}
                       match={match}
                       {...rest}
-                    />}
+                    />
+                  )}
                 />
                 <Route
                   path={AppUrl.THANK_YOU}
-                  children={({ match, ...rest }) =>
+                  children={({ match, ...rest }) => (
                     <RouteTransition
                       component={EndView}
                       match={match}
                       {...rest}
-                    />}
+                    />
+                  )}
                 />
-              </div>}
+              </div>
+            )}
           />
           <Route render={() => <h1>404</h1>} />
         </Switch>

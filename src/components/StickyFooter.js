@@ -27,9 +27,7 @@ class StickyFooter extends Component {
 
     return (
       <StyledFooter>
-        <Container>
-          {children}
-        </Container>
+        <Container>{children}</Container>
       </StyledFooter>
     )
   }

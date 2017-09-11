@@ -47,11 +47,11 @@ class RouteTransition extends PureComponent {
 
     return (
       <Transition in={!!match} timeout={1000}>
-        {state =>
+        {state => (
           <FadeWrapper>
             <MarginBreaker />
             <FadeContent style={transitionStyles[state]}>
-              {(match || state !== 'exited') &&
+              {(match || state !== 'exited') && (
                 <Freezable
                   freeze={!match || state === 'exiting' || state === 'exited'}
                 >
@@ -59,9 +59,11 @@ class RouteTransition extends PureComponent {
                     match: match || {},
                     ...rest,
                   })}
-                </Freezable>}
+                </Freezable>
+              )}
             </FadeContent>
-          </FadeWrapper>}
+          </FadeWrapper>
+        )}
       </Transition>
     )
   }

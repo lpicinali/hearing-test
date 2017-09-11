@@ -41,11 +41,11 @@ class GradingRanking extends Component {
           <Col size={3 / 10} />
           <Col size={4 / 10}>
             <RankingRow>
-              {range(0, numGrades).map(i =>
+              {range(0, numGrades).map(i => (
                 <RankingDigit key={i} numGrades={numGrades}>
                   {i + 1}
                 </RankingDigit>
-              )}
+              ))}
             </RankingRow>
           </Col>
           <Col size={3 / 10} />

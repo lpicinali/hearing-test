@@ -47,10 +47,7 @@ class LoadingProgress extends PureComponent {
 
     return (
       <ProgressWrapper>
-        {label &&
-          <ProgressLabel>
-            {label}
-          </ProgressLabel>}
+        {label && <ProgressLabel>{label}</ProgressLabel>}
 
         <ProgressBar>
           <ProgressBarValue style={{ width: `${progress * 100}%` }} />

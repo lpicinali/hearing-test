@@ -119,9 +119,7 @@ class EarTestContainer extends Component {
 
     return (
       <div className="EarTestContainer">
-        <H3>
-          {ear === Ear.LEFT ? <T>Left ear</T> : <T>Right ear</T>}
-        </H3>
+        <H3>{ear === Ear.LEFT ? <T>Left ear</T> : <T>Right ear</T>}</H3>
         <StepProgressSummary>
           <T
             message="Step {{ step }} of {{ numSteps }}"

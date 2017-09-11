@@ -72,14 +72,16 @@ class AudioLibraryProvider extends PureComponent {
     const { files, children } = this.props
     const { numLoaded, sourceBuffers } = this.state
 
-    return sourceBuffers.length > 0
-      ? Children.only(children)
-      : <LoadingProgressWrapper>
-          <LoadingProgress
-            label="Loading audio files..."
-            progress={numLoaded / files.length}
-          />
-        </LoadingProgressWrapper>
+    return sourceBuffers.length > 0 ? (
+      Children.only(children)
+    ) : (
+      <LoadingProgressWrapper>
+        <LoadingProgress
+          label="Loading audio files..."
+          progress={numLoaded / files.length}
+        />
+      </LoadingProgressWrapper>
+    )
   }
 }
 

@@ -40,23 +40,25 @@ class TestStep extends Component {
           <Route
             exact
             path={TestUrl.LEFT_EAR}
-            render={() =>
+            render={() => (
               <div>
                 <EarTestContainer
                   ear={Ear.LEFT}
                   onFinish={() => history.push(TestUrl.RIGHT_EAR)}
                 />
-              </div>}
+              </div>
+            )}
           />
           <Route
             exact
             path={TestUrl.RIGHT_EAR}
-            render={() =>
+            render={() => (
               <RenderAfter delay={10}>
                 <div>
                   <EarTestContainer ear={Ear.RIGHT} onFinish={onFinishTests} />
                 </div>
-              </RenderAfter>}
+              </RenderAfter>
+            )}
           />
           <Redirect to={TestUrl.LEFT_EAR} />
         </Switch>

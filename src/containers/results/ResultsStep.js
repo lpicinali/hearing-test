@@ -20,9 +20,7 @@ const ResultsWrapper = styled.div`margin-bottom: 80px;`
 
 const ResultSection = styled.div`margin: 0 0 64px;`
 
-const EarLabel = styled(H5)`
-  margin-bottom: 0;
-`
+const EarLabel = styled(H5)`margin-bottom: 0;`
 
 const HearingLossCode = styled.div`
   color: ${WHITE};
@@ -30,9 +28,7 @@ const HearingLossCode = styled.div`
   font-size: 48px;
 `
 
-const StyledAudiogram = styled(Audiogram)`
-  margin-top: 16px;
-`
+const StyledAudiogram = styled(Audiogram)`margin-top: 16px;`
 
 const EmailFormWrap = styled.div`display: flex;`
 
@@ -118,31 +114,29 @@ class ResultsStep extends Component {
               <EarLabel>
                 <T>Left ear</T>
               </EarLabel>
-              {leftAudiogramData &&
+              {leftAudiogramData && (
                 <StyledAudiogram
                   ear={Ear.LEFT}
                   data={leftAudiogramData}
                   isInteractive={false}
-                />}
+                />
+              )}
 
-              <code>
-                {leftAudiogram.toJS().join(', ')}
-              </code>
+              <code>{leftAudiogram.toJS().join(', ')}</code>
             </Col>
             <Col size={1 / 2}>
               <EarLabel>
                 <T>Right ear</T>
               </EarLabel>
 
-              {rightAudiogram &&
+              {rightAudiogram && (
                 <StyledAudiogram
                   ear={Ear.RIGHT}
                   data={rightAudiogramData}
                   isInteractive={false}
-                />}
-              <code>
-                {rightAudiogram.toJS().join(', ')}
-              </code>
+                />
+              )}
+              <code>{rightAudiogram.toJS().join(', ')}</code>
             </Col>
           </Row>
         </ResultSection>
