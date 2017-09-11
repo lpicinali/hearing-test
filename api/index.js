@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
+const requestIp = require('request-ip')
 
 const middleware = require('./middleware.js')
 
@@ -54,11 +55,18 @@ api.post(
   '/questionnaire/answers',
   middleware.assertParams(['answers']),
   middleware.provideDb(),
+  requestIp.mw(),
   (req, res) => {
     const answers = req.body.answers
+
+    const meta = {
+      userIp: req.clientIp,
+      submittedAt: new Date(),
+    }
+
     req.db.connection
       .collection('answers')
-      .insertOne({ answers })
+      .insertOne({ answers, meta })
       .then(() => res.status(201).json({ status: 'ok' }))
       .catch(err => {
         console.error(err)

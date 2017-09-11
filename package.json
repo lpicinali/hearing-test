@@ -54,6 +54,7 @@
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-saga": "^0.15.6",
+    "request-ip": "^2.0.2",
     "stereo-panner-shim": "^0.1.4",
     "styled-components": "^2.1.2",
     "webpack": "^3.5.2"
