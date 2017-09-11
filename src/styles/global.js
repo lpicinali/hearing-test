@@ -39,6 +39,7 @@ body {
 
 body {
   background: #002750 radial-gradient(circle 800px, #1a5b9f, #002750) no-repeat center center;
+  background-attachment: fixed;
   font-family: ${FONT_NORMAL};
   color: ${SILVER};
   line-height: 1.5;
