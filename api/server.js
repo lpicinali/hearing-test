@@ -4,7 +4,7 @@ const express = require('express')
 const api = require('./index.js')
 
 const app = new express()
-app.set('port', process.env.PORT || 8624)
+app.set('port', process.env.PORT || 8264)
 
 // API
 app.use('/api', api)
