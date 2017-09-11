@@ -42,21 +42,21 @@ const provideDb = () => (req, res, next) => {
     })
 }
 
-const devOnly = () => (req, res, next) => {
-  if (env === 'DEVELOPMENT') {
-    next()
-  } else {
-    res.status(404).json({
+const authorize = () => (req, res, next) => {
+  if (req.headers.authorization !== 'Basic M2R0aTomKkAhKKMmZG1KbFowMDAwMA==') {
+    res.status(401).json({
       status: 'error',
       errors: [
         {
-          message: 'The requested resource does not exist',
+          message: 'Authorization needed',
         },
       ],
     })
+  } else {
+    next()
   }
 }
 
 module.exports.assertParams = assertParams
 module.exports.provideDb = provideDb
-module.exports.devOnly = devOnly
+module.exports.authorize = authorize

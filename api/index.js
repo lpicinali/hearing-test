@@ -19,10 +19,10 @@ api.get('/', (req, res) => {
   })
 })
 
-// Dev-only: Lists all answers
+// Lists all answers
 api.get(
   '/questionnaire/answers',
-  middleware.devOnly(),
+  middleware.authorize(),
   middleware.provideDb(),
   (req, res) => {
     req.db.connection
