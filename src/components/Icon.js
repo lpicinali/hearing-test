@@ -20,6 +20,12 @@ const BaseSvg = ({ color, className, children }) => (
   </svg>
 )
 
+BaseSvg.propTypes = {
+  color: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
+
 /**
  * Icon
  */
