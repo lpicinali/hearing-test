@@ -1,10 +1,10 @@
 function getEnv(envArg) {
-  let env = 'development'
+  let env = 'DEVELOPMENT'
 
-  if (envArg === 'stage') {
-    env = 'stage'
-  } else if (envArg === 'production') {
-    env = 'production'
+  if (envArg === 'STAGE') {
+    env = 'STAGE'
+  } else if (envArg === 'PRODUCTION') {
+    env = 'PRODUCTION'
   }
 
   return env

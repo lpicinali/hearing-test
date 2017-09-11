@@ -43,7 +43,7 @@ const provideDb = () => (req, res, next) => {
 }
 
 const devOnly = () => (req, res, next) => {
-  if (env === 'development') {
+  if (env === 'DEVELOPMENT') {
     next()
   } else {
     res.status(404).json({

@@ -1,13 +1,13 @@
 const env = require('./environment.js')
 
 const configs = {
-  development: {
+  DEVELOPMENT: {
     mongoUrl: 'mongodb://localhost/hearingtest',
   },
-  stage: {
+  STAGE: {
     mongoUrl: process.env.MONGODB_URI,
   },
-  production: {
+  PRODUCTION: {
     mongoUrl: process.env.MONGODB_URI,
   },
 }
