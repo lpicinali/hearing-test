@@ -59,8 +59,17 @@ const StyledCheckmark = styled.span`
 
 const StyledCheckboxLabel = styled.span`
   padding-left: 16px;
-  cursor: ${props =>
-    props.isEnabled && props.isTextClickable ? 'pointer' : 'default'};
+
+  ${props =>
+    props.isClickable &&
+    `
+    cursor: pointer;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+    `};
 `
 
 /**
@@ -118,12 +127,14 @@ class Checkbox extends Component {
           </svg>
         </StyledCheckmark>
 
-        {children &&
+        {children && (
           <StyledCheckboxLabel
+            isClickable={isEnabled && isTextClickable}
             onClick={isTextClickable ? this.handleClick : identity}
           >
             {children}
-          </StyledCheckboxLabel>}
+          </StyledCheckboxLabel>
+        )}
       </StyledCheckbox>
     )
   }
