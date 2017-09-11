@@ -1,4 +1,5 @@
 /* global AudioBuffer */
+import 'stereo-panner-shim'
 import { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { values } from 'lodash'
