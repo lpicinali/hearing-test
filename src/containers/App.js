@@ -27,7 +27,7 @@ const MainContent = styled.main`
   width: 96%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 40px 0 80px;
+  padding: 0 0 80px;
 `
 
 const createScrollToTopView = lifecycle({

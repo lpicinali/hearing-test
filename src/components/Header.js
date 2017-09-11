@@ -9,11 +9,6 @@ import { Col, Container, Row } from 'src/styles/grid.js'
 const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
   padding: 16px;
 `
 
