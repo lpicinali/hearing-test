@@ -4,6 +4,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const requestIp = require('request-ip')
 
+const disconnect = require('./db.js').disconnect
 const middleware = require('./middleware.js')
 
 const api = express.Router()
@@ -25,12 +26,12 @@ api.get(
   middleware.authorize(),
   middleware.provideDb(),
   (req, res) => {
-    req.db.connection
+    req.db
       .collection('answers')
       .find({})
       .toArray()
       .then(docs => {
-        req.db.disconnect()
+        disconnect(req.db)
         res.json({
           status: 'ok',
           data: docs,
@@ -64,10 +65,13 @@ api.post(
       submittedAt: new Date(),
     }
 
-    req.db.connection
+    req.db
       .collection('answers')
       .insertOne({ answers, meta })
-      .then(() => res.status(201).json({ status: 'ok' }))
+      .then(() => {
+        disconnect(req.db)
+        res.status(201).json({ status: 'ok' })
+      })
       .catch(err => {
         console.error(err)
         res.status(500).json({

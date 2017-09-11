@@ -23,10 +23,7 @@ const provideDb = () => (req, res, next) => {
   db
     .connect(configs.mongoUrl)
     .then(connection => {
-      req.db = {
-        connection,
-        disconnect: db.disconnect,
-      }
+      req.db = connection
       next()
     })
     .catch(err => {
