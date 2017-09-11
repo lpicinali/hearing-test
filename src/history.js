@@ -1,3 +1,11 @@
-import { createBrowserHistory } from 'history'
+import { createBrowserHistory, createMemoryHistory } from 'history'
 
-export default createBrowserHistory()
+import { AppEnvironment } from 'src/constants.js'
+import environment from 'src/environment.js'
+
+const history =
+  environment === AppEnvironment.DEVELOPMENT
+    ? createBrowserHistory()
+    : createMemoryHistory()
+
+export default history
