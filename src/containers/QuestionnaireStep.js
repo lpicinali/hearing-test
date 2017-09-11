@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import { T, withTranslators } from 'lioness'
 import styled from 'styled-components'
 import { compose, withState, withHandlers } from 'recompose'
+import { map } from 'lodash'
 
 import { setQuestionnaireAnswer, submitQuestionnaire } from 'src/actions.js'
+import { QuestionnaireField } from 'src/constants.js'
+import { mayOutputDebugInfo } from 'src/environment.js'
 import Button from 'src/components/Button.js'
 import GradingField from 'src/components/GradingField.js'
 import GradingRanking from 'src/components/GradingRanking.js'
 import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
-
-import { QuestionnaireField } from 'src/constants.js'
 import { GRAY, RED, WHITE } from 'src/styles/colors.js'
 import { H2, P } from 'src/styles/elements.js'
 
@@ -381,6 +382,14 @@ class QuestionnaireStep extends PureComponent {
           maxLabel={t('extremely likely')}
         />
         <QuestionnaireSectionSeparator />
+        {mayOutputDebugInfo() && (
+          <button
+            onClick={() =>
+              map(QuestionnaireField, field => onValueChange(field, 1))}
+          >
+            Fill all
+          </button>
+        )}
         <FormActions>
           {hasSubmitted === true ? (
             <T>Many thanks for your time completing this questionnaire.</T>
