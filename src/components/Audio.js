@@ -75,7 +75,7 @@ class Audio extends PureComponent {
   }
 
   updateAudio() {
-    const { ear, volume } = this.props
+    const { audioContext, ear, volume } = this.props
 
     let pan = 0
     if (ear === Ear.LEFT) {
@@ -84,8 +84,14 @@ class Audio extends PureComponent {
       pan = 1
     }
 
-    this.volume.gain.value = decibelsToGain(volume)
-    this.panner.pan.value = pan
+    // Ramping to 0 throws an error
+    const toGain = decibelsToGain(volume) + 0.0001
+    const toPan = pan + (pan > 0 ? -0.0001 : 0.0001)
+
+    const endTime = audioContext.currentTime + 0.1
+
+    this.volume.gain.linearRampToValueAtTime(toGain, endTime)
+    this.panner.pan.linearRampToValueAtTime(toPan, endTime)
   }
 
   render() {
