@@ -93,7 +93,7 @@ api.post(
   '/email-results',
   middleware.assertParams(['audiograms', 'codes', 'recipient']),
   (req, res) => {
-    const from = 'office@alexanderwallin.com'
+    const from = 'info@3d-tune-in.eu'
     const to = req.body.recipient
     const subject = 'Your 3D Tune-In Hearing Test results'
 
