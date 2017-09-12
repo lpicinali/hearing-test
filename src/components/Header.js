@@ -2,7 +2,7 @@ import React from 'react'
 import { T } from 'lioness'
 import styled from 'styled-components'
 
-import LocalePicker from 'src/containers/LocalePicker.js'
+// import LocalePicker from 'src/containers/LocalePicker.js'
 import { WHITE } from 'src/styles/colors.js'
 import { Col, Container, Row } from 'src/styles/grid.js'
 
@@ -12,7 +12,10 @@ const StyledHeader = styled.header`
   padding: 16px;
 `
 
-const Logo = Col.extend`vertical-align: middle;`
+const Logo = Col.extend`
+  text-align: center;
+  vertical-align: middle;
+`
 const LogoImage = styled.img`vertical-align: middle;`
 const LogoText = styled.span`
   display: inline-block;
@@ -34,9 +37,9 @@ export default function Header() {
             </LogoText>
           </Logo>
 
-          <Col>
+          {/* <Col>
             <LocalePicker />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </StyledHeader>
