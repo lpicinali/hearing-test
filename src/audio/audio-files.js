@@ -1,4 +1,7 @@
-export default [
+import { TestFrequencies } from 'src/constants.js'
+import extent from 'src/extent.js'
+
+const allFiles = [
   { name: '125', url: '/audio/125Hz.wav' },
   { name: '250', url: '/audio/250Hz.wav' },
   { name: '500', url: '/audio/500Hz.wav' },
@@ -8,3 +11,7 @@ export default [
   { name: '8000', url: '/audio/8000Hz.wav' },
   { name: 'guitar', url: '/audio/music.mp3' },
 ]
+
+export default allFiles.filter(
+  x => x.name === 'guitar' || TestFrequencies[extent].includes(x.name)
+)
