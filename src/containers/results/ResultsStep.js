@@ -94,38 +94,39 @@ class ResultsStep extends Component {
           />
         </P>
 
-        {}
-        <ResultSection>
-          <H3>
-            <T>Hearing loss severity score</T>
-          </H3>
-          <P>
-            <T>
-              You can use these codes to automatically calibrate any of the 3D
-              Tune-In applications, so make a note of them.
-            </T>
-          </P>
+        {configs.HAS_CODES && (
+          <ResultSection>
+            <H3>
+              <T>Hearing loss severity score</T>
+            </H3>
+            <P>
+              <T>
+                You can use these codes to automatically calibrate any of the 3D
+                Tune-In applications, so make a note of them.
+              </T>
+            </P>
 
-          <Row>
-            <Col size={1 / 2}>
-              <EarLabel>
-                <T>Left ear</T>
-              </EarLabel>
-              <HearingLossCode>
-                {results.getIn(['codes', Ear.LEFT])}
-              </HearingLossCode>
-            </Col>
+            <Row>
+              <Col size={1 / 2}>
+                <EarLabel>
+                  <T>Left ear</T>
+                </EarLabel>
+                <HearingLossCode>
+                  {results.getIn(['codes', Ear.LEFT])}
+                </HearingLossCode>
+              </Col>
 
-            <Col size={1 / 2}>
-              <EarLabel>
-                <T>Right ear</T>
-              </EarLabel>
-              <HearingLossCode>
-                {results.getIn(['codes', Ear.RIGHT])}
-              </HearingLossCode>
-            </Col>
-          </Row>
-        </ResultSection>
+              <Col size={1 / 2}>
+                <EarLabel>
+                  <T>Right ear</T>
+                </EarLabel>
+                <HearingLossCode>
+                  {results.getIn(['codes', Ear.RIGHT])}
+                </HearingLossCode>
+              </Col>
+            </Row>
+          </ResultSection>
+        )}
 
         <ResultSection>
           <H3>
