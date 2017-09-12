@@ -12,9 +12,10 @@ import {
   Ear,
   FrequencyStartVolume,
   TestDirection,
-  TEST_FREQUENCIES,
+  TestFrequencies,
 } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
+import extent from 'src/extent.js'
 import Audio from 'src/components/Audio.js'
 import Button, { ButtonStyle } from 'src/components/Button.js'
 import Icon from 'src/components/Icon.js'
@@ -23,6 +24,8 @@ import { BLACK, GRAY, WHITE } from 'src/styles/colors.js'
 import { H3, H4, P } from 'src/styles/elements.js'
 import { Col, Row, StatefulCol } from 'src/styles/grid.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
+
+const TEST_FREQUENCIES = TestFrequencies[extent]
 
 const StepProgressSummary = styled.div`
   margin: 8px 0;
@@ -162,10 +165,13 @@ class EarTestContainer extends Component {
           <T
             message="Step {{ step }} of {{ numSteps }}"
             step={currentStep}
-            numSteps={14}
+            numSteps={TEST_FREQUENCIES.length * 2}
           />
         </StepProgressSummary>
-        <StepProgress numSteps={14} step={currentStep} />
+        <StepProgress
+          numSteps={TEST_FREQUENCIES.length * 2}
+          step={currentStep}
+        />
         <Row>
           <StatefulCol size={1 / 2} isActive={direction === TestDirection.UP}>
             <H4>

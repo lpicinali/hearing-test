@@ -2,6 +2,8 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
 
+import { TestFrequencies } from 'src/constants.js'
+import extent from 'src/extent.js'
 import history from 'src/history.js'
 import store from 'src/store.js'
 import audioContext from 'src/audio/audioContext.js'
@@ -17,7 +19,11 @@ export default function AppContainer() {
     <Provider store={store}>
       <ConnectedLionessProvider messages={messages} debug={false}>
         <AudioContextProvider audioContext={audioContext}>
-          <AudioLibraryProvider files={audioFiles}>
+          <AudioLibraryProvider
+            files={audioFiles.filter(x =>
+              TestFrequencies[extent].includes(x.name)
+            )}
+          >
             <Router history={history}>
               <App />
             </Router>

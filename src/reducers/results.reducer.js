@@ -1,11 +1,12 @@
 import { fromJS } from 'immutable'
 
-import { ActionType, Ear } from 'src/constants.js'
+import { ActionType, Ear, TestFrequencies } from 'src/constants.js'
+import extent from 'src/extent.js'
 
 const initialState = fromJS({
   audiograms: {
-    [Ear.LEFT]: [0, 18, 31.5, 27.5, 16, 23, 29.5],
-    [Ear.RIGHT]: [0, 18, 31.5, 27.5, 16, 23, 29.5],
+    [Ear.LEFT]: TestFrequencies[extent].map(() => 0),
+    [Ear.RIGHT]: TestFrequencies[extent].map(() => 0),
   },
   codes: {
     [Ear.LEFT]: null,

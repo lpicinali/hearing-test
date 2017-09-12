@@ -9,8 +9,9 @@ import { Map } from 'immutable'
 import { autobind } from 'core-decorators'
 
 import { emailResults } from 'src/actions.js'
-import { AppUrl, Ear, TEST_FREQUENCIES } from 'src/constants.js'
+import { AppUrl, Ear, TestFrequencies } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
+import extent from 'src/extent.js'
 import appHasQuestionnaire from 'src/questionnaire.js'
 import Audiogram from 'src/components/Audiogram.js'
 import Button, { LinkButton } from 'src/components/Button.js'
@@ -20,6 +21,8 @@ import { WHITE } from 'src/styles/colors.js'
 import { A, H2, H3, H5, P, TextInput } from 'src/styles/elements.js'
 import { Col, Row } from 'src/styles/grid.js'
 import { FONT_MONO } from 'src/styles/type.js'
+
+const TEST_FREQUENCIES = TestFrequencies[extent]
 
 const ResultsWrapper = styled.div`margin-bottom: 80px;`
 

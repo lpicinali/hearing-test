@@ -95,12 +95,12 @@ export const TestDirection = {
   DOWN: 'DOWN',
 }
 
-export const TEST_FREQUENCIES = [
-  '125',
-  '250',
-  '500',
-  '1000',
-  '2000',
-  '4000',
-  '8000',
-]
+export const TestExtent = {
+  TRIMMED: 'TRIMMED',
+  NORMAL: 'NORMAL',
+}
+
+export const TestFrequencies = {
+  [TestExtent.TRIMMED]: ['125', '500', '2000'],
+  [TestExtent.NORMAL]: ['125', '250', '500', '1000', '2000', '4000', '8000'],
+}

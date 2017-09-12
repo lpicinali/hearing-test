@@ -4,8 +4,13 @@ import IPropTypes from 'immutable-props'
 import { last, size, values } from 'lodash'
 import { fromJS, Map, List } from 'immutable'
 
-import { Ear, TEST_FREQUENCIES } from 'src/constants.js'
+import { Ear, TestFrequencies } from 'src/constants.js'
+import extent from 'src/extent.js'
 import { BLACK, BLUE, DARK_BLUE, GRAY, RED, SILVER } from 'src/styles/colors.js'
+
+const TEST_FREQUENCIES = TestFrequencies[extent]
+
+console.log({ TEST_FREQUENCIES })
 
 const AudiogramFrequencies = [...TEST_FREQUENCIES]
 const AudiogramFrequencyValues = [

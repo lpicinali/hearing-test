@@ -5,8 +5,11 @@ import {
   Ear,
   FrequencyStartVolume,
   TestDirection,
-  TEST_FREQUENCIES,
+  TestFrequencies,
 } from 'src/constants.js'
+import extent from 'src/extent.js'
+
+const TEST_FREQUENCIES = TestFrequencies[extent]
 
 const earFrequencyTestValue = TEST_FREQUENCIES.reduce(
   (aggr, frequency) => ({
