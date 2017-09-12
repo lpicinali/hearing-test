@@ -1,6 +1,12 @@
 import { all, call, put, select, take } from 'redux-saga/effects'
 
-import { setResultAudiogram, setResultCode } from 'src/actions.js'
+import {
+  emailResultsError,
+  emailResultsSuccess,
+  setResultAudiogram,
+  setResultCode,
+} from 'src/actions.js'
+import { emailResults } from 'src/api.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import history from 'src/history.js'
 import {
@@ -46,6 +52,28 @@ function* calculateAudiograms() {
   }
 }
 
+function* doSendEmails() {
+  while (true) {
+    const { payload } = yield take(ActionType.EMAIL_RESULTS)
+
+    const { results, recipient } = payload
+    const audiograms = results.get('audiograms').toJS()
+    const codes = results.get('codes').toJS()
+
+    const { errors } = yield call(emailResults, {
+      audiograms,
+      codes,
+      recipient,
+    })
+
+    if (errors === undefined) {
+      yield put(emailResultsSuccess())
+    } else {
+      yield put(emailResultsError(errors[0]))
+    }
+  }
+}
+
 export default function* resultsSagas() {
-  yield all([calculateAudiograms()])
+  yield all([calculateAudiograms(), doSendEmails()])
 }

@@ -6,7 +6,9 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { zip } from 'lodash'
 import { Map } from 'immutable'
+import { autobind } from 'core-decorators'
 
+import { emailResults } from 'src/actions.js'
 import { AppUrl, Ear, TEST_FREQUENCIES } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import appHasQuestionnaire from 'src/questionnaire.js'
@@ -47,10 +49,22 @@ class ResultsStep extends Component {
   static propTypes = {
     results: IPropTypes.Map.isRequired,
     t: PropTypes.func.isRequired,
+    onSendResults: PropTypes.func.isRequired,
+    isSending: PropTypes.bool.isRequired,
+  }
+
+  state = {
+    recipient: '',
+  }
+
+  @autobind
+  handleEmailChange(evt) {
+    this.setState({ recipient: evt.target.value })
   }
 
   render() {
-    const { results, t } = this.props
+    const { results, t, onSendResults, isSending } = this.props
+    const { recipient } = this.state
 
     const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
     const rightAudiogram = results.getIn(['audiograms', Ear.RIGHT])
@@ -178,9 +192,22 @@ class ResultsStep extends Component {
 
         <StickyFooter>
           <EmailFormWrap>
-            <EmailInput type="email" placeholder={t('name@example.com')} />
-            <Button onClick={() => console.log('send email')}>
-              <T>Email me the results</T>
+            <EmailInput
+              type="email"
+              placeholder={t('name@example.com')}
+              value={recipient}
+              onChange={this.handleEmailChange}
+              disabled={isSending}
+            />
+            <Button
+              isLoading={isSending}
+              onClick={() => onSendResults(recipient, results)}
+            >
+              {isSending === true ? (
+                <T>Emailing results...</T>
+              ) : (
+                <T>Email me the results</T>
+              )}
             </Button>
           </EmailFormWrap>
         </StickyFooter>
@@ -189,6 +216,13 @@ class ResultsStep extends Component {
   }
 }
 
-export default connect(state => ({
-  results: state.get('results'),
-}))(withTranslators(ResultsStep))
+export default connect(
+  state => ({
+    results: state.get('results'),
+    isSending: state.getIn(['results', 'isSending']),
+  }),
+  dispatch => ({
+    onSendResults: (recipient, results) =>
+      dispatch(emailResults({ recipient, results })),
+  })
+)(withTranslators(ResultsStep))

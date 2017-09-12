@@ -29,6 +29,20 @@ export const setResultCode = (ear, code) => ({
   payload: { ear, code },
 })
 
+export const emailResults = ({ recipient, results }) => ({
+  type: ActionType.EMAIL_RESULTS,
+  payload: { recipient, results },
+})
+
+export const emailResultsSuccess = () => ({
+  type: ActionType.EMAIL_RESULTS_SUCCESS,
+})
+
+export const emailResultsError = error => ({
+  type: ActionType.EMAIL_RESULTS_ERROR,
+  error,
+})
+
 export const setQuestionnaireAnswer = (name, value) => ({
   type: ActionType.SET_QUESTIONNAIRE_ANSWER,
   payload: { name, value },
