@@ -10,4 +10,7 @@ module.exports = {
   funcArgumentsMap: {
     t: ['msgid'],
   },
+  trim: true,
+  trimLines: true,
+  trimNewlines: true,
 }
