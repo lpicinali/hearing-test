@@ -65,7 +65,16 @@ class AudioLibraryProvider extends PureComponent {
     Promise.all(
       files.map(({ name, url }) =>
         fetchAudioBuffer(url)
-          .then(buffer => audioContext.decodeAudioData(buffer))
+          .then(
+            buffer =>
+              new Promise((resolve, reject) => {
+                try {
+                  audioContext.decodeAudioData(buffer, data => resolve(data))
+                } catch (err) {
+                  reject(err)
+                }
+              })
+          )
           .then(audioBuffer => {
             this.setState(() => ({ numLoaded: this.state.numLoaded + 1 }))
             return audioBuffer
