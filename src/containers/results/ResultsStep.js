@@ -42,6 +42,8 @@ const EmailInput = styled(TextInput)`
   margin-right: 20px;
 `
 
+const QuestionnaireLinkWrap = styled.div`text-align: center;`
+
 /**
  * Results Step
  */
@@ -168,7 +170,7 @@ class ResultsStep extends Component {
           </Row>
         </ResultSection>
 
-        {appHasQuestionnaire() && (
+        {/* appHasQuestionnaire() && (
           <ResultSection>
             <QuestionnaireSectionSeparator />
             <Row>
@@ -188,28 +190,36 @@ class ResultsStep extends Component {
               </Col>
             </Row>
           </ResultSection>
-        )}
+        ) */}
 
         <StickyFooter>
-          <EmailFormWrap>
-            <EmailInput
-              type="email"
-              placeholder={t('name@example.com')}
-              value={recipient}
-              onChange={this.handleEmailChange}
-              disabled={isSending}
-            />
-            <Button
-              isLoading={isSending}
-              onClick={() => onSendResults(recipient, results)}
-            >
-              {isSending === true ? (
-                <T>Emailing results...</T>
-              ) : (
-                <T>Email me the results</T>
-              )}
-            </Button>
-          </EmailFormWrap>
+          {appHasQuestionnaire() ? (
+            <QuestionnaireLinkWrap>
+              <LinkButton to={AppUrl.QUESTIONNAIRE}>
+                <T>Take the questionnaire</T>
+              </LinkButton>
+            </QuestionnaireLinkWrap>
+          ) : (
+            <EmailFormWrap>
+              <EmailInput
+                type="email"
+                placeholder={t('name@example.com')}
+                value={recipient}
+                onChange={this.handleEmailChange}
+                disabled={isSending}
+              />
+              <Button
+                isLoading={isSending}
+                onClick={() => onSendResults(recipient, results)}
+              >
+                {isSending === true ? (
+                  <T>Emailing results...</T>
+                ) : (
+                  <T>Email me the results</T>
+                )}
+              </Button>
+            </EmailFormWrap>
+          )}
         </StickyFooter>
       </ResultsWrapper>
     )
