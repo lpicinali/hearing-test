@@ -13,6 +13,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 // API
 app.use('/api', api)
 
+// PDF download
+app.get('/results/download', (req, res) => {
+  res.json({ status: 'ok' })
+})
+
 // Web app
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))
