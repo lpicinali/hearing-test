@@ -3,9 +3,11 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 const requestIp = require('request-ip')
+const _ = require('lodash')
 
 const disconnect = require('./db.js').disconnect
 const middleware = require('./middleware.js')
+const sendEmail = require('./sendEmail.js')
 
 const api = express.Router()
 
@@ -79,6 +81,61 @@ api.post(
           errors: [
             {
               message: 'Something went wrong',
+            },
+          ],
+        })
+      })
+  }
+)
+
+// Send results in an email
+api.post(
+  '/email-results',
+  middleware.assertParams(['audiograms', 'codes', 'recipient']),
+  (req, res) => {
+    const from = 'office@alexanderwallin.com'
+    const to = req.body.recipient
+    const subject = 'Your 3D Tune-In Hearing Test results'
+
+    const frequencies = ['125', '250', '500', '1000', '2000', '4000', '8000']
+
+    const text = `
+Thanks for taking the 3D Tune-In Hearing Test! Here are your results.
+
+Hearing loss severity score:
+
+Left ear: ${req.body.codes.LEFT}
+Right ear: ${req.body.codes.RIGHT}
+
+Audiograms:
+
+Left ear: ${_.map(
+      req.body.audiograms.LEFT,
+      (value, i) => `${frequencies[i]} Hz: ${value} dB`
+    ).join(', ')}
+Right ear: ${_.map(
+      req.body.audiograms.RIGHT,
+      (value, i) => `${frequencies[i]} Hz: ${value} dB`
+    ).join(', ')}
+
+For more information about the 3D Tune-In project and apps, visit our website at http://3d-tune-in.eu/.
+`
+
+    const html = text.replace(/\n/g, '<br />')
+
+    sendEmail({ from, to, subject, text, html })
+      .then(() =>
+        res.json({
+          status: 'ok',
+        })
+      )
+      .catch(err => {
+        console.error(err)
+        res.status(500).json({
+          status: 'error',
+          errors: [
+            {
+              message: 'The email could not be sent at this moment',
             },
           ],
         })

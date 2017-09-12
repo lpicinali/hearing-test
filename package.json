@@ -41,6 +41,7 @@
     "lodash-webpack-plugin": "^0.11.4",
     "mongodb": "^2.2.31",
     "morgan": "^1.8.2",
+    "nodemailer": "^4.1.0",
     "prop-types": "^15.5.10",
     "qs": "^6.5.1",
     "react": "^15.6.1",
