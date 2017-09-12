@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable'
 
+import configs from 'src/configs.js'
 import {
   ActionType,
   Ear,
@@ -7,9 +8,8 @@ import {
   TestDirection,
   TestFrequencies,
 } from 'src/constants.js'
-import extent from 'src/extent.js'
 
-const TEST_FREQUENCIES = TestFrequencies[extent]
+const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
 const earFrequencyTestValue = TEST_FREQUENCIES.reduce(
   (aggr, frequency) => ({

@@ -1,5 +1,5 @@
+import configs from 'src/configs.js'
 import { TestFrequencies } from 'src/constants.js'
-import extent from 'src/extent.js'
 
 const allFiles = [
   { name: '125', url: '/audio/125Hz.wav' },
@@ -13,5 +13,5 @@ const allFiles = [
 ]
 
 export default allFiles.filter(
-  x => x.name === 'guitar' || TestFrequencies[extent].includes(x.name)
+  x => x.name === 'guitar' || TestFrequencies[configs.EXTENT].includes(x.name)
 )

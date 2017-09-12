@@ -1,10 +1,10 @@
 /* global XMLHttpRequest */
 import { map, max, mean, sortBy, values } from 'lodash'
 
+import configs from 'src/configs.js'
 import { SILENCE, TestFrequencies } from 'src/constants.js'
-import extent from 'src/extent.js'
 
-const TEST_FREQUENCIES = TestFrequencies[extent]
+const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
 const SPLtoHLMap = {
   '125': 45,

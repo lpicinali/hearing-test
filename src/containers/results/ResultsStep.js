@@ -9,20 +9,19 @@ import { Map } from 'immutable'
 import { autobind } from 'core-decorators'
 
 import { emailResults } from 'src/actions.js'
+import configs from 'src/configs.js'
 import { AppUrl, Ear, TestFrequencies } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
-import extent from 'src/extent.js'
-import appHasQuestionnaire from 'src/questionnaire.js'
 import Audiogram from 'src/components/Audiogram.js'
 import Button, { LinkButton } from 'src/components/Button.js'
-import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
+// import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
 import StickyFooter from 'src/components/StickyFooter.js'
 import { WHITE } from 'src/styles/colors.js'
 import { A, H2, H3, H5, P, TextInput } from 'src/styles/elements.js'
 import { Col, Row } from 'src/styles/grid.js'
 import { FONT_MONO } from 'src/styles/type.js'
 
-const TEST_FREQUENCIES = TestFrequencies[extent]
+const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
 const ResultsWrapper = styled.div`margin-bottom: 80px;`
 
@@ -95,6 +94,7 @@ class ResultsStep extends Component {
           />
         </P>
 
+        {}
         <ResultSection>
           <H3>
             <T>Hearing loss severity score</T>
@@ -173,7 +173,7 @@ class ResultsStep extends Component {
           </Row>
         </ResultSection>
 
-        {/* appHasQuestionnaire() && (
+        {/* configs.HAS_QUESTIONNAIRE && (
           <ResultSection>
             <QuestionnaireSectionSeparator />
             <Row>
@@ -196,7 +196,7 @@ class ResultsStep extends Component {
         ) */}
 
         <StickyFooter>
-          {appHasQuestionnaire() ? (
+          {configs.HAS_QUESTIONNAIRE ? (
             <QuestionnaireLinkWrap>
               <LinkButton to={AppUrl.QUESTIONNAIRE}>
                 <T>Take the questionnaire</T>

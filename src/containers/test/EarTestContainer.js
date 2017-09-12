@@ -8,6 +8,7 @@ import { T } from 'lioness'
 import styled from 'styled-components'
 
 import { setFrequencyLevel } from 'src/actions.js'
+import configs from 'src/configs.js'
 import {
   Ear,
   FrequencyStartVolume,
@@ -15,7 +16,6 @@ import {
   TestFrequencies,
 } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
-import extent from 'src/extent.js'
 import Audio from 'src/components/Audio.js'
 import Button, { ButtonStyle } from 'src/components/Button.js'
 import Icon from 'src/components/Icon.js'
@@ -25,7 +25,7 @@ import { H3, H4, P } from 'src/styles/elements.js'
 import { Col, Row, StatefulCol } from 'src/styles/grid.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
 
-const TEST_FREQUENCIES = TestFrequencies[extent]
+const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
 const StepProgressSummary = styled.div`
   margin: 8px 0;
