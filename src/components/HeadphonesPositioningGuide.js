@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import { Ear } from 'src/constants.js'
 import Audio from 'src/components/Audio.js'
@@ -14,6 +15,8 @@ function getNextEar(currentEar) {
 
   return Ear.LEFT
 }
+
+const EmbeddedHeadphones = styled(Headphones)`margin: 24px 0;`
 
 /**
  * Headphones Positiong Guide
@@ -64,7 +67,7 @@ class HeadphonesPositiongGuide extends Component {
 
     return (
       <div className="HeadphonesPositiongGuide">
-        <Headphones activeEar={currentEar} />
+        <EmbeddedHeadphones activeEar={currentEar} />
 
         {isActive === true && (
           <Audio ear={currentEar} name="guitar" volume={-18} />

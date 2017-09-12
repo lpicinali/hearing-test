@@ -4,13 +4,13 @@ import { values } from 'lodash'
 import styled from 'styled-components'
 
 import { Ear } from 'src/constants.js'
-import { GRAY, YELLOW, WHITE } from 'src/styles/colors.js'
+import { DARK_BLUE, GRAY, YELLOW } from 'src/styles/colors.js'
 
 function getColorForEar(ear, activeEar) {
   if (activeEar === null || ear === activeEar) {
     return YELLOW
   }
-  return WHITE
+  return DARK_BLUE
 }
 
 const AnimatingPath = styled.path`
@@ -24,17 +24,19 @@ const AnimatingPath = styled.path`
 class Headphones extends Component {
   static propTypes = {
     activeEar: PropTypes.oneOf(values(Ear)),
+    className: PropTypes.string,
   }
 
   static defaultProps = {
     activeEar: null,
+    className: '',
   }
 
   render() {
-    const { activeEar } = this.props
+    const { activeEar, className } = this.props
 
     return (
-      <div className="Headphones">
+      <div className={className}>
         <svg width="90px" height="90px" viewBox="0 0 90 90">
           <path
             fill={GRAY}
