@@ -7,11 +7,13 @@ import {
   setResultCode,
 } from 'src/actions.js'
 import { emailResults } from 'src/api.js'
+import configs from 'src/configs.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import history from 'src/history.js'
 import {
   calculateAudiogramFromHearingTestResult,
   calculateHearingLossCodeFromHearingTestResult,
+  downloadAsFile,
 } from 'src/utils.js'
 
 function* calculateAudiograms() {
@@ -74,6 +76,33 @@ function* doSendEmails() {
   }
 }
 
+function* doResultDownloads() {
+  while (true) {
+    yield take(ActionType.DOWNLOAD_RESULTS)
+
+    const [questionnaire, results] = yield all([
+      select(state => state.getIn(['questionnaire', 'answers'])),
+      select(state => state.get('results')),
+    ])
+
+    const query = {
+      audiograms: results.get('audiograms').toJS(),
+    }
+    if (configs.HAS_CODES === true) {
+      query.codes = results.get('codes').toJS()
+    }
+    if (configs.HAS_QUESTIONNAIRE === true) {
+      query.questionnaire = questionnaire.toJS()
+    }
+
+    yield call(
+      downloadAsFile,
+      `Test\n\n${JSON.stringify(query, null, 2)}`,
+      'Hearing test results debug.txt'
+    )
+  }
+}
+
 export default function* resultsSagas() {
-  yield all([calculateAudiograms(), doSendEmails()])
+  yield all([calculateAudiograms(), doSendEmails(), doResultDownloads()])
 }

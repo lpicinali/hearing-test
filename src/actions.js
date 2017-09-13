@@ -43,6 +43,10 @@ export const emailResultsError = error => ({
   error,
 })
 
+export const downloadResults = () => ({
+  type: ActionType.DOWNLOAD_RESULTS,
+})
+
 export const setQuestionnaireAnswer = (name, value) => ({
   type: ActionType.SET_QUESTIONNAIRE_ANSWER,
   payload: { name, value },

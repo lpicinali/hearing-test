@@ -8,7 +8,7 @@ import { zip } from 'lodash'
 import { Map } from 'immutable'
 import { autobind } from 'core-decorators'
 
-import { emailResults } from 'src/actions.js'
+import { downloadResults } from 'src/actions.js'
 import configs from 'src/configs.js'
 import { AppUrl, Ear, TestFrequencies } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
@@ -17,7 +17,7 @@ import Button, { LinkButton } from 'src/components/Button.js'
 // import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
 import StickyFooter from 'src/components/StickyFooter.js'
 import { WHITE } from 'src/styles/colors.js'
-import { A, H2, H3, H5, P, TextInput } from 'src/styles/elements.js'
+import { A, H2, H3, H5, P } from 'src/styles/elements.js'
 import { Col, Row } from 'src/styles/grid.js'
 import { FONT_MONO } from 'src/styles/type.js'
 
@@ -37,14 +37,7 @@ const HearingLossCode = styled.div`
 
 const StyledAudiogram = styled(Audiogram)`margin-top: 16px;`
 
-const EmailFormWrap = styled.div`display: flex;`
-
-const EmailInput = styled(TextInput)`
-  flex-grow: 1;
-  margin-right: 20px;
-`
-
-const QuestionnaireLinkWrap = styled.div`text-align: center;`
+const ActionLinkWrap = styled.div`text-align: center;`
 
 /**
  * Results Step
@@ -53,8 +46,7 @@ class ResultsStep extends Component {
   static propTypes = {
     results: IPropTypes.Map.isRequired,
     t: PropTypes.func.isRequired,
-    onSendResults: PropTypes.func.isRequired,
-    isSending: PropTypes.bool.isRequired,
+    onDownloadResults: PropTypes.func.isRequired,
   }
 
   state = {
@@ -67,7 +59,7 @@ class ResultsStep extends Component {
   }
 
   render() {
-    const { results, t, onSendResults, isSending } = this.props
+    const { results, t, onDownloadResults } = this.props
     const { recipient } = this.state
 
     const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
@@ -174,56 +166,18 @@ class ResultsStep extends Component {
           </Row>
         </ResultSection>
 
-        {/* configs.HAS_QUESTIONNAIRE && (
-          <ResultSection>
-            <QuestionnaireSectionSeparator />
-            <Row>
-              <Col size={3 / 4}>
-                <H3>
-                  <T>Help us improve</T>
-                </H3>
-                <P>
-                  <T>
-                    We would like know about your experience taking this test.
-                    Please take a few minutes to complete our questionnaire.
-                  </T>
-                </P>
-                <LinkButton to={AppUrl.QUESTIONNAIRE}>
-                  <T>Take the questionnaire</T>
-                </LinkButton>
-              </Col>
-            </Row>
-          </ResultSection>
-        ) */}
-
         <StickyFooter>
-          {configs.HAS_QUESTIONNAIRE ? (
-            <QuestionnaireLinkWrap>
+          <ActionLinkWrap>
+            {configs.HAS_QUESTIONNAIRE ? (
               <LinkButton to={AppUrl.QUESTIONNAIRE}>
-                <T>Take the questionnaire</T>
+                <T>Download results & Take the questionnaire</T>
               </LinkButton>
-            </QuestionnaireLinkWrap>
-          ) : (
-            <EmailFormWrap>
-              <EmailInput
-                type="email"
-                placeholder={t('name@example.com')}
-                value={recipient}
-                onChange={this.handleEmailChange}
-                disabled={isSending}
-              />
-              <Button
-                isLoading={isSending}
-                onClick={() => onSendResults(recipient, results)}
-              >
-                {isSending === true ? (
-                  <T>Emailing results...</T>
-                ) : (
-                  <T>Email me the results</T>
-                )}
+            ) : (
+              <Button onClick={onDownloadResults}>
+                <T>Download results</T>
               </Button>
-            </EmailFormWrap>
-          )}
+            )}
+          </ActionLinkWrap>
         </StickyFooter>
       </ResultsWrapper>
     )
@@ -236,7 +190,6 @@ export default connect(
     isSending: state.getIn(['results', 'isSending']),
   }),
   dispatch => ({
-    onSendResults: (recipient, results) =>
-      dispatch(emailResults({ recipient, results })),
+    onDownloadResults: () => dispatch(downloadResults()),
   })
 )(withTranslators(ResultsStep))

@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { compose, withState, withHandlers } from 'recompose'
 import { map } from 'lodash'
 
-import { setQuestionnaireAnswer, submitQuestionnaire } from 'src/actions.js'
+import { downloadResults, setQuestionnaireAnswer } from 'src/actions.js'
 import { QuestionnaireField } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Button from 'src/components/Button.js'
@@ -60,11 +60,8 @@ const ErrorMessage = P.extend`
 class QuestionnaireStep extends PureComponent {
   static propTypes = {
     values: PropTypes.shape({}).isRequired,
-    isSubmitting: PropTypes.bool.isRequired,
-    hasSubmitted: PropTypes.bool.isRequired,
-    submissionError: PropTypes.instanceOf(Error),
     onValueChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
+    onDownloadResults: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   }
 
@@ -73,15 +70,7 @@ class QuestionnaireStep extends PureComponent {
   }
 
   render() {
-    const {
-      values,
-      isSubmitting,
-      hasSubmitted,
-      submissionError,
-      onValueChange,
-      onSubmit,
-      t,
-    } = this.props
+    const { values, onValueChange, onDownloadResults, t } = this.props
 
     return (
       <ContentWrap>
@@ -391,26 +380,12 @@ class QuestionnaireStep extends PureComponent {
           </button>
         )}
         <FormActions>
-          {hasSubmitted === true ? (
-            <T>Many thanks for your time completing this questionnaire.</T>
-          ) : (
-            <Button
-              isEnabled={values.every(x => x !== null)}
-              isLoading={isSubmitting}
-              onClick={() => onSubmit(values)}
-            >
-              {isSubmitting ? <T>Submitting...</T> : <T>Submit answers</T>}
-            </Button>
-          )}
-
-          {submissionError && (
-            <ErrorMessage>
-              <T>
-                We could not submit the questionnaire at this time. Please wait
-                a minute or two and try submitting the form again.
-              </T>
-            </ErrorMessage>
-          )}
+          <Button
+            isEnabled={values.every(x => x !== null)}
+            onClick={onDownloadResults}
+          >
+            <T>Download results & answers</T>
+          </Button>
         </FormActions>
       </ContentWrap>
     )
@@ -420,13 +395,10 @@ class QuestionnaireStep extends PureComponent {
 export default connect(
   state => ({
     values: state.getIn(['questionnaire', 'answers']),
-    isSubmitting: state.getIn(['questionnaire', 'isSubmitting']),
-    hasSubmitted: state.getIn(['questionnaire', 'hasSubmitted']),
-    submissionError: state.getIn(['questionnaire', 'error']),
   }),
   dispatch => ({
     onValueChange: (name, value) =>
       dispatch(setQuestionnaireAnswer(name, value)),
-    onSubmit: values => dispatch(submitQuestionnaire(values)),
+    onDownloadResults: () => dispatch(downloadResults()),
   })
 )(withTranslators(QuestionnaireStep))
