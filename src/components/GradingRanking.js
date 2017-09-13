@@ -26,20 +26,22 @@ const RankingDigit = styled.div`
 class GradingRanking extends Component {
   static propTypes = {
     numGrades: PropTypes.number.isRequired,
+    gradingWidth: PropTypes.oneOf(range(1, 10).map(x => x / 10)),
   }
 
   static defaultProps = {
     numGrades: 7,
+    gradingWidth: 4 / 10,
   }
 
   render() {
-    const { numGrades } = this.props
+    const { numGrades, gradingWidth } = this.props
 
     return (
       <RankingWrapper>
         <Row>
-          <Col size={3 / 10} />
-          <Col size={4 / 10}>
+          <Col size={(1 - gradingWidth) / 2} />
+          <Col size={gradingWidth}>
             <RankingRow>
               {range(0, numGrades).map(i => (
                 <RankingDigit key={i} numGrades={numGrades}>
@@ -48,7 +50,7 @@ class GradingRanking extends Component {
               ))}
             </RankingRow>
           </Col>
-          <Col size={3 / 10} />
+          <Col size={(1 - gradingWidth) / 2} />
         </Row>
       </RankingWrapper>
     )

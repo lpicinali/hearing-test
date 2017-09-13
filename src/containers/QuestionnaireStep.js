@@ -354,13 +354,15 @@ class QuestionnaireStep extends PureComponent {
             application to another adult with cystic fibrosis?
           </T>
         </P>
-        <GradingRanking />
+        <GradingRanking numGrades={10} gradingWidth={5 / 10} />
         <GradingField
+          numGrades={10}
           value={values.get(QuestionnaireField.RECOMMENDATION_LIKELIHOOD)}
           onChange={val =>
             onValueChange(QuestionnaireField.RECOMMENDATION_LIKELIHOOD, val)}
           minLabel={t('not at all likely')}
           maxLabel={t('extremely likely')}
+          gradingWidth={5 / 10}
         />
         <QuestionnaireSectionSeparator />
         {mayOutputDebugInfo() && (

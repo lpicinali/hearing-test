@@ -33,27 +33,36 @@ const FlexedCheckbox = styled(Checkbox)`
 class GradingField extends Component {
   static propTypes = {
     numGrades: PropTypes.number,
+    value: PropTypes.number,
     minLabel: PropTypes.string.isRequired,
     maxLabel: PropTypes.string.isRequired,
-    value: PropTypes.number,
+    gradingWidth: PropTypes.oneOf(range(1, 10).map(x => x / 10)),
     onChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     numGrades: 7,
+    gradingWidth: 4 / 10,
     value: null,
   }
 
   render() {
-    const { numGrades, onChange, minLabel, value, maxLabel } = this.props
+    const {
+      numGrades,
+      onChange,
+      minLabel,
+      gradingWidth,
+      value,
+      maxLabel,
+    } = this.props
 
     return (
       <FieldWrapper>
         <Row>
-          <Col size={3 / 10}>
+          <Col size={(1 - gradingWidth) / 2}>
             <SpectrumEndLabel isMin>{minLabel}</SpectrumEndLabel>
           </Col>
-          <Col size={4 / 10}>
+          <Col size={gradingWidth}>
             <CheckboxRow>
               {range(0, numGrades).map(i => (
                 <FlexedCheckbox
@@ -64,7 +73,7 @@ class GradingField extends Component {
               ))}
             </CheckboxRow>
           </Col>
-          <Col size={3 / 10}>
+          <Col size={(1 - gradingWidth) / 2}>
             <SpectrumEndLabel>{maxLabel}</SpectrumEndLabel>
           </Col>
         </Row>
