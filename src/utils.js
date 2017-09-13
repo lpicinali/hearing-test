@@ -49,7 +49,7 @@ export function decibelsToGain(value) {
     return 0
   }
 
-  return Math.round(Math.exp(value / 8.6858) * 10000) / 10000
+  return Math.exp(value / 8.6858)
 }
 
 function convertSPLtoHL(frequency, dbSPL) {

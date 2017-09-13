@@ -86,7 +86,7 @@ class Audio extends PureComponent {
     }
 
     // Ramping to 0 throws an error
-    const toGain = decibelsToGain(volume) + 0.0001
+    const toGain = decibelsToGain(volume) + 0.00000001
     const toPan = pan + (pan > 0 ? -0.0001 : 0.0001)
 
     const endTime = audioContext.currentTime + 0.1
