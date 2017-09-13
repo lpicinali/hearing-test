@@ -11,7 +11,7 @@ app.set('port', process.env.PORT || 8263)
 app.use(express.static(path.join(__dirname, 'public')))
 
 // API
-app.use('/api', api)
+// app.use('/api', api)
 
 // PDF download
 app.get('/results/download', (req, res) => {
