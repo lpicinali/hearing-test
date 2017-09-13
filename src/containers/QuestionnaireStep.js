@@ -13,7 +13,7 @@ import Button from 'src/components/Button.js'
 import GradingField from 'src/components/GradingField.js'
 import GradingRanking from 'src/components/GradingRanking.js'
 import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
-import { GRAY, RED, WHITE } from 'src/styles/colors.js'
+import { GRAY, WHITE } from 'src/styles/colors.js'
 import { H2, P } from 'src/styles/elements.js'
 
 const ContentWrap = styled.div`padding: 0 88px;`
@@ -44,14 +44,6 @@ const GradingQuestionLabel = styled.div`
 const FormActions = styled.div`
   margin: 40px 0;
   text-align: center;
-`
-
-const ErrorMessage = P.extend`
-  margin: 24px 0;
-  padding: 16px 24px;
-  border: 1px solid ${RED};
-  border-radius: 2px;
-  color: ${RED};
 `
 
 /**
