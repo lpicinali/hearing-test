@@ -20,7 +20,7 @@ import Audio from 'src/components/Audio.js'
 import Button, { ButtonStyle } from 'src/components/Button.js'
 import Icon from 'src/components/Icon.js'
 import StepProgress from 'src/components/StepProgress.js'
-import { BLACK, GRAY, WHITE } from 'src/styles/colors.js'
+import { BLACK, BLUE, GRAY, WHITE } from 'src/styles/colors.js'
 import { H3, H4, P } from 'src/styles/elements.js'
 import { Col, Row, StatefulCol } from 'src/styles/grid.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
@@ -40,6 +40,19 @@ const NarrowButton = styled(Button)`
   width: 100%;
   padding-left: 8px;
   padding-right: 8px;
+`
+
+const VolumeChangeButton = styled(NarrowButton)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const VolumeChangeIcon = styled(Icon)`
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  margin-left: -4px;
 `
 
 const ResetIcon = styled(Icon)`
@@ -188,7 +201,7 @@ class EarTestContainer extends Component {
             <ButtonGroup>
               <Row>
                 <Col size={1 / 2}>
-                  <NarrowButton
+                  <VolumeChangeButton
                     buttonStyle={ButtonStyle.FRIENDLY}
                     onClick={() =>
                       onVolumeChange(
@@ -198,8 +211,9 @@ class EarTestContainer extends Component {
                         clamp(currentVolume + 2, minVolume, 0)
                       )}
                   >
+                    <VolumeChangeIcon name="plus" color={BLUE} />{' '}
                     <T>Increase volume</T>
-                  </NarrowButton>
+                  </VolumeChangeButton>
                 </Col>
                 <Col size={1 / 2}>
                   <NarrowButton
@@ -239,7 +253,7 @@ class EarTestContainer extends Component {
             <ButtonGroup>
               <Row>
                 <Col size={1 / 2}>
-                  <NarrowButton
+                  <VolumeChangeButton
                     buttonStyle={ButtonStyle.FRIENDLY}
                     onClick={() =>
                       onVolumeChange(
@@ -249,8 +263,9 @@ class EarTestContainer extends Component {
                         clamp(currentVolume - 2, minVolume, 0)
                       )}
                   >
+                    <VolumeChangeIcon name="minus" color={BLUE} />{' '}
                     <T>Decrease volume</T>
-                  </NarrowButton>
+                  </VolumeChangeButton>
                 </Col>
                 <Col size={1 / 2}>
                   <NarrowButton
