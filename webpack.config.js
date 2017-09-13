@@ -33,6 +33,7 @@ module.exports = {
         APP_ENV: JSON.stringify(process.env.APP_ENV || 'development'),
         QUESTIONNAIRE: JSON.stringify(process.env.QUESTIONNAIRE || '0'),
         EXTENT: JSON.stringify(process.env.EXTENT || null),
+        CODES: JSON.stringify(process.env.CODES || '0'),
       },
     }),
   ],
