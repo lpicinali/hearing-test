@@ -42,7 +42,8 @@ const StyledButton = styled.button.attrs({
   line-height: 24px;
   text-align: center;
   text-decoration: none;
-  transition: all 0.15s;
+  transition-property: background-color, box-shadow, color;
+  transition-duration: 0.15s;
 
   &:hover {
     background-color: ${props => color(props.backgroundColor)(lightness(5))()};
@@ -52,6 +53,7 @@ const StyledButton = styled.button.attrs({
     background-color: ${props =>
       color(props.backgroundColor)(lightness(-10))()};
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    transform: translateY(1px);
   }
 
   ${props =>
