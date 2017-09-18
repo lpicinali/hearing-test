@@ -22,10 +22,10 @@ export const emailResults = ({ audiograms, codes, recipient }) =>
   }).then(res => res.json())
 
 export const fetchResultsPdf = ({ html }) =>
-  fetch(`${configs.apiUrl}/results/download?`, {
+  fetch(configs.pdfUrl, {
     method: 'POST',
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
     },
-    body: qs.stringify({ html }),
-  }).then(res => res.json())
+    body: qs.stringify({ text: html }),
+  }).then(res => res.blob())

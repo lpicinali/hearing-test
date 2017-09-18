@@ -4,8 +4,10 @@ import { Map } from 'immutable'
 import { map, zip } from 'lodash'
 
 import configs from 'src/configs.js'
-import { Ear, TEST_FREQUENCIES } from 'src/constants.js'
+import { Ear, TestFrequencies } from 'src/constants.js'
 import Audiogram from 'src/components/Audiogram.js'
+
+const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
 /**
  * Results Doc
@@ -31,6 +33,10 @@ class ResultsDoc extends PureComponent {
     const rightAudiogramData = new Map(
       zip(TEST_FREQUENCIES, audiograms[Ear.RIGHT])
     )
+
+    const audiogramRatio = 350 / 280
+    const audiogramWidth = 220
+    const audiogramHeight = audiogramWidth / audiogramRatio
 
     return (
       <div>
@@ -79,6 +85,8 @@ class ResultsDoc extends PureComponent {
             <Audiogram
               ear={Ear.LEFT}
               data={leftAudiogramData}
+              width={audiogramWidth}
+              height={audiogramHeight}
               isInteractive={false}
             />
           </div>
@@ -87,6 +95,8 @@ class ResultsDoc extends PureComponent {
             <Audiogram
               ear={Ear.RIGHT}
               data={rightAudiogramData}
+              width={audiogramWidth}
+              height={audiogramHeight}
               isInteractive={false}
             />
           </div>

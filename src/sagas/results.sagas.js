@@ -1,5 +1,6 @@
 /* global window */
 import { all, call, put, select, take } from 'redux-saga/effects'
+import tinytime from 'tinytime'
 
 import {
   emailResultsError,
@@ -16,6 +17,7 @@ import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
 import {
   calculateAudiogramFromHearingTestResult,
   calculateHearingLossCodeFromHearingTestResult,
+  downloadAsFile,
 } from 'src/utils.js'
 
 function* calculateAudiograms() {
@@ -100,12 +102,12 @@ function* doResultDownloads() {
     const html = yield call(renderResultsDocString, query)
     query.html = html
 
-    // const { data } = yield call(fetchResultsPdf, query)
-
-    // window.location.href = `${configs.apiUrl}/results/download?pdfId=${data.pdfId}`
-
-    const pdf = yield call(createPdf, html)
-    pdf.save('doc.pdf')
+    const pdfBlob = yield call(fetchResultsPdf, { html: query.html })
+    const dateSuffix = tinytime('{YYYY}{Mo}{DD}', { padMonth: true }).render(
+      new Date()
+    )
+    const pdfFilename = `3D Tune-In Hearing Test Results ${dateSuffix}.pdf`
+    yield call(downloadAsFile, pdfBlob, pdfFilename)
   }
 }
 

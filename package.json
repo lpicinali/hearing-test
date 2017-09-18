@@ -63,6 +63,7 @@
     "request-ip": "^2.0.2",
     "stereo-panner-shim": "^0.1.4",
     "styled-components": "^2.1.2",
+    "tinytime": "^0.2.6",
     "tmp": "0.0.33",
     "webpack": "^3.5.2"
   },
