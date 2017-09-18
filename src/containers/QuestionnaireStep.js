@@ -6,13 +6,14 @@ import styled from 'styled-components'
 import { compose, withState, withHandlers } from 'recompose'
 import { map } from 'lodash'
 
-import { downloadResults, setQuestionnaireAnswer } from 'src/actions.js'
+import { setQuestionnaireAnswer } from 'src/actions.js'
 import { QuestionnaireField } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Button from 'src/components/Button.js'
 import GradingField from 'src/components/GradingField.js'
 import GradingRanking from 'src/components/GradingRanking.js'
 import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
+import ResultsDownloadButton from 'src/containers/ResultsDownloadButton.js'
 import { GRAY, WHITE } from 'src/styles/colors.js'
 import { H2, P } from 'src/styles/elements.js'
 
@@ -53,7 +54,6 @@ class QuestionnaireStep extends PureComponent {
   static propTypes = {
     values: PropTypes.shape({}).isRequired,
     onValueChange: PropTypes.func.isRequired,
-    onDownloadResults: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired,
   }
 
@@ -62,7 +62,7 @@ class QuestionnaireStep extends PureComponent {
   }
 
   render() {
-    const { values, onValueChange, onDownloadResults, t } = this.props
+    const { values, onValueChange, t } = this.props
 
     return (
       <ContentWrap>
@@ -374,12 +374,9 @@ class QuestionnaireStep extends PureComponent {
           </button>
         )}
         <FormActions>
-          <Button
-            isEnabled={values.every(x => x !== null)}
-            onClick={onDownloadResults}
-          >
+          <ResultsDownloadButton isEnabled={values.every(x => x !== null)}>
             <T>Download results & answers</T>
-          </Button>
+          </ResultsDownloadButton>
         </FormActions>
       </ContentWrap>
     )
@@ -393,6 +390,5 @@ export default connect(
   dispatch => ({
     onValueChange: (name, value) =>
       dispatch(setQuestionnaireAnswer(name, value)),
-    onDownloadResults: () => dispatch(downloadResults()),
   })
 )(withTranslators(QuestionnaireStep))

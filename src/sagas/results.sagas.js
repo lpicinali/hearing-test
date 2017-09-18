@@ -3,6 +3,8 @@ import { all, call, put, select, take } from 'redux-saga/effects'
 import tinytime from 'tinytime'
 
 import {
+  downloadResultsError,
+  downloadResultsSuccess,
   emailResultsError,
   emailResultsSuccess,
   setResultAudiogram,
@@ -99,15 +101,20 @@ function* doResultDownloads() {
       query.questionnaire = questionnaire.toJS()
     }
 
-    const html = yield call(renderResultsDocString, query)
-    query.html = html
+    try {
+      const html = yield call(renderResultsDocString, query)
+      query.html = html
 
-    const pdfBlob = yield call(fetchResultsPdf, { html: query.html })
-    const dateSuffix = tinytime('{YYYY}{Mo}{DD}', { padMonth: true }).render(
-      new Date()
-    )
-    const pdfFilename = `3D Tune-In Hearing Test Results ${dateSuffix}.pdf`
-    yield call(downloadAsFile, pdfBlob, pdfFilename)
+      const pdfBlob = yield call(fetchResultsPdf, { html: query.html })
+      const dateSuffix = tinytime('{YYYY}{Mo}{DD}', { padMonth: true }).render(
+        new Date()
+      )
+      const pdfFilename = `3D Tune-In Hearing Test Results ${dateSuffix}.pdf`
+      yield call(downloadAsFile, pdfBlob, pdfFilename)
+      yield put(downloadResultsSuccess())
+    } catch (err) {
+      yield put(downloadResultsError(err))
+    }
   }
 }
 

@@ -47,6 +47,15 @@ export const downloadResults = () => ({
   type: ActionType.DOWNLOAD_RESULTS,
 })
 
+export const downloadResultsSuccess = () => ({
+  type: ActionType.DOWNLOAD_RESULTS_SUCCESS,
+})
+
+export const downloadResultsError = error => ({
+  type: ActionType.DOWNLOAD_RESULTS,
+  error,
+})
+
 export const setQuestionnaireAnswer = (name, value) => ({
   type: ActionType.SET_QUESTIONNAIRE_ANSWER,
   payload: { name, value },

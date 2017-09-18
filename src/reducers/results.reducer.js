@@ -15,6 +15,11 @@ const initialState = fromJS({
   isSending: false,
   lastSentAt: null,
   sendError: null,
+  download: {
+    isPending: false,
+    completedAt: null,
+    error: null,
+  },
 })
 
 export default function resultsReducer(
@@ -32,6 +37,18 @@ export default function resultsReducer(
       return state.set('isSending', false).set('lastSentAt', Date.now())
     case ActionType.EMAIL_RESULTS_ERROR:
       return state.set('isSending', false).set('sendError', error)
+    case ActionType.DOWNLOAD_RESULTS:
+      return state
+        .setIn(['download', 'isPending'], true)
+        .setIn(['download', 'error'], null)
+    case ActionType.DOWNLOAD_RESULTS_SUCCESS:
+      return state
+        .setIn(['download', 'isPending'], false)
+        .setIn(['download', 'completedAt'], Date.now())
+    case ActionType.DOWNLOAD_RESULTS_ERROR:
+      return state
+        .setIn(['download', 'isPending'], false)
+        .setIn(['download', 'error'], error)
     default:
       return state
   }
