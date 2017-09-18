@@ -11,6 +11,7 @@ import { emailResults, fetchResultsPdf } from 'src/api.js'
 import configs from 'src/configs.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import history from 'src/history.js'
+import createPdf from 'src/pdf/createPdf.js'
 import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
 import {
   calculateAudiogramFromHearingTestResult,
@@ -99,9 +100,12 @@ function* doResultDownloads() {
     const html = yield call(renderResultsDocString, query)
     query.html = html
 
-    const { data } = yield call(fetchResultsPdf, query)
+    // const { data } = yield call(fetchResultsPdf, query)
 
-    window.location.href = `${configs.apiUrl}/results/download?pdfId=${data.pdfId}`
+    // window.location.href = `${configs.apiUrl}/results/download?pdfId=${data.pdfId}`
+
+    const pdf = yield call(createPdf, html)
+    pdf.save('doc.pdf')
   }
 }
 
