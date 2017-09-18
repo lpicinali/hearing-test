@@ -58,10 +58,6 @@ class QuestionnaireStep extends PureComponent {
     t: PropTypes.func.isRequired,
   }
 
-  static defaultProps = {
-    submissionError: null,
-  }
-
   render() {
     const { values, onValueChange, t } = this.props
 

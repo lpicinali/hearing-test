@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import IPropTypes from 'immutable-props'
-import { T, withTranslators } from 'lioness'
+import { T } from 'lioness'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { zip } from 'lodash'
 import { Map } from 'immutable'
-import { autobind } from 'core-decorators'
 
 import configs from 'src/configs.js'
 import { AppUrl, Ear, TestFrequencies } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Audiogram from 'src/components/Audiogram.js'
 import Button, { LinkButton } from 'src/components/Button.js'
-// import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
 import StickyFooter from 'src/components/StickyFooter.js'
 import ResultsDownloadButton from 'src/containers/ResultsDownloadButton.js'
 import { WHITE } from 'src/styles/colors.js'
@@ -45,22 +42,10 @@ const ActionLinkWrap = styled.div`text-align: center;`
 class ResultsStep extends Component {
   static propTypes = {
     results: IPropTypes.Map.isRequired,
-    t: PropTypes.func.isRequired,
-    // onDownloadResults: PropTypes.func.isRequired,
-  }
-
-  state = {
-    recipient: '',
-  }
-
-  @autobind
-  handleEmailChange(evt) {
-    this.setState({ recipient: evt.target.value })
   }
 
   render() {
-    const { results, t } = this.props
-    const { recipient } = this.state
+    const { results } = this.props
 
     const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
     const rightAudiogram = results.getIn(['audiograms', Ear.RIGHT])
@@ -186,5 +171,4 @@ class ResultsStep extends Component {
 
 export default connect(state => ({
   results: state.get('results'),
-  isSending: state.getIn(['results', 'isSending']),
-}))(withTranslators(ResultsStep))
+}))(ResultsStep)

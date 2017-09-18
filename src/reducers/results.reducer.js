@@ -12,9 +12,6 @@ const initialState = fromJS({
     [Ear.LEFT]: null,
     [Ear.RIGHT]: null,
   },
-  isSending: false,
-  lastSentAt: null,
-  sendError: null,
   download: {
     isPending: false,
     completedAt: null,
@@ -31,12 +28,6 @@ export default function resultsReducer(
       return state.setIn(['audiograms', payload.ear], fromJS(payload.audiogram))
     case ActionType.SET_RESULT_CODE:
       return state.setIn(['codes', payload.ear], payload.code)
-    case ActionType.EMAIL_RESULTS:
-      return state.set('isSending', true)
-    case ActionType.EMAIL_RESULTS_SUCCESS:
-      return state.set('isSending', false).set('lastSentAt', Date.now())
-    case ActionType.EMAIL_RESULTS_ERROR:
-      return state.set('isSending', false).set('sendError', error)
     case ActionType.DOWNLOAD_RESULTS:
       return state
         .setIn(['download', 'isPending'], true)

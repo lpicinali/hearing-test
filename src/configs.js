@@ -13,7 +13,6 @@ const HAS_CODES = process.env.CODES === '1'
 const configs = {
   [AppEnvironment.DEVELOPMENT]: {
     siteUrl: 'http://localhost:8263',
-    apiUrl: 'http://localhost:8264/api',
     pdfUrl: 'http://localhost:8265/pdf',
     EXTENT,
     HAS_CODES,
@@ -21,7 +20,6 @@ const configs = {
   },
   [AppEnvironment.STAGE]: {
     siteUrl: 'https://hearing-test-stage.herokuapp.com',
-    apiUrl: 'https://hearing-test-stage.herokuapp.com/api',
     pdfUrl: 'https://hearing-test-stage.herokuapp.com/pdf',
     EXTENT,
     HAS_CODES,
@@ -29,7 +27,6 @@ const configs = {
   },
   [AppEnvironment.PRODUCTION]: {
     siteUrl: 'http://hearing-test.3d-tune-in.eu',
-    apiUrl: 'http://hearing-test.3d-tune-in.eu/api',
     pdfUrl: 'http://hearing-test.3d-tune-in.eu/pdf',
     EXTENT,
     HAS_CODES,

@@ -2,7 +2,6 @@
 const express = require('express')
 const path = require('path')
 
-const api = require('./api/index.js')
 const pdf = require('./pdf-server/index.js')
 
 const app = new express()
@@ -10,9 +9,6 @@ app.set('port', process.env.PORT || 8263)
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')))
-
-// API
-app.use('/api', api)
 
 // PDF server
 app.use('/pdf', pdf)

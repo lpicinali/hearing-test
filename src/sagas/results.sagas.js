@@ -4,15 +4,13 @@ import tinytime from 'tinytime'
 import {
   downloadResultsError,
   downloadResultsSuccess,
-  emailResultsError,
-  emailResultsSuccess,
   setResultAudiogram,
   setResultCode,
 } from 'src/actions.js'
-import { emailResults, fetchResultsPdf } from 'src/api.js'
 import configs from 'src/configs.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import history from 'src/history.js'
+import fetchResultsPdf from 'src/pdf/fetchResultsPdf.js'
 import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
 import {
   calculateAudiogramFromHearingTestResult,
@@ -58,28 +56,6 @@ function* calculateAudiograms() {
   }
 }
 
-function* doSendEmails() {
-  while (true) {
-    const { payload } = yield take(ActionType.EMAIL_RESULTS)
-
-    const { results, recipient } = payload
-    const audiograms = results.get('audiograms').toJS()
-    const codes = results.get('codes').toJS()
-
-    const { errors } = yield call(emailResults, {
-      audiograms,
-      codes,
-      recipient,
-    })
-
-    if (errors === undefined) {
-      yield put(emailResultsSuccess())
-    } else {
-      yield put(emailResultsError(errors[0]))
-    }
-  }
-}
-
 function* doResultDownloads() {
   while (true) {
     yield take(ActionType.DOWNLOAD_RESULTS)
@@ -117,5 +93,5 @@ function* doResultDownloads() {
 }
 
 export default function* resultsSagas() {
-  yield all([calculateAudiograms(), doSendEmails(), doResultDownloads()])
+  yield all([calculateAudiograms(), doResultDownloads()])
 }

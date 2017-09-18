@@ -8,24 +8,12 @@ const initialState = fromJS({
     keys(QuestionnaireField),
     map(QuestionnaireField, () => null)
   ),
-  isSubmitting: false,
-  hasSubmitted: false,
-  error: null,
 })
 
-export default function termsReducer(
-  state = initialState,
-  { type, payload, error }
-) {
+export default function termsReducer(state = initialState, { type, payload }) {
   switch (type) {
     case ActionType.SET_QUESTIONNAIRE_ANSWER:
       return state.setIn(['answers', payload.name], payload.value)
-    case ActionType.SUBMIT_QUESTIONNAIRE:
-      return state.set('isSubmitting', true)
-    case ActionType.SUBMIT_QUESTIONNAIRE_SUCCESS:
-      return state.set('isSubmitting', false).set('hasSubmitted', true)
-    case ActionType.SUBMIT_QUESTIONNAIRE_ERROR:
-      return state.set('isSubmitting', false).set('error', fromJS(error))
     default:
       return state
   }
