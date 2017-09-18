@@ -110,6 +110,7 @@ function* doResultDownloads() {
       yield call(downloadAsFile, pdfBlob, pdfFilename)
       yield put(downloadResultsSuccess())
     } catch (err) {
+      console.error(err)
       yield put(downloadResultsError(err))
     }
   }

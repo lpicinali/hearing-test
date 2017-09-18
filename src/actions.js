@@ -52,7 +52,7 @@ export const downloadResultsSuccess = () => ({
 })
 
 export const downloadResultsError = error => ({
-  type: ActionType.DOWNLOAD_RESULTS,
+  type: ActionType.DOWNLOAD_RESULTS_ERROR,
   error,
 })
 

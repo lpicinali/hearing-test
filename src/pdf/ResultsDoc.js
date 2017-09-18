@@ -1,10 +1,16 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import { map, zip } from 'lodash'
+import { identity, map, zip } from 'lodash'
 
 import configs from 'src/configs.js'
-import { Ear, TestFrequencies } from 'src/constants.js'
+import {
+  Ear,
+  QuestionnaireField,
+  QuestionnaireGroup,
+  TestFrequencies,
+} from 'src/constants.js'
+import getQuestionnaire from 'src/questionnaire.js'
 import Audiogram from 'src/components/Audiogram.js'
 
 const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
@@ -37,6 +43,12 @@ class ResultsDoc extends PureComponent {
     const audiogramRatio = 350 / 280
     const audiogramWidth = 220
     const audiogramHeight = audiogramWidth / audiogramRatio
+
+    const questionnaireForm = getQuestionnaire(identity)
+    const recommendationQuestion =
+      questionnaireForm[QuestionnaireGroup.THREE][
+        QuestionnaireField.RECOMMENDATION_LIKELIHOOD
+      ]
 
     return (
       <div>
@@ -105,12 +117,48 @@ class ResultsDoc extends PureComponent {
         {configs.HAS_QUESTIONNAIRE && (
           <div>
             <h2>Questionnaire</h2>
-
-            {map(questionnaire, (value, questionKey) => (
-              <p key={questionKey}>
-                {questionKey}: {value}
-              </p>
-            ))}
+            <h3>Part one</h3>
+            <p>
+              <strong>
+                Please assess the hearing test now by ticking one checkbox per
+                line.
+              </strong>
+            </p>
+            {map(
+              questionnaireForm[QuestionnaireGroup.ONE],
+              (field, questionKey) => (
+                <p key={questionKey}>
+                  {field.minLabel}/{field.maxLabel}:{' '}
+                  {questionnaire[questionKey]}/7
+                </p>
+              )
+            )}
+            <h3>Part two</h3>
+            <p>
+              Finally here are some further questions to further evaluate your
+              experience with the hearing test application.
+            </p>
+            {map(
+              questionnaireForm[QuestionnaireGroup.TWO],
+              (field, questionKey) => (
+                <p key={questionKey}>
+                  <strong>{field.label}</strong>
+                  <br />
+                  {field.minLabel}/{field.maxLabel}:{' '}
+                  {questionnaire[questionKey]}/7
+                </p>
+              )
+            )}
+            <h3>Part three</h3>
+            <p>
+              <strong>
+                Lastly, to what extent would you recommend this hearing test
+                application to another adult with cystic fibrosis?
+              </strong>
+              <br />
+              {recommendationQuestion.minLabel}/{recommendationQuestion.maxLabel}:{' '}
+              {questionnaire[QuestionnaireField.RECOMMENDATION_LIKELIHOOD]}/10
+            </p>
           </div>
         )}
       </div>

@@ -91,6 +91,12 @@ export const QuestionnaireField = {
   RECOMMENDATION_LIKELIHOOD: 'RECOMMENDATION_LIKELIHOOD',
 }
 
+export const QuestionnaireGroup = {
+  ONE: 'ONE',
+  TWO: 'TWO',
+  THREE: 'THREE',
+}
+
 export const SILENCE = min(values(FrequencyStartVolume))
 
 export const TestDirection = {

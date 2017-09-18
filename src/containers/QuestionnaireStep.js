@@ -7,8 +7,9 @@ import { compose, withState, withHandlers } from 'recompose'
 import { map } from 'lodash'
 
 import { setQuestionnaireAnswer } from 'src/actions.js'
-import { QuestionnaireField } from 'src/constants.js'
+import { QuestionnaireField, QuestionnaireGroup } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
+import getQuestionnaire from 'src/questionnaire.js'
 import Button from 'src/components/Button.js'
 import GradingField from 'src/components/GradingField.js'
 import GradingRanking from 'src/components/GradingRanking.js'
@@ -63,6 +64,12 @@ class QuestionnaireStep extends PureComponent {
 
   render() {
     const { values, onValueChange, t } = this.props
+
+    const questionnaire = getQuestionnaire(t)
+    const recommendationQuestion =
+      questionnaire[QuestionnaireGroup.THREE][
+        QuestionnaireField.RECOMMENDATION_LIKELIHOOD
+      ]
 
     return (
       <ContentWrap>
@@ -125,165 +132,15 @@ class QuestionnaireStep extends PureComponent {
           </T>
         </P>
         <GradingRanking />
-        <GradingField
-          value={values.get(QuestionnaireField.ENJOYABLE)}
-          onChange={val => onValueChange(QuestionnaireField.ENJOYABLE, val)}
-          minLabel={t('agree')}
-          maxLabel={t('disagree')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.UNDERSTANDABLE)}
-          onChange={val =>
-            onValueChange(QuestionnaireField.UNDERSTANDABLE, val)}
-          minLabel={t('not understandable')}
-          maxLabel={t('understandable')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.DULL)}
-          onChange={val => onValueChange(QuestionnaireField.DULL, val)}
-          minLabel={t('creative')}
-          maxLabel={t('dull')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.DIFFICULT_TO_LEARN)}
-          onChange={val =>
-            onValueChange(QuestionnaireField.DIFFICULT_TO_LEARN, val)}
-          minLabel={t('easy to learn')}
-          maxLabel={t('difficult to learn')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.INFERIOR)}
-          onChange={val => onValueChange(QuestionnaireField.INFERIOR, val)}
-          minLabel={t('valuable')}
-          maxLabel={t('inferior')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.EXCITING)}
-          onChange={val => onValueChange(QuestionnaireField.EXCITING, val)}
-          minLabel={t('boring')}
-          maxLabel={t('exciting')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.INTERESTING)}
-          onChange={val => onValueChange(QuestionnaireField.INTERESTING, val)}
-          minLabel={t('not interesting')}
-          maxLabel={t('interesting')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.PREDICTABLE)}
-          onChange={val => onValueChange(QuestionnaireField.PREDICTABLE, val)}
-          minLabel={t('unpredictable')}
-          maxLabel={t('predictable')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.SLOW)}
-          onChange={val => onValueChange(QuestionnaireField.SLOW, val)}
-          minLabel={t('fast')}
-          maxLabel={t('slow')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.CONVENTIONAL)}
-          onChange={val => onValueChange(QuestionnaireField.CONVENTIONAL, val)}
-          minLabel={t('inventive')}
-          maxLabel={t('conventional')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.SUPPORTIVE)}
-          onChange={val => onValueChange(QuestionnaireField.SUPPORTIVE, val)}
-          minLabel={t('obstructive')}
-          maxLabel={t('supportive')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.BAD)}
-          onChange={val => onValueChange(QuestionnaireField.BAD, val)}
-          minLabel={t('good')}
-          maxLabel={t('bad')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.EASY)}
-          onChange={val => onValueChange(QuestionnaireField.EASY, val)}
-          minLabel={t('complicated')}
-          maxLabel={t('easy')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.PLEASING)}
-          onChange={val => onValueChange(QuestionnaireField.PLEASING, val)}
-          minLabel={t('unlikable')}
-          maxLabel={t('pleasing')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.LEADING_EDGE)}
-          onChange={val => onValueChange(QuestionnaireField.LEADING_EDGE, val)}
-          minLabel={t('usual')}
-          maxLabel={t('leading edge')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.PLEASANT)}
-          onChange={val => onValueChange(QuestionnaireField.PLEASANT, val)}
-          minLabel={t('unpleasant')}
-          maxLabel={t('pleasant')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.NOT_SECURE)}
-          onChange={val => onValueChange(QuestionnaireField.NOT_SECURE, val)}
-          minLabel={t('secure')}
-          maxLabel={t('not secure')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.DEMOTIVATING)}
-          onChange={val => onValueChange(QuestionnaireField.DEMOTIVATING, val)}
-          minLabel={t('motivating')}
-          maxLabel={t('demotivating')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.DOES_NOT_MEET_EXPECTATIONS)}
-          onChange={val =>
-            onValueChange(QuestionnaireField.DOES_NOT_MEET_EXPECTATIONS, val)}
-          minLabel={t('meets expectations')}
-          maxLabel={t('does not meet expectations')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.EFFICIENT)}
-          onChange={val => onValueChange(QuestionnaireField.EFFICIENT, val)}
-          minLabel={t('inefficient')}
-          maxLabel={t('efficient')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.CONFUSING)}
-          onChange={val => onValueChange(QuestionnaireField.CONFUSING, val)}
-          minLabel={t('clear')}
-          maxLabel={t('confusing')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.PRACTICAL)}
-          onChange={val => onValueChange(QuestionnaireField.PRACTICAL, val)}
-          minLabel={t('impractical')}
-          maxLabel={t('practical')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.CLUTTERED)}
-          onChange={val => onValueChange(QuestionnaireField.CLUTTERED, val)}
-          minLabel={t('organized')}
-          maxLabel={t('cluttered')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.UNATTRACTIVE)}
-          onChange={val => onValueChange(QuestionnaireField.UNATTRACTIVE, val)}
-          minLabel={t('attractive')}
-          maxLabel={t('unattractive')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.UNFRIENDLY)}
-          onChange={val => onValueChange(QuestionnaireField.UNFRIENDLY, val)}
-          minLabel={t('friendly')}
-          maxLabel={t('unfriendly')}
-        />
-        <GradingField
-          value={values.get(QuestionnaireField.INNOVATIVE)}
-          onChange={val => onValueChange(QuestionnaireField.INNOVATIVE, val)}
-          minLabel={t('conservative')}
-          maxLabel={t('innovative')}
-        />
+        {map(questionnaire[QuestionnaireGroup.ONE], (field, key) => (
+          <GradingField
+            key={key}
+            value={values.get(key)}
+            onChange={val => onValueChange(key, val)}
+            minLabel={field.minLabel}
+            maxLabel={field.maxLabel}
+          />
+        ))}
         <QuestionnaireSectionSeparator />
         <P>
           <T>
@@ -291,62 +148,18 @@ class QuestionnaireStep extends PureComponent {
             experience with the hearing test application.
           </T>
         </P>
-        <GradingFieldQuestion>
-          <GradingQuestionLabel>
-            <T>1. The hearing test application meets my requirements</T>
-          </GradingQuestionLabel>
-          <GradingRanking />
-          <GradingField
-            value={values.get(QuestionnaireField.MEETS_REQUIREMENTS)}
-            onChange={val =>
-              onValueChange(QuestionnaireField.MEETS_REQUIREMENTS, val)}
-            minLabel={t('strongly agree')}
-            maxLabel={t('strongly disagree')}
-          />
-        </GradingFieldQuestion>
-        <GradingFieldQuestion>
-          <GradingQuestionLabel>
-            <T>
-              2. Using this hearing test application is a frustrating experience
-            </T>
-          </GradingQuestionLabel>
-          <GradingRanking />
-          <GradingField
-            value={values.get(QuestionnaireField.FRUSTRATING_EXPERIENCE)}
-            onChange={val =>
-              onValueChange(QuestionnaireField.FRUSTRATING_EXPERIENCE, val)}
-            minLabel={t('strongly agree')}
-            maxLabel={t('strongly disagree')}
-          />
-        </GradingFieldQuestion>
-        <GradingFieldQuestion>
-          <GradingQuestionLabel>
-            <T>3. This hearing test application is easy to use</T>
-          </GradingQuestionLabel>
-          <GradingRanking />
-          <GradingField
-            value={values.get(QuestionnaireField.EASY_TO_USE)}
-            onChange={val => onValueChange(QuestionnaireField.EASY_TO_USE, val)}
-            minLabel={t('strongly agree')}
-            maxLabel={t('strongly disagree')}
-          />
-        </GradingFieldQuestion>
-        <GradingFieldQuestion>
-          <GradingQuestionLabel>
-            <T>
-              4. I have to spend too much time correcting things with this
-              hearing test application.
-            </T>
-          </GradingQuestionLabel>
-          <GradingRanking />
-          <GradingField
-            value={values.get(QuestionnaireField.TIME_WASTED_CORRECTING)}
-            onChange={val =>
-              onValueChange(QuestionnaireField.TIME_WASTED_CORRECTING, val)}
-            minLabel={t('strongly agree')}
-            maxLabel={t('strongly disagree')}
-          />
-        </GradingFieldQuestion>
+        {map(questionnaire[QuestionnaireGroup.TWO], (field, key) => (
+          <GradingFieldQuestion key={key}>
+            <GradingQuestionLabel>{field.label}</GradingQuestionLabel>
+            <GradingRanking />
+            <GradingField
+              value={values.get(key)}
+              onChange={val => onValueChange(key, val)}
+              minLabel={field.minLabel}
+              maxLabel={field.maxLabel}
+            />
+          </GradingFieldQuestion>
+        ))}
         <QuestionnaireSectionSeparator />
         <P>
           <T>
@@ -360,8 +173,8 @@ class QuestionnaireStep extends PureComponent {
           value={values.get(QuestionnaireField.RECOMMENDATION_LIKELIHOOD)}
           onChange={val =>
             onValueChange(QuestionnaireField.RECOMMENDATION_LIKELIHOOD, val)}
-          minLabel={t('not at all likely')}
-          maxLabel={t('extremely likely')}
+          minLabel={recommendationQuestion.minLabel}
+          maxLabel={recommendationQuestion.maxLabel}
           gradingWidth={5 / 10}
         />
         <QuestionnaireSectionSeparator />
