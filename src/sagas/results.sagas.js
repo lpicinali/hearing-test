@@ -1,4 +1,3 @@
-/* global window */
 import { all, call, put, select, take } from 'redux-saga/effects'
 import tinytime from 'tinytime'
 
@@ -14,7 +13,6 @@ import { emailResults, fetchResultsPdf } from 'src/api.js'
 import configs from 'src/configs.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import history from 'src/history.js'
-import createPdf from 'src/pdf/createPdf.js'
 import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
 import {
   calculateAudiogramFromHearingTestResult,
@@ -91,21 +89,20 @@ function* doResultDownloads() {
       select(state => state.get('results')),
     ])
 
-    const query = {
+    const resultsDocProps = {
       audiograms: results.get('audiograms').toJS(),
     }
     if (configs.HAS_CODES === true) {
-      query.codes = results.get('codes').toJS()
+      resultsDocProps.codes = results.get('codes').toJS()
     }
     if (configs.HAS_QUESTIONNAIRE === true) {
-      query.questionnaire = questionnaire.toJS()
+      resultsDocProps.questionnaire = questionnaire.toJS()
     }
 
     try {
-      const html = yield call(renderResultsDocString, query)
-      query.html = html
+      const html = yield call(renderResultsDocString, resultsDocProps)
 
-      const pdfBlob = yield call(fetchResultsPdf, { html: query.html })
+      const pdfBlob = yield call(fetchResultsPdf, { html })
       const dateSuffix = tinytime('{YYYY}{Mo}{DD}', { padMonth: true }).render(
         new Date()
       )

@@ -4,12 +4,10 @@ const cors = require('cors')
 const morgan = require('morgan')
 const requestIp = require('request-ip')
 const _ = require('lodash')
-const path = require('path')
 
 const disconnect = require('./db.js').disconnect
 const middleware = require('./middleware.js')
 const sendEmail = require('./sendEmail.js')
-const createPdf = require('./pdf/createPdf.js')
 
 const api = express.Router()
 
@@ -144,28 +142,5 @@ For more information about the 3D Tune-In project and apps, visit our website at
       })
   }
 )
-
-// PDF download
-api.get('/results/download', (req, res) => {
-  const { pdfId } = req.query
-  res.download(path.resolve(__dirname, '../public', 'pdf', `${pdfId}.pdf`))
-})
-
-api.post('/results/download', (req, res) => {
-  createPdf(req.body)
-    .then(pdfId => res.json({ status: 'ok', data: { pdfId } }))
-    .catch(err => {
-      console.log(err)
-      res.status(500).json({
-        status: 'error',
-        errors: [
-          {
-            // detail: err.message,
-            message: 'We could not create the PDF at this time.',
-          },
-        ],
-      })
-    })
-})
 
 module.exports = api
