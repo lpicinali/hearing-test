@@ -35,5 +35,6 @@ node_modules
 # Project specific
 l10n/source.pot
 l10n/translations/*.po
+public/pdf
 public/js/app.*
 src/l10n/*.json

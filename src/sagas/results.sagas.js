@@ -1,3 +1,4 @@
+/* global window */
 import { all, call, put, select, take } from 'redux-saga/effects'
 
 import {
@@ -6,14 +7,14 @@ import {
   setResultAudiogram,
   setResultCode,
 } from 'src/actions.js'
-import { emailResults } from 'src/api.js'
+import { emailResults, fetchResultsPdf } from 'src/api.js'
 import configs from 'src/configs.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import history from 'src/history.js'
+import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
 import {
   calculateAudiogramFromHearingTestResult,
   calculateHearingLossCodeFromHearingTestResult,
-  downloadAsFile,
 } from 'src/utils.js'
 
 function* calculateAudiograms() {
@@ -95,11 +96,12 @@ function* doResultDownloads() {
       query.questionnaire = questionnaire.toJS()
     }
 
-    yield call(
-      downloadAsFile,
-      `Test\n\n${JSON.stringify(query, null, 2)}`,
-      'Hearing test results debug.txt'
-    )
+    const html = yield call(renderResultsDocString, query)
+    query.html = html
+
+    const { data } = yield call(fetchResultsPdf, query)
+
+    window.location.href = `${configs.apiUrl}/results/download?pdfId=${data.pdfId}`
   }
 }
 

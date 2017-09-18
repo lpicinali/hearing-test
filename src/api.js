@@ -20,3 +20,12 @@ export const emailResults = ({ audiograms, codes, recipient }) =>
     },
     body: qs.stringify({ audiograms, codes, recipient }),
   }).then(res => res.json())
+
+export const fetchResultsPdf = ({ html }) =>
+  fetch(`${configs.apiUrl}/results/download?`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/x-www-form-urlencoded',
+    },
+    body: qs.stringify({ html }),
+  }).then(res => res.json())
