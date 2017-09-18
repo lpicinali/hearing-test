@@ -48,7 +48,7 @@ body {
 }
 
 body > * {
-  padding: 40px;
+  padding: 20px 40px;
 }
 
 h1,
@@ -99,7 +99,7 @@ h1 {
 .HearingLossCode {
   color: #2586eb;
   font-family: 'HT-PT-Mono', monospace;
-  font-size: 48px;
+  font-size: 32px;
 }
 `
 
