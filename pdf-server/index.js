@@ -28,8 +28,6 @@ app.use((req, res, next) => {
 })
 
 app.post('/', (req, res) => {
-  console.log(req.text, req.body)
-
   if (!req.text && req.body.text) {
     req.text = req.body.text
   }
