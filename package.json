@@ -12,6 +12,7 @@
     "dev": "webpack-dev-server --colors --progress",
     "build": "webpack",
     "api": "nodemon --watch ./api ./api/server.js",
+    "pdf": "nodemon --watch ./pdf-server ./pdf-server/server.js",
     "lint": "eslint './**/*.js'",
     "l10n:extract": "react-gettext-parser --config .rgp-config.js --output l10n/source.pot 'src/**/*.js'",
     "l10n:pull": "npm run l10n:extract && node scripts/pull-translations.js && node scripts/pot-to-json.js"
@@ -42,6 +43,7 @@
     "mongodb": "^2.2.31",
     "morgan": "^1.8.2",
     "nodemailer": "^4.1.0",
+    "phantom": "^4.0.5",
     "prop-types": "^15.5.10",
     "qs": "^6.5.1",
     "react": "^15.6.1",
@@ -58,6 +60,8 @@
     "request-ip": "^2.0.2",
     "stereo-panner-shim": "^0.1.4",
     "styled-components": "^2.1.2",
+    "tinytime": "^0.2.6",
+    "tmp": "0.0.33",
     "webpack": "^3.5.2"
   },
   "devDependencies": {

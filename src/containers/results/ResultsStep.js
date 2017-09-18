@@ -8,7 +8,6 @@ import { zip } from 'lodash'
 import { Map } from 'immutable'
 import { autobind } from 'core-decorators'
 
-import { downloadResults } from 'src/actions.js'
 import configs from 'src/configs.js'
 import { AppUrl, Ear, TestFrequencies } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
@@ -16,6 +15,7 @@ import Audiogram from 'src/components/Audiogram.js'
 import Button, { LinkButton } from 'src/components/Button.js'
 // import QuestionnaireSectionSeparator from 'src/components/QuestionnaireSectionSeparator.js'
 import StickyFooter from 'src/components/StickyFooter.js'
+import ResultsDownloadButton from 'src/containers/ResultsDownloadButton.js'
 import { WHITE } from 'src/styles/colors.js'
 import { A, H2, H3, H5, P } from 'src/styles/elements.js'
 import { Col, Row } from 'src/styles/grid.js'
@@ -46,7 +46,7 @@ class ResultsStep extends Component {
   static propTypes = {
     results: IPropTypes.Map.isRequired,
     t: PropTypes.func.isRequired,
-    onDownloadResults: PropTypes.func.isRequired,
+    // onDownloadResults: PropTypes.func.isRequired,
   }
 
   state = {
@@ -59,7 +59,7 @@ class ResultsStep extends Component {
   }
 
   render() {
-    const { results, t, onDownloadResults } = this.props
+    const { results, t } = this.props
     const { recipient } = this.state
 
     const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
@@ -173,9 +173,9 @@ class ResultsStep extends Component {
                 <T>Download results & Take the questionnaire</T>
               </LinkButton>
             ) : (
-              <Button onClick={onDownloadResults}>
+              <ResultsDownloadButton>
                 <T>Download results</T>
-              </Button>
+              </ResultsDownloadButton>
             )}
           </ActionLinkWrap>
         </StickyFooter>
@@ -184,12 +184,7 @@ class ResultsStep extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    results: state.get('results'),
-    isSending: state.getIn(['results', 'isSending']),
-  }),
-  dispatch => ({
-    onDownloadResults: () => dispatch(downloadResults()),
-  })
-)(withTranslators(ResultsStep))
+export default connect(state => ({
+  results: state.get('results'),
+  isSending: state.getIn(['results', 'isSending']),
+}))(withTranslators(ResultsStep))

@@ -107,8 +107,15 @@ class Audiogram extends Component {
   static propTypes = {
     ear: PropTypes.oneOf(values(Ear)).isRequired,
     data: IPropTypes.Map.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
     isInteractive: PropTypes.bool,
     onFrequencyValueChange: PropTypes.func,
+  }
+
+  static defaultProps = {
+    width: GRAPH_WIDTH,
+    height: GRAPH_HEIGHT,
   }
 
   static defaultProps = {
@@ -161,7 +168,7 @@ class Audiogram extends Component {
   }
 
   render() {
-    const { ear, data, isInteractive, ...props } = this.props
+    const { ear, data, width, height, isInteractive, ...props } = this.props
     const { areas } = this.state
 
     const frequencyWidth = GW / (data.size - 1)
@@ -173,10 +180,11 @@ class Audiogram extends Component {
       <div style={{ maxWidth: 380 }} {...props}>
         <svg
           viewBox={`0 0 ${GRAPH_WIDTH} ${GRAPH_HEIGHT}`}
-          width={GRAPH_WIDTH}
-          height={GRAPH_HEIGHT}
+          width={width}
+          height={height}
           style={{
-            width: '100%',
+            width: width,
+            height: height,
             background: BLACK,
             // border: `1px solid ${DARK_BLUE}`,
             borderRadius: 3,
