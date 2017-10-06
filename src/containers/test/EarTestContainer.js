@@ -13,7 +13,7 @@ import {
   Ear,
   FrequencyStartVolume,
   TestDirection,
-  TestFrequencies,
+  TestFrequencyOrder,
 } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Audio from 'src/components/Audio.js'
@@ -25,7 +25,7 @@ import { H3, H4, P } from 'src/styles/elements.js'
 import { Col, Row, StatefulCol } from 'src/styles/grid.js'
 import { FONT_NORMAL } from 'src/styles/type.js'
 
-const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
+const TEST_FREQUENCIES = TestFrequencyOrder[configs.EXTENT]
 
 const StepProgressSummary = styled.div`
   margin: 8px 0;
@@ -128,9 +128,8 @@ class EarTestContainer extends Component {
       onFinish()
     } else if (direction === TestDirection.DOWN) {
       this.setState(() => {
-        const nextFrequency = TEST_FREQUENCIES.find(
-          x => parseInt(x) > parseInt(frequency)
-        )
+        const nextFrequency =
+          TEST_FREQUENCIES[TEST_FREQUENCIES.indexOf(frequency) + 1]
 
         return {
           frequency: nextFrequency,
