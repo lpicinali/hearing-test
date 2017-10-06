@@ -71,8 +71,26 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
     .map((dbHL, i) => (i === 0 ? 0 : dbHL))
 }
 
+/**
+ * Takes a set of hearing test results and returns a 3DTI hearing
+ * loss severity code that matches it the best.
+ */
 export function calculateHearingLossCodeFromHearingTestResult(earVolumes) {
-  const audiogram = calculateAudiogramFromHearingTestResult(earVolumes)
+  // Fill the ends with the same values as the closest real value.
+  // Making this fill generic seemed too complex for what it accomplishes,
+  // so we are bluntly implementing this knowing the frequencies for the
+  // test that produces a code has the frequencies 500, 1000, 2000 and
+  // 4000 in the actual test.
+  const sevenFrequencyEarVolumes = {
+    ...earVolumes,
+    '125': earVolumes['500'],
+    '250': earVolumes['500'],
+    '8000': earVolumes['4000'],
+  }
+
+  const audiogram = calculateAudiogramFromHearingTestResult(
+    sevenFrequencyEarVolumes
+  )
   const highestAudiogramValue = max(audiogram)
   const normalizedAudiogram = audiogram.map(x => x / highestAudiogramValue)
 
