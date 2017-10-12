@@ -1,4 +1,4 @@
-/* global Blob, XMLHttpRequest, document, window */
+/* global XMLHttpRequest, document, window */
 
 import { SILENCE } from 'src/constants.js'
 
@@ -29,8 +29,7 @@ export function fetchAudioBuffer(url) {
  *
  * @link https://github.com/kennethjiang/react-file-download/blob/master/file-download.js
  */
-export function downloadAsFile(blob, filename, mime) {
-  // const blob = new Blob([data], { type: mime || 'application/octet-stream' })
+export function downloadAsFile(blob, filename) {
   if (typeof window.navigator.msSaveBlob !== 'undefined') {
     // IE workaround for "HTML7007: One or more blob URLs were
     // revoked by closing the blob for which they were created.
