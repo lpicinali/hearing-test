@@ -104,11 +104,11 @@ export const TestExtent = {
 }
 
 export const TestFrequencies = {
-  [TestExtent.TRIMMED]: ['125', '500', '2000'],
+  [TestExtent.TRIMMED]: ['500', '1000', '4000'],
   [TestExtent.NORMAL]: ['500', '1000', '2000', '4000'],
 }
 
 export const TestFrequencyOrder = {
-  [TestExtent.TRIMMED]: ['125', '500', '2000'],
+  [TestExtent.TRIMMED]: ['500', '1000', '4000'],
   [TestExtent.NORMAL]: ['1000', '2000', '4000', '500'],
 }
