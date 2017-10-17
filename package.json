@@ -14,12 +14,9 @@
     "api": "nodemon --watch ./api ./api/server.js",
     "pdf": "nodemon --watch ./pdf-server ./pdf-server/server.js",
     "lint": "eslint './**/*.js'",
-    "l10n:extract":
-      "react-gettext-parser --config .rgp-config.js --output l10n/source.pot 'src/**/*.js'",
-    "l10n:pull":
-      "npm run l10n:extract && node scripts/pull-translations.js && node scripts/pot-to-json.js",
-    "test":
-      "mocha --require babel-polyfill --require babel-register 'tests/**/*.test.js'"
+    "l10n:extract": "react-gettext-parser --config .rgp-config.js --output l10n/source.pot 'src/**/*.js'",
+    "l10n:pull": "npm run l10n:extract && node scripts/pull-translations.js && node scripts/pot-to-json.js",
+    "test": "NODE_ENV=test mocha --require babel-polyfill --require babel-register 'test/**/*.test.js'"
   },
   "dependencies": {
     "animated-scrollto": "^1.1.0",
@@ -67,6 +64,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "babel-plugin-module-resolver": "^2.7.1",
     "babel-plugin-react-gettext-parser": "^1.1.1",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",

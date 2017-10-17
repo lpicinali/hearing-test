@@ -5,7 +5,7 @@ import { TestFrequencies } from 'src/constants.js'
 
 const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
-const SPLtoHLMap = {
+export const SPLtoHLMap = {
   '125': 45,
   '250': 27,
   '500': 13.5,
@@ -51,10 +51,14 @@ function getAverageDistance(arr1, arr2) {
   return mean(arr1.map((x, i) => Math.abs(x - arr2[i])))
 }
 
-export function calculateAudiogramFromHearingTestResult(earVolumes) {
-  return TEST_FREQUENCIES.map(frequency => earVolumes[frequency])
+export function calculateAudiogramFromHearingTestResult(
+  earVolumes,
+  testFrequencies = TEST_FREQUENCIES
+) {
+  return testFrequencies
+    .map(frequency => earVolumes[frequency])
     .map(frequencyResults => mean(values(frequencyResults)))
-    .map((volume, i) => convertSPLtoHL(TEST_FREQUENCIES[i], volume))
+    .map((volume, i) => convertSPLtoHL(testFrequencies[i], volume))
     .reduce(
       (aggr, dbHL) => (aggr.length === 0 ? [dbHL] : [...aggr, dbHL - aggr[0]]),
       []
