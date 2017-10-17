@@ -48,6 +48,12 @@ const FormActions = styled.div`
   text-align: center;
 `
 
+const QuestionsCountdown = styled(P)`
+  margin-top: 24px;
+  color: ${GRAY};
+  font-size: 14px;
+`
+
 /**
  * Questionnaire Step
  */
@@ -66,6 +72,8 @@ class QuestionnaireStep extends PureComponent {
       questionnaire[QuestionnaireGroup.THREE][
         QuestionnaireField.RECOMMENDATION_LIKELIHOOD
       ]
+
+    const numAnswered = values.filter(answer => answer !== null).size
 
     return (
       <ContentWrap>
@@ -186,6 +194,15 @@ class QuestionnaireStep extends PureComponent {
           <ResultsDownloadButton isEnabled={values.every(x => x !== null)}>
             <T>Download results & answers</T>
           </ResultsDownloadButton>
+
+          {numAnswered !== values.size && (
+            <QuestionsCountdown>
+              <T
+                message="You have {{ numQuestionsLeft }} to answer before you can download your results."
+                numQuestionsLeft={values.size - numAnswered}
+              />
+            </QuestionsCountdown>
+          )}
         </FormActions>
       </ContentWrap>
     )
