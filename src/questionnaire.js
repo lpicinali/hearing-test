@@ -4,8 +4,8 @@ export default function getQuestionnaire(t) {
   return {
     [QuestionnaireGroup.ONE]: {
       [QuestionnaireField.ENJOYABLE]: {
-        minLabel: t('agree'),
-        maxLabel: t('disagree'),
+        minLabel: t('annoying'),
+        maxLabel: t('enjoyable'),
       },
       [QuestionnaireField.UNDERSTANDABLE]: {
         minLabel: t('not understandable'),
