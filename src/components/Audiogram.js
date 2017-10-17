@@ -6,7 +6,7 @@ import { fromJS, Map, List } from 'immutable'
 
 import configs from 'src/configs.js'
 import { Ear, TestFrequencies } from 'src/constants.js'
-import { BLACK, BLUE, DARK_BLUE, GRAY, RED, SILVER } from 'src/styles/colors.js'
+import { BLACK, BLUE, DARK_BLUE, RED, SILVER } from 'src/styles/colors.js'
 
 const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
@@ -216,7 +216,7 @@ class Audiogram extends Component {
                 y1={getDecibelY(decibel)}
                 x2={PADDING.LEFT + GW}
                 y2={getDecibelY(decibel)}
-                stroke={decibel === 0 ? GRAY : DARK_BLUE}
+                stroke={DARK_BLUE}
                 key={decibel}
               />
             ))}
