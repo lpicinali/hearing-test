@@ -21,6 +21,7 @@
   "dependencies": {
     "animated-scrollto": "^1.1.0",
     "audio-context": "^1.0.1",
+    "babel-core": "^6.26.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-class-properties": "^6.24.1",
