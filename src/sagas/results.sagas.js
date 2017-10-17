@@ -9,14 +9,14 @@ import {
 } from 'src/actions.js'
 import configs from 'src/configs.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
-import history from 'src/history.js'
-import fetchResultsPdf from 'src/pdf/fetchResultsPdf.js'
-import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
 import {
   calculateAudiogramFromHearingTestResult,
   calculateHearingLossCodeFromHearingTestResult,
-  downloadAsFile,
-} from 'src/utils.js'
+} from 'src/evaluation.js'
+import history from 'src/history.js'
+import fetchResultsPdf from 'src/pdf/fetchResultsPdf.js'
+import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
+import { downloadAsFile } from 'src/utils.js'
 
 function* calculateAudiograms() {
   while (true) {
