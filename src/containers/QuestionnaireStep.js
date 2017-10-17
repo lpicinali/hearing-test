@@ -20,6 +20,22 @@ import { H2, P } from 'src/styles/elements.js'
 
 const ContentWrap = styled.div`padding: 0 88px;`
 
+const LogoList = styled.div`
+  margin-top: 8px;
+  margin-bottom: 72px;
+  text-align: center;
+`
+
+const Logo = styled.img`
+  display: inline-block;
+  vertical-align: middle;
+  height: auto;
+
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
+`
+
 const Subtitle = styled.span`
   display: block;
   margin-top: 8px;
@@ -77,6 +93,23 @@ class QuestionnaireStep extends PureComponent {
 
     return (
       <ContentWrap>
+        <LogoList>
+          <Logo
+            src="/img/royal-brompton-harefield-logo-on-dark.svg"
+            alt="Royal Brompton Harefield"
+            style={{
+              width: 200,
+            }}
+          />
+          <Logo
+            src="/img/trust-logo-on-dark.svg"
+            alt=""
+            style={{
+              width: 120,
+            }}
+          />
+        </LogoList>
+
         <H2>
           <T>Evaluation questionnaire</T>
           <Subtitle>
