@@ -6,7 +6,7 @@ import { fromJS, Map, List } from 'immutable'
 
 import configs from 'src/configs.js'
 import { Ear, TestFrequencies } from 'src/constants.js'
-import { BLACK, BLUE, DARK_BLUE, RED, SILVER } from 'src/styles/colors.js'
+import { BLACK, BLUE, DARK_BLUE, GRAY, RED, SILVER } from 'src/styles/colors.js'
 
 const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
@@ -29,12 +29,12 @@ const AudiogramFrequencyValues = [
   120,
 ]
 
-const GRAPH_WIDTH = 350
-const GRAPH_HEIGHT = 280
+const GRAPH_WIDTH = 380
+const GRAPH_HEIGHT = 320
 const PADDING = {
-  LEFT: 40,
+  LEFT: 70,
   RIGHT: 20,
-  TOP: 30,
+  TOP: 60,
   BOTTOM: 20,
 }
 
@@ -245,11 +245,37 @@ class Audiogram extends Component {
               .toArray()}
           </g>
 
+          {/* Decibel axis label */}
+          <text
+            style={{
+              fill: GRAY,
+              transform: 'rotate(-90deg) translateX(0px)',
+              fontSize: 12,
+            }}
+            x="-50%"
+            y="24"
+          >
+            Value in dB
+          </text>
+
+          {/* Frequency axis label */}
+          <text
+            style={{
+              transform: 'translateX(-26px)',
+              fill: GRAY,
+              fontSize: 12,
+            }}
+            x="50%"
+            y="20"
+          >
+            Frequency in Hertz
+          </text>
+
           {/* Decibel labels */}
           <g>
             {AudiogramFrequencyValues.map(decibel => (
               <text
-                x={PADDING.LEFT - 10}
+                x={PADDING.LEFT - 16}
                 y={getDecibelY(decibel) + 3}
                 textAnchor="end"
                 style={{
@@ -268,7 +294,7 @@ class Audiogram extends Component {
             {data.keySeq().map(frequency => (
               <text
                 x={getFrequencyX(frequency)}
-                y={PADDING.TOP - 12}
+                y={PADDING.TOP - 16}
                 textAnchor="middle"
                 style={{
                   fontSize: 10,
