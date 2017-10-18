@@ -30,7 +30,7 @@ function CalibrationStep({ match }) {
           </H4>
 
           <P>
-            <T>Put on your headphones and set the volume the 0.</T>
+            <T>Put on your headphones and set the volume at 0.</T>
           </P>
           <LinkButton to={CalibrationUrl.ADJUST_LEVEL}>
             <T>Continue</T>
