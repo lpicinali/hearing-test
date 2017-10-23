@@ -55,6 +55,13 @@ const VolumeChangeIcon = styled(Icon)`
   margin-left: -4px;
 `
 
+const CommitButton = styled(NarrowButton)`
+  transition: opacity 0.15s;
+  opacity: ${props => (props.isClickable ? 1 : 0.5)};
+  cursor: ${props => (props.isClickable ? 'pointer' : 'default')};
+  pointer-events: ${props => (props.isClickable ? 'auto' : 'none')};
+`
+
 const ResetIcon = styled(Icon)`
   width: 16px;
   height: 16px;
@@ -215,12 +222,15 @@ class EarTestContainer extends Component {
                   </VolumeChangeButton>
                 </Col>
                 <Col size={1 / 2}>
-                  <NarrowButton
+                  <CommitButton
                     buttonStyle={ButtonStyle.ALLURING}
+                    isClickable={
+                      currentVolume > FrequencyStartVolume[frequency]
+                    }
                     onClick={this.next}
                   >
                     <T>I can hear it</T>
-                  </NarrowButton>
+                  </CommitButton>
                 </Col>
               </Row>
 
@@ -267,12 +277,16 @@ class EarTestContainer extends Component {
                   </VolumeChangeButton>
                 </Col>
                 <Col size={1 / 2}>
-                  <NarrowButton
+                  <CommitButton
                     buttonStyle={ButtonStyle.ALLURING}
+                    isClickable={
+                      currentVolume <
+                      earVolumes.getIn([frequency, TestDirection.UP]) + 10
+                    }
                     onClick={this.next}
                   >
                     <T>{`I can't hear it`}</T>
-                  </NarrowButton>
+                  </CommitButton>
                 </Col>
               </Row>
 
