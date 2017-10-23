@@ -30,6 +30,7 @@ class DevNavigation extends Component {
       <StyledDevNavigation className="DevNavigation">
         <NavLink to={AppUrl.HOME}>Home</NavLink>
         <NavLink to={AppUrl.CALIBRATION}>Calibration</NavLink>
+        <NavLink to={AppUrl.PRACTICE}>Practice</NavLink>
         <NavLink to={AppUrl.TEST}>Test</NavLink>
         <NavLink to={AppUrl.RESULTS}>Results</NavLink>
         <NavLink to={AppUrl.QUESTIONNAIRE}>Questionnaire</NavLink>

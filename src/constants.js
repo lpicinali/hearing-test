@@ -22,6 +22,7 @@ export const AppEnvironment = {
 export const AppUrl = {
   HOME: '/',
   CALIBRATION: '/calibration',
+  PRACTICE: '/practice',
   TEST: '/test',
   RESULTS: '/results',
   QUESTIONNAIRE: '/questionnaire',

@@ -96,7 +96,7 @@ function CalibrationStep({ match }) {
             isActive={match.url === CalibrationUrl.HEADPHONES_POSITIONING}
           />
 
-          <LinkButton to={AppUrl.TEST}>
+          <LinkButton to={AppUrl.PRACTICE}>
             <T>Continue</T>
           </LinkButton>
         </StatefulCol>

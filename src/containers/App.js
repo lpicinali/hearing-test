@@ -17,6 +17,7 @@ import HomeView from 'src/containers/HomeView.js'
 import EndView from 'src/containers/EndView.js'
 import DevNavigation from 'src/containers/DevNavigation.js'
 import CalibrationStep from 'src/containers/calibration/CalibrationStep.js'
+import PracticeStep from 'src/containers/PracticeStep.js'
 import QuestionnaireStep from 'src/containers/QuestionnaireStep.js'
 import ResultsStep from 'src/containers/results/ResultsStep.js'
 import TestStep from 'src/containers/test/TestStep.js'
@@ -49,6 +50,7 @@ const createRouteView = ViewComponent => {
 
 const HomeRouteView = createRouteView(HomeView)
 const CalibrationRouteView = createRouteView(CalibrationStep)
+const PracticeRouteView = createRouteView(PracticeStep)
 const TestRouteView = createRouteView(TestStep)
 const ResultsRouteView = createRouteView(ResultsStep)
 const QuestionnaireRouteView = createRouteView(QuestionnaireStep)
@@ -64,7 +66,10 @@ export default function App() {
           name="description"
           content="Here you can take a hearing test to get an estimate of you level of hearing. The test takes about 5 minutes."
         />
-        <meta property="og:image" content={`${configs.siteUrl}/img/ogimage.png`} />
+        <meta
+          property="og:image"
+          content={`${configs.siteUrl}/img/ogimage.png`}
+        />
         <link rel="shortcut icon" href="/img/favicon.png" />
       </Helmet>
 
@@ -81,6 +86,7 @@ export default function App() {
                   path={`${AppUrl.CALIBRATION}/:step?`}
                   children={CalibrationRouteView}
                 />
+                <Route path={AppUrl.PRACTICE} children={PracticeRouteView} />
                 <Route path={AppUrl.TEST} children={TestRouteView} />
                 <Route path={AppUrl.RESULTS} children={ResultsRouteView} />
                 <Route
