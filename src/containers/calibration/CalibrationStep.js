@@ -11,6 +11,7 @@ import { H2, H4, P } from 'src/styles/elements.js'
 import { Row, StatefulCol } from 'src/styles/grid.js'
 
 const CalibrationUrl = {
+  START_WITH_SILENCE: `${AppUrl.CALIBRATION}/start-with-silence`,
   ADJUST_LEVEL: `${AppUrl.CALIBRATION}/adjust-level`,
   HEADPHONES_POSITIONING: `${AppUrl.CALIBRATION}/headphones-positioning`,
   LEAVE_IT_BE: `${AppUrl.CALIBRATION}/leave-it-be`,
@@ -24,7 +25,26 @@ function CalibrationStep({ match }) {
       </H2>
 
       <Row>
-        <StatefulCol size={1 / 3} isActive={match.url === AppUrl.CALIBRATION}>
+        <StatefulCol size={1 / 4} isActive={match.url === AppUrl.CALIBRATION}>
+          <H4>
+            <T>Find a quiet place</T>
+          </H4>
+
+          <P>
+            <T>
+              This test requires no or little background noise to give good
+              results.
+            </T>
+          </P>
+          <LinkButton to={CalibrationUrl.START_WITH_SILENCE}>
+            <T>Found it</T>
+          </LinkButton>
+        </StatefulCol>
+
+        <StatefulCol
+          size={1 / 4}
+          isActive={match.url === CalibrationUrl.START_WITH_SILENCE}
+        >
           <H4>
             <T>Start with silence</T>
           </H4>
@@ -38,7 +58,7 @@ function CalibrationStep({ match }) {
         </StatefulCol>
 
         <StatefulCol
-          size={1 / 3}
+          size={1 / 4}
           isActive={match.url === CalibrationUrl.ADJUST_LEVEL}
         >
           <H4>
@@ -60,7 +80,7 @@ function CalibrationStep({ match }) {
         </StatefulCol>
 
         <StatefulCol
-          size={1 / 3}
+          size={1 / 4}
           isActive={match.url === CalibrationUrl.HEADPHONES_POSITIONING}
         >
           <H4>
