@@ -1,9 +1,7 @@
-import { flatten, keys, map, max, mean, reduce, sortBy, values } from 'lodash'
+import { keys, map, max, mean, reduce, values } from 'lodash'
 
-import configs from 'src/configs.js'
-import { TestFrequencies } from 'src/constants.js'
+import { normalize, pickArr } from 'src/utils.js'
 
-const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 const ALL_FREQUENCIES = ['125', '250', '500', '1000', '2000', '4000', '8000']
 
 export const SPLtoHLMap = {
@@ -50,7 +48,7 @@ export function convertSPLtoHL(frequency, dbSPL) {
 
 export function getDistance(vec1, vec2) {
   return Math.sqrt(
-    vec1.reduce((aggr, vec1Value, i) => aggr + Math.pow(vec1[i] - vec2[i], 2))
+    vec1.reduce((aggr, vec1Value, i) => aggr + vec1[i] ** vec2[i])
   )
 }
 
@@ -79,6 +77,35 @@ export function getNeighbouringFrequencyValue(earVolumes, frequency) {
   )
 
   return earVolumes[replacementFrequency]
+}
+
+/**
+ * Returns an audiogram with all missing frequency values filled
+ * out using the given scale.
+ */
+export function getProjectedAudiogram(audiogram, scale) {
+  const scaleValues = CodeCurveTypeScales[scale]
+  const maxValue = max(values(audiogram))
+  const maxValueFrequency = reduce(
+    audiogram,
+    (curr, value, frequency) => (value > audiogram[curr] ? frequency : curr),
+    keys(audiogram)[0]
+  )
+  const maxValueFrequencyIndex = ALL_FREQUENCIES.indexOf(maxValueFrequency)
+  const maxValueFrequencyValue = scaleValues[maxValueFrequencyIndex]
+
+  return ALL_FREQUENCIES.reduce((aggr, frequency) => {
+    let frequencyValue = audiogram[frequency]
+
+    if (frequencyValue === undefined) {
+      frequencyValue =
+        maxValue *
+        scaleValues[ALL_FREQUENCIES.indexOf(frequency)] /
+        maxValueFrequencyValue
+    }
+
+    return { ...aggr, [frequency]: frequencyValue }
+  }, {})
 }
 
 /**
@@ -140,32 +167,16 @@ export function calculateHearingLossCodesFromAudiogram(audiogram) {
     throw new RangeError('Unsupported frequency provided')
   }
 
-  // Add values for the frequencies that are not included in the
-  // input audiogram
-  const sevenFrequencyAudiogram = ALL_FREQUENCIES.reduce(
-    (aggr, frequency) => ({
-      ...aggr,
-      [frequency]:
-        audiogram[frequency] !== undefined
-          ? audiogram[frequency]
-          : getNeighbouringFrequencyValue(audiogram, frequency),
-    }),
-    {}
+  // Determine the scale(s) closest to the input audiogram
+  const frequencyIndices = keys(audiogram).map(frequency =>
+    ALL_FREQUENCIES.indexOf(frequency)
   )
-
-  const highestAudiogramValue = max(values(sevenFrequencyAudiogram))
-  const normalizedAudiogram = reduce(
-    sevenFrequencyAudiogram,
-    (aggr, value, frequency) => ({
-      ...aggr,
-      [frequency]: value / highestAudiogramValue,
-    }),
-    {}
-  )
-
   const distances = map(CodeCurveTypeScales, (scaleValues, scaleName) => ({
     scaleName,
-    distance: getAverageDistance(values(normalizedAudiogram), scaleValues),
+    distance: getAverageDistance(
+      normalize(values(audiogram)),
+      normalize(pickArr(scaleValues, frequencyIndices))
+    ),
   }))
   const closestScale = distances.reduce(
     (closest, comparison) =>
@@ -176,27 +187,22 @@ export function calculateHearingLossCodesFromAudiogram(audiogram) {
     x => x.distance === closestScale.distance
   )
 
-  const severities = map(CodeSeverityValues, (severityValue, severityKey) => ({
-    severityKey,
-    closeness: Math.abs(severityValue - highestAudiogramValue),
-  }))
-  const closestSeverity = sortBy(severities, x => x.closeness)[0]
-  const closestSeverities = severities.filter(
-    x => x.closeness === closestSeverity.closeness
-  )
-
-  // console.log({
-  //   audiogram,
-  //   sevenFrequencyAudiogram,
-  //   normalizedAudiogram,
-  //   distances,
-  //   closestScales,
-  //   closestSeverities,
-  // })
-
-  return flatten(
-    closestScales.map(({ scaleName }) =>
-      closestSeverities.map(({ severityKey }) => `${scaleName}${severityKey}`)
+  // Now, for each matching scale, create a projection of the audiogram onto
+  // that scale and determine the closest severity
+  const results = closestScales.map(({ scaleName }) => {
+    const projectedAudiogram = getProjectedAudiogram(audiogram, scaleName)
+    const maxProjectedValue = max(values(projectedAudiogram))
+    const closestSeverity = reduce(
+      CodeSeverityValues,
+      (curr, value, severity) =>
+        Math.abs(maxProjectedValue - value) <
+        Math.abs(maxProjectedValue - CodeSeverityValues[curr])
+          ? severity
+          : curr,
+      0
     )
-  )
+    return `${scaleName}${closestSeverity}`
+  })
+
+  return results
 }

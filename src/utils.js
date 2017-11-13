@@ -1,6 +1,16 @@
 /* global XMLHttpRequest, document, window */
+import { max } from 'lodash'
 
 import { SILENCE } from 'src/constants.js'
+
+export function normalize(arr) {
+  const maxValue = max(arr)
+  return arr.map(x => x / maxValue)
+}
+
+export function pickArr(arr, indices) {
+  return arr.filter((x, i) => indices.includes(i))
+}
 
 export function decibelsToGain(value) {
   if (value <= SILENCE) {

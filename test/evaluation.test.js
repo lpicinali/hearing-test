@@ -1,10 +1,11 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 // import { spy } from 'sinon'
-import { forEach, keys, max, pick, reduce, zipObject } from 'lodash'
+import { forEach, keys, pick, reduce, zipObject } from 'lodash'
 
 import { TestDirection } from 'src/constants.js'
 import * as evaluation from 'src/evaluation.js'
+import { normalize, pickArr } from 'src/utils.js'
 
 const {
   calculateAudiogramFromHearingTestResult,
@@ -44,13 +45,6 @@ const getHearingLossCodeAudiograms = (modifier = () => 1) => {
     {}
   )
 }
-
-const normalize = arr => {
-  const maxValue = max(arr)
-  return arr.map(x => x / maxValue)
-}
-
-const pickArr = (arr, indices) => arr.filter((x, i) => indices.includes(i))
 
 describe('calculateAudiogramFromHearingTestResult()', () => {
   it('throws a RangeError when an unsupported frequency is provided in the input', () => {
@@ -134,9 +128,8 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
       forEach(audiograms, (audiogram, code) => {
         const [scale, severity] = code.split('')
         const partialAudiogram = pick(audiogram, frequencies)
-        // console.log({ code, audiogram })
         const results = calculateHearingLossCodesFromAudiogram(partialAudiogram)
-        // console.log({ results })
+        console.log({ code, results })
 
         // Get all scales whose values are equal the input scale
         // with the frequency pick accounted for
@@ -153,11 +146,11 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
             ) === 0
         )
 
-        // console.log({ matchingScales })
+        console.log({ matchingScales })
 
         const closeMatches = results.filter(x => {
           const [resultScale, resultSeverity] = x.split('')
-          // const severityDistance = Math.abs(resultSeverity - severity)
+          const severityDistance = Math.abs(resultSeverity - severity)
           const isMatchingScale =
             matchingScales.includes(resultScale) ||
             matchingScales.some(
@@ -168,7 +161,7 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
                 ) <= 1
             )
 
-          return isMatchingScale // && severityDistance <= 2
+          return isMatchingScale && severityDistance <= 2
         })
 
         expect(closeMatches.length).to.be.above(0)
