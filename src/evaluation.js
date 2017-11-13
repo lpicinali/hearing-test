@@ -1,8 +1,7 @@
 import { keys, map, max, mean, reduce, sortBy, values } from 'lodash'
 
+import { AUDIOGRAM_FREQUENCIES } from 'src/constants.js'
 import { normalize, pickArr } from 'src/utils.js'
-
-const ALL_FREQUENCIES = ['125', '250', '500', '1000', '2000', '4000', '8000']
 
 export const SPLtoHLMap = {
   '125': 45,
@@ -62,16 +61,18 @@ export function getProjectedAudiogram(audiogram, scale) {
     (curr, value, frequency) => (value > audiogram[curr] ? frequency : curr),
     keys(audiogram)[0]
   )
-  const maxValueFrequencyIndex = ALL_FREQUENCIES.indexOf(maxValueFrequency)
+  const maxValueFrequencyIndex = AUDIOGRAM_FREQUENCIES.indexOf(
+    maxValueFrequency
+  )
   const maxValueFrequencyValue = scaleValues[maxValueFrequencyIndex]
 
-  return ALL_FREQUENCIES.reduce((aggr, frequency) => {
+  return AUDIOGRAM_FREQUENCIES.reduce((aggr, frequency) => {
     let frequencyValue = audiogram[frequency]
 
     if (frequencyValue === undefined) {
       frequencyValue =
         maxValue *
-        scaleValues[ALL_FREQUENCIES.indexOf(frequency)] /
+        scaleValues[AUDIOGRAM_FREQUENCIES.indexOf(frequency)] /
         maxValueFrequencyValue
     }
 
@@ -86,7 +87,7 @@ export function getProjectedAudiogram(audiogram, scale) {
 export function calculateAudiogramFromHearingTestResult(earVolumes) {
   // Throw a RangeError if one or more of the provided frequencies
   // are not supported.
-  if (keys(earVolumes).some(x => ALL_FREQUENCIES.includes(x) === false)) {
+  if (keys(earVolumes).some(x => AUDIOGRAM_FREQUENCIES.includes(x) === false)) {
     throw new RangeError('Unsupported frequency provided')
   }
 
@@ -131,13 +132,13 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
 export function calculateHearingLossCodesFromAudiogram(audiogram) {
   // Throw a RangeError if one or more of the provided frequencies
   // are not supported.
-  if (keys(audiogram).some(x => ALL_FREQUENCIES.includes(x) === false)) {
+  if (keys(audiogram).some(x => AUDIOGRAM_FREQUENCIES.includes(x) === false)) {
     throw new RangeError('Unsupported frequency provided')
   }
 
   // Determine the scale(s) closest to the input audiogram
   const frequencyIndices = keys(audiogram).map(frequency =>
-    ALL_FREQUENCIES.indexOf(frequency)
+    AUDIOGRAM_FREQUENCIES.indexOf(frequency)
   )
   const distances = map(CodeCurveTypeScales, (scaleValues, scaleName) => ({
     scaleName,

@@ -9,6 +9,7 @@ import { AppUrl, Ear } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import RenderAfter from 'src/components/RenderAfter.js'
 import EarTestContainer from 'src/containers/test/EarTestContainer.js'
+import FinishBadlyButton from 'src/containers/test/FinishBadlyButton.js'
 import { H2 } from 'src/styles/elements.js'
 
 const TestUrl = {
@@ -64,7 +65,10 @@ class TestStep extends Component {
         </Switch>
 
         {mayOutputDebugInfo() && (
-          <button onClick={onFinishTests}>Finish early</button>
+          <div>
+            <button onClick={onFinishTests}>Finish early</button>
+            <FinishBadlyButton />
+          </div>
         )}
       </div>
     )

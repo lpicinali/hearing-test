@@ -29,6 +29,16 @@ export const AppUrl = {
   THANK_YOU: '/thank-you',
 }
 
+export const AUDIOGRAM_FREQUENCIES = [
+  '125',
+  '250',
+  '500',
+  '1000',
+  '2000',
+  '4000',
+  '8000',
+]
+
 export const Ear = {
   LEFT: 'LEFT',
   RIGHT: 'RIGHT',

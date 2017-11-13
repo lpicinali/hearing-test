@@ -3,7 +3,7 @@ import { expect } from 'chai'
 // import { spy } from 'sinon'
 import { forEach, keys, pick, reduce, zipObject } from 'lodash'
 
-import { TestDirection } from 'src/constants.js'
+import { AUDIOGRAM_FREQUENCIES, TestDirection } from 'src/constants.js'
 import * as evaluation from 'src/evaluation.js'
 import { normalize, pickArr } from 'src/utils.js'
 
@@ -15,8 +15,6 @@ const {
   CodeCurveTypeScales,
   CodeSeverityValues,
 } = evaluation
-
-const FREQUENCIES = ['125', '250', '500', '1000', '2000', '4000', '8000']
 
 const getEmptyTestValues = frequencies =>
   zipObject(
@@ -37,7 +35,7 @@ const getHearingLossCodeAudiograms = (modifier = () => 1) =>
         (scaleAggr, decibels, severity) => ({
           ...scaleAggr,
           [`${scale}${severity}`]: zipObject(
-            FREQUENCIES,
+            AUDIOGRAM_FREQUENCIES,
             levels.map(x => x * decibels * modifier())
           ),
         }),
@@ -68,9 +66,9 @@ describe('calculateAudiogramFromHearingTestResult()', () => {
     const results2 = calculateAudiogramFromHearingTestResult(input2)
     expect(results2).to.have.keys(['250', '8000'])
 
-    const input3 = getEmptyTestValues(FREQUENCIES)
+    const input3 = getEmptyTestValues(AUDIOGRAM_FREQUENCIES)
     const results3 = calculateAudiogramFromHearingTestResult(input3)
-    expect(results3).to.have.keys(FREQUENCIES)
+    expect(results3).to.have.keys(AUDIOGRAM_FREQUENCIES)
   })
 })
 
@@ -107,7 +105,9 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
     describe('partial audiograms into reasonable codes', () => {
       function testPartialAudiogramPlotting(frequencies) {
         const audiograms = getHearingLossCodeAudiograms()
-        const frequencyIndices = frequencies.map(x => FREQUENCIES.indexOf(x))
+        const frequencyIndices = frequencies.map(x =>
+          AUDIOGRAM_FREQUENCIES.indexOf(x)
+        )
 
         forEach(audiograms, (audiogram, code) => {
           const [scale, severity] = code.split('')
