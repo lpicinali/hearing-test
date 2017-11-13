@@ -118,61 +118,60 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
       })
     })
 
-    it('500, 1000, 2000 and 4000 Hz audiograms into reasonable codes', () => {
-      const audiograms = getHearingLossCodeAudiograms()
+    describe('partial audiograms into reasonable codes', () => {
+      function testPartialAudiogramPlotting(frequencies) {
+        const audiograms = getHearingLossCodeAudiograms()
+        const frequencyIndices = frequencies.map(x => FREQUENCIES.indexOf(x))
 
-      const frequencies = ['500', '1000', '2000', '4000']
-      const frequencyIndices = frequencies.map(x => FREQUENCIES.indexOf(x))
+        forEach(audiograms, (audiogram, code) => {
+          const [scale, severity] = code.split('')
+          const partialAudiogram = pick(audiogram, frequencies)
+          const results = calculateHearingLossCodesFromAudiogram(
+            partialAudiogram
+          )
 
-      forEach(audiograms, (audiogram, code) => {
-        const [scale, severity] = code.split('')
-        const partialAudiogram = pick(audiogram, frequencies)
-        const results = calculateHearingLossCodesFromAudiogram(partialAudiogram)
+          // Get all scales whose values are equal the input scale
+          // with the frequency pick accounted for
+          const normalizedScale = normalize(
+            pickArr(CodeCurveTypeScales[scale], frequencyIndices)
+          )
+          const matchingScales = keys(CodeCurveTypeScales).filter(
+            scaleKey =>
+              evaluation.getAverageDistance(
+                normalizedScale,
+                normalize(
+                  pickArr(CodeCurveTypeScales[scaleKey], frequencyIndices)
+                )
+              ) === 0
+          )
 
-        // Get all scales whose values are equal the input scale
-        // with the frequency pick accounted for
-        const normalizedScale = normalize(
-          pickArr(CodeCurveTypeScales[scale], frequencyIndices)
-        )
-        const matchingScales = keys(CodeCurveTypeScales).filter(
-          scaleKey =>
-            evaluation.getAverageDistance(
-              normalizedScale,
-              normalize(
-                pickArr(CodeCurveTypeScales[scaleKey], frequencyIndices)
+          const closeMatches = results.filter(x => {
+            const [resultScale, resultSeverity] = x.split('')
+            const severityDistance = Math.abs(resultSeverity - severity)
+            const isMatchingScale =
+              matchingScales.includes(resultScale) ||
+              matchingScales.some(
+                s =>
+                  Math.abs(
+                    keys(CodeCurveTypeScales).indexOf(s) -
+                      keys(CodeCurveTypeScales).indexOf(resultScale)
+                  ) <= 1
               )
-            ) === 0
-        )
 
-        const closeMatches = results.filter(x => {
-          const [resultScale, resultSeverity] = x.split('')
-          const severityDistance = Math.abs(resultSeverity - severity)
-          const isMatchingScale =
-            matchingScales.includes(resultScale) ||
-            matchingScales.some(
-              s =>
-                Math.abs(
-                  keys(CodeCurveTypeScales).indexOf(s) -
-                    keys(CodeCurveTypeScales).indexOf(resultScale)
-                ) <= 1
-            )
+            return isMatchingScale && severityDistance <= 2
+          })
 
-          return isMatchingScale && severityDistance <= 2
+          expect(closeMatches.length).to.be.above(0)
         })
+      }
 
-        expect(closeMatches.length).to.be.above(0)
+      it('with 500, 1000, 2000 and 4000 Hz', () => {
+        testPartialAudiogramPlotting(['500', '1000', '2000', '4000'])
+      })
+
+      it('with 500, 1000 and 4000 Hz', () => {
+        testPartialAudiogramPlotting(['500', '1000', '4000'])
       })
     })
-
-    // it('500, 1000 and 4000 Hz audiograms into reasonable codes', () => {
-    //   const audiograms = getHearingLossCodeAudiograms()
-
-    //   forEach(audiograms, (audiogram, code) => {
-    //     const partialAudiogram = pick(audiogram, ['500', '1000', '4000'])
-    //     expect(
-    //       calculateHearingLossCodesFromAudiogram(partialAudiogram)
-    //     ).to.equal(code)
-    //   })
-    // })
   })
 })
