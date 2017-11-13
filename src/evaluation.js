@@ -193,3 +193,12 @@ export function getMedianCode(codes) {
   )
   return sortedCodes[leftPivotedMiddleIndex]
 }
+
+/**
+ * Returns whether a hearing loss severity code is deemed
+ * as indicating a potential hearing loss.
+ */
+export function isIndicatingHearingLoss(code) {
+  const [, severity] = code.split('')
+  return parseInt(severity) >= 3
+}

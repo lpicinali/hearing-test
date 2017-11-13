@@ -11,6 +11,7 @@ const {
   calculateAudiogramFromHearingTestResult,
   calculateHearingLossCodesFromAudiogram,
   getMedianCode,
+  isIndicatingHearingLoss,
   CodeCurveTypeScales,
   CodeSeverityValues,
 } = evaluation
@@ -177,5 +178,49 @@ describe('getMedianCode()', () => {
     expect(getMedianCode(['A0', 'A1', 'A2', 'A3'])).to.equal('A1')
     expect(getMedianCode(['I0', 'I1', 'I2', 'I4', 'I5', 'I6'])).to.equal('I2')
     expect(getMedianCode(['A0', 'D2', 'D3', 'D4', 'E4'])).to.equal('D3')
+  })
+})
+
+describe('isIndicatingHearingLoss()', () => {
+  it('deems anything with a severity >= 3 as a potential hearing loss', () => {
+    expect(isIndicatingHearingLoss('A0')).to.equal(false)
+    expect(isIndicatingHearingLoss('B0')).to.equal(false)
+    expect(isIndicatingHearingLoss('C0')).to.equal(false)
+    expect(isIndicatingHearingLoss('D0')).to.equal(false)
+    expect(isIndicatingHearingLoss('E0')).to.equal(false)
+    expect(isIndicatingHearingLoss('F0')).to.equal(false)
+    expect(isIndicatingHearingLoss('G0')).to.equal(false)
+    expect(isIndicatingHearingLoss('H0')).to.equal(false)
+    expect(isIndicatingHearingLoss('I0')).to.equal(false)
+
+    expect(isIndicatingHearingLoss('A2')).to.equal(false)
+    expect(isIndicatingHearingLoss('B2')).to.equal(false)
+    expect(isIndicatingHearingLoss('C2')).to.equal(false)
+    expect(isIndicatingHearingLoss('D2')).to.equal(false)
+    expect(isIndicatingHearingLoss('E2')).to.equal(false)
+    expect(isIndicatingHearingLoss('F2')).to.equal(false)
+    expect(isIndicatingHearingLoss('G2')).to.equal(false)
+    expect(isIndicatingHearingLoss('H2')).to.equal(false)
+    expect(isIndicatingHearingLoss('I2')).to.equal(false)
+
+    expect(isIndicatingHearingLoss('A3')).to.equal(true)
+    expect(isIndicatingHearingLoss('B3')).to.equal(true)
+    expect(isIndicatingHearingLoss('C3')).to.equal(true)
+    expect(isIndicatingHearingLoss('D3')).to.equal(true)
+    expect(isIndicatingHearingLoss('E3')).to.equal(true)
+    expect(isIndicatingHearingLoss('F3')).to.equal(true)
+    expect(isIndicatingHearingLoss('G3')).to.equal(true)
+    expect(isIndicatingHearingLoss('H3')).to.equal(true)
+    expect(isIndicatingHearingLoss('I3')).to.equal(true)
+
+    expect(isIndicatingHearingLoss('A6')).to.equal(true)
+    expect(isIndicatingHearingLoss('B6')).to.equal(true)
+    expect(isIndicatingHearingLoss('C6')).to.equal(true)
+    expect(isIndicatingHearingLoss('D6')).to.equal(true)
+    expect(isIndicatingHearingLoss('E6')).to.equal(true)
+    expect(isIndicatingHearingLoss('F6')).to.equal(true)
+    expect(isIndicatingHearingLoss('G6')).to.equal(true)
+    expect(isIndicatingHearingLoss('H6')).to.equal(true)
+    expect(isIndicatingHearingLoss('I6')).to.equal(true)
   })
 })
