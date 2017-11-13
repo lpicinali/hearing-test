@@ -79,9 +79,9 @@
     "mocha": "^4.0.1",
     "nodemon": "^1.12.0",
     "prettier": "^1.6.1",
+    "sinon": "^4.1.2",
     "webpack-dev-server": "^2.7.1"
   },
-  "author":
-    "Alexander Wallin <office@alexanderwallin.com> (http://alexanderwallin.com)",
+  "author": "Alexander Wallin <office@alexanderwallin.com> (http://alexanderwallin.com)",
   "license": "ISC"
 }
