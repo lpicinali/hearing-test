@@ -25,8 +25,8 @@ const getEmptyTestValues = frequencies =>
     }))
   )
 
-const getHearingLossCodeAudiograms = (modifier = () => 1) => {
-  return reduce(
+const getHearingLossCodeAudiograms = (modifier = () => 1) =>
+  reduce(
     CodeCurveTypeScales,
     (aggr, levels, scale) => ({
       ...aggr,
@@ -44,7 +44,6 @@ const getHearingLossCodeAudiograms = (modifier = () => 1) => {
     }),
     {}
   )
-}
 
 describe('calculateAudiogramFromHearingTestResult()', () => {
   it('throws a RangeError when an unsupported frequency is provided in the input', () => {
@@ -129,7 +128,6 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
         const [scale, severity] = code.split('')
         const partialAudiogram = pick(audiogram, frequencies)
         const results = calculateHearingLossCodesFromAudiogram(partialAudiogram)
-        console.log({ code, results })
 
         // Get all scales whose values are equal the input scale
         // with the frequency pick accounted for
@@ -145,8 +143,6 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
               )
             ) === 0
         )
-
-        console.log({ matchingScales })
 
         const closeMatches = results.filter(x => {
           const [resultScale, resultSeverity] = x.split('')

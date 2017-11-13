@@ -46,12 +46,6 @@ export function convertSPLtoHL(frequency, dbSPL) {
   return dbSPL - SPLtoHLMap[frequency]
 }
 
-export function getDistance(vec1, vec2) {
-  return Math.sqrt(
-    vec1.reduce((aggr, vec1Value, i) => aggr + vec1[i] ** vec2[i])
-  )
-}
-
 export function getAverageDistance(arr1, arr2) {
   return mean(arr1.map((x, i) => Math.abs(x - arr2[i])))
 }
