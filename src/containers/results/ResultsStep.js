@@ -10,6 +10,7 @@ import { AppUrl, Ear } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Audiogram from 'src/components/Audiogram.js'
 import { LinkButton } from 'src/components/Button.js'
+import HearingLossCodeSummary from 'src/components/HearingLossCodeSummary.js'
 import StickyFooter from 'src/components/StickyFooter.js'
 import ResultsDownloadButton from 'src/containers/ResultsDownloadButton.js'
 import { WHITE } from 'src/styles/colors.js'
@@ -47,6 +48,9 @@ class ResultsStep extends Component {
     const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
     const rightAudiogram = results.getIn(['audiograms', Ear.RIGHT])
 
+    const leftCode = results.getIn(['codes', Ear.LEFT])
+    const rightCode = results.getIn(['codes', Ear.RIGHT])
+
     return (
       <ResultsWrapper>
         <H2>
@@ -78,18 +82,20 @@ class ResultsStep extends Component {
                 <EarLabel>
                   <T>Left ear</T>
                 </EarLabel>
-                <HearingLossCode>
-                  {results.getIn(['codes', Ear.LEFT])}
-                </HearingLossCode>
+                <HearingLossCode>{leftCode}</HearingLossCode>
+                {leftCode !== null && (
+                  <HearingLossCodeSummary code={leftCode} />
+                )}
               </Col>
 
               <Col size={1 / 2}>
                 <EarLabel>
                   <T>Right ear</T>
                 </EarLabel>
-                <HearingLossCode>
-                  {results.getIn(['codes', Ear.RIGHT])}
-                </HearingLossCode>
+                <HearingLossCode>{rightCode}</HearingLossCode>
+                {rightCode !== null && (
+                  <HearingLossCodeSummary code={rightCode} />
+                )}
               </Col>
             </Row>
           </ResultSection>
