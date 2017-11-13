@@ -1,12 +1,15 @@
 import { fromJS } from 'immutable'
+import { zipObject } from 'lodash'
 
 import configs from 'src/configs.js'
 import { ActionType, Ear, TestFrequencies } from 'src/constants.js'
 
+const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
+
 const initialState = fromJS({
   audiograms: {
-    [Ear.LEFT]: TestFrequencies[configs.EXTENT].map(() => 0),
-    [Ear.RIGHT]: TestFrequencies[configs.EXTENT].map(() => 0),
+    [Ear.LEFT]: zipObject(TEST_FREQUENCIES, TEST_FREQUENCIES.map(() => 0)),
+    [Ear.RIGHT]: zipObject(TEST_FREQUENCIES, TEST_FREQUENCIES.map(() => 0)),
   },
   codes: {
     [Ear.LEFT]: null,

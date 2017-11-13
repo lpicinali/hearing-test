@@ -3,22 +3,19 @@ import IPropTypes from 'immutable-props'
 import { T } from 'lioness'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { zip } from 'lodash'
-import { Map } from 'immutable'
+import { map } from 'lodash'
 
 import configs from 'src/configs.js'
-import { AppUrl, Ear, TestFrequencies } from 'src/constants.js'
+import { AppUrl, Ear } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Audiogram from 'src/components/Audiogram.js'
-import Button, { LinkButton } from 'src/components/Button.js'
+import { LinkButton } from 'src/components/Button.js'
 import StickyFooter from 'src/components/StickyFooter.js'
 import ResultsDownloadButton from 'src/containers/ResultsDownloadButton.js'
 import { WHITE } from 'src/styles/colors.js'
 import { A, H2, H3, H5, P } from 'src/styles/elements.js'
 import { Col, Row } from 'src/styles/grid.js'
 import { FONT_MONO } from 'src/styles/type.js'
-
-const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
 
 const ResultsWrapper = styled.div`margin-bottom: 80px;`
 
@@ -49,13 +46,6 @@ class ResultsStep extends Component {
 
     const leftAudiogram = results.getIn(['audiograms', Ear.LEFT])
     const rightAudiogram = results.getIn(['audiograms', Ear.RIGHT])
-
-    const leftAudiogramData = new Map(
-      zip(TEST_FREQUENCIES, leftAudiogram.toJS())
-    )
-    const rightAudiogramData = new Map(
-      zip(TEST_FREQUENCIES, rightAudiogram.toJS())
-    )
 
     return (
       <ResultsWrapper>
@@ -122,15 +112,20 @@ class ResultsStep extends Component {
               <EarLabel>
                 <T>Left ear</T>
               </EarLabel>
-              {leftAudiogramData && (
+              {leftAudiogram && (
                 <StyledAudiogram
                   ear={Ear.LEFT}
-                  data={leftAudiogramData}
+                  data={leftAudiogram}
                   isInteractive={false}
                 />
               )}
               {mayOutputDebugInfo() && (
-                <code>{leftAudiogram.toJS().join(', ')}</code>
+                <code>
+                  {map(
+                    leftAudiogram.toJS(),
+                    (value, frequency) => `${frequency}: ${value}`
+                  ).join(', ')}
+                </code>
               )}
             </Col>
             <Col size={1 / 2}>
@@ -140,12 +135,17 @@ class ResultsStep extends Component {
               {rightAudiogram && (
                 <StyledAudiogram
                   ear={Ear.RIGHT}
-                  data={rightAudiogramData}
+                  data={rightAudiogram}
                   isInteractive={false}
                 />
               )}
               {mayOutputDebugInfo() && (
-                <code>{rightAudiogram.toJS().join(', ')}</code>
+                <code>
+                  {map(
+                    rightAudiogram.toJS(),
+                    (value, frequency) => `${frequency}: ${value}`
+                  ).join(', ')}
+                </code>
               )}
             </Col>
           </Row>

@@ -11,7 +11,8 @@ import configs from 'src/configs.js'
 import { ActionType, AppUrl, Ear } from 'src/constants.js'
 import {
   calculateAudiogramFromHearingTestResult,
-  calculateHearingLossCodeFromHearingTestResult,
+  calculateHearingLossCodesFromAudiogram,
+  getMedianCode,
 } from 'src/evaluation.js'
 import history from 'src/history.js'
 import fetchResultsPdf from 'src/pdf/fetchResultsPdf.js'
@@ -32,10 +33,11 @@ function* calculateAudiograms() {
     )
     yield put(setResultAudiogram(Ear.LEFT, leftEarAudiogram))
 
-    const leftEarCode = yield call(
-      calculateHearingLossCodeFromHearingTestResult,
-      leftEarVolumes
+    const leftEarCodes = yield call(
+      calculateHearingLossCodesFromAudiogram,
+      leftEarAudiogram
     )
+    const leftEarCode = yield call(getMedianCode, leftEarCodes)
     yield put(setResultCode(Ear.LEFT, leftEarCode))
 
     // Right ear
@@ -46,10 +48,11 @@ function* calculateAudiograms() {
     )
     yield put(setResultAudiogram(Ear.RIGHT, rightEarAudiogram))
 
-    const rightEarCode = yield call(
-      calculateHearingLossCodeFromHearingTestResult,
-      rightEarVolumes
+    const rightEarCodes = yield call(
+      calculateHearingLossCodesFromAudiogram,
+      rightEarAudiogram
     )
+    const rightEarCode = yield call(getMedianCode, rightEarCodes)
     yield put(setResultCode(Ear.RIGHT, rightEarCode))
 
     yield call(history.push, AppUrl.RESULTS)
