@@ -112,6 +112,10 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
   )
 
   // Normalize against the first value
+  //
+  // TODO: This normalization makes a crazy bad but even
+  // result look perfectly normal. Find out whether this
+  // is the desired behaviour.
   const firstFrequency = keys(earVolumes)[0]
   const normalizedVolumes = reduce(
     dbHLEarVolumes,
