@@ -1,4 +1,4 @@
-import { keys, map, max, mean, reduce, values } from 'lodash'
+import { keys, map, max, mean, reduce, sortBy, values } from 'lodash'
 
 import { normalize, pickArr } from 'src/utils.js'
 
@@ -176,4 +176,20 @@ export function calculateHearingLossCodesFromAudiogram(audiogram) {
   })
 
   return results
+}
+
+/**
+ * Returns the code from an array of codes that is considered the
+ * median code out of those codes.
+ */
+export function getMedianCode(codes) {
+  if (codes.length <= 2) {
+    return codes[0]
+  }
+
+  const sortedCodes = sortBy(codes)
+  const leftPivotedMiddleIndex = Math.floor(
+    (codes.length - (codes.length % 2 === 0 ? 1 : 0)) / 2
+  )
+  return sortedCodes[leftPivotedMiddleIndex]
 }

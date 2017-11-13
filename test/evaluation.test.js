@@ -10,6 +10,7 @@ import { normalize, pickArr } from 'src/utils.js'
 const {
   calculateAudiogramFromHearingTestResult,
   calculateHearingLossCodesFromAudiogram,
+  getMedianCode,
   CodeCurveTypeScales,
   CodeSeverityValues,
 } = evaluation
@@ -157,5 +158,24 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
         testPartialAudiogramPlotting(['500', '1000', '4000'])
       })
     })
+  })
+})
+
+describe('getMedianCode()', () => {
+  it('returns the first code if there are only two or less codes', () => {
+    expect(getMedianCode(['B4'])).to.equal('B4')
+    expect(getMedianCode(['I3'])).to.equal('I3')
+    expect(getMedianCode(['A4', 'F4'])).to.equal('A4')
+    expect(getMedianCode(['I0', 'I6'])).to.equal('I0')
+  })
+
+  it('uses the median scale followed by the median severity to determine the median code', () => {
+    expect(getMedianCode(['A0', 'B0', 'C0'])).to.equal('B0')
+    expect(getMedianCode(['A8', 'D3', 'E1'])).to.equal('D3')
+    expect(getMedianCode(['F6', 'I3', 'A3'])).to.equal('F6')
+
+    expect(getMedianCode(['A0', 'A1', 'A2', 'A3'])).to.equal('A1')
+    expect(getMedianCode(['I0', 'I1', 'I2', 'I4', 'I5', 'I6'])).to.equal('I2')
+    expect(getMedianCode(['A0', 'D2', 'D3', 'D4', 'E4'])).to.equal('D3')
   })
 })
