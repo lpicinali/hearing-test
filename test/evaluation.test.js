@@ -79,22 +79,6 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
     expect(getResults).to.throw(RangeError)
   })
 
-  it(
-    'uses getNeighbouringFrequencyValue() to fill audiogram with missing frequencies'
-  )
-  // it('uses getNeighbouringFrequencyValue() to fill audiogram with missing frequencies', () => {
-  //   const fillSpy = spy(evaluation, 'getNeighbouringFrequencyValue')
-  //   const audiogram = zipObject(
-  //     FREQUENCIES.slice(1, FREQUENCIES.length),
-  //     FREQUENCIES.map(() => 0)
-  //   )
-
-  //   calculateHearingLossCodesFromAudiogram(audiogram)
-  //   expect(fillSpy.args[0]).to.equal(['125', 0])
-
-  //   fillSpy.restore()
-  // })
-
   describe('plots', () => {
     it('exact matches correctly', () => {
       const audiograms = getHearingLossCodeAudiograms()

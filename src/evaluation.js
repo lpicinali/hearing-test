@@ -50,29 +50,6 @@ export function getAverageDistance(arr1, arr2) {
   return mean(arr1.map((x, i) => Math.abs(x - arr2[i])))
 }
 
-export function getNeighbouringFrequencyValue(earVolumes, frequency) {
-  if (earVolumes[frequency] !== undefined) {
-    return earVolumes[frequency]
-  }
-
-  const neighbourMap = {
-    '125': ['250', '500', '1000', '2000', '4000', '8000'],
-    '250': ['500', '1000', '125', '2000', '4000', '8000'],
-    '500': ['1000', '250', '2000', '125', '4000', '8000'],
-    '1000': ['2000', '500', '4000', '250', '125', '8000'],
-    '2000': ['1000', '4000', '500', '8000', '250', '125'],
-    '4000': ['2000', '8000', '1000', '500', '250', '125'],
-    '8000': ['4000', '2000', '1000', '500', '250', '125'],
-  }
-
-  const prioritisedFrequencies = neighbourMap[frequency]
-  const replacementFrequency = prioritisedFrequencies.find(
-    x => earVolumes[x] !== undefined
-  )
-
-  return earVolumes[replacementFrequency]
-}
-
 /**
  * Returns an audiogram with all missing frequency values filled
  * out using the given scale.
