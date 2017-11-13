@@ -116,10 +116,7 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
     dbHLEarVolumes,
     (aggr, volume, frequency) => ({
       ...aggr,
-      [frequency]:
-        frequency === firstFrequency
-          ? 0
-          : dbHLEarVolumes[firstFrequency] - volume,
+      [frequency]: volume - dbHLEarVolumes[firstFrequency],
     }),
     {}
   )
