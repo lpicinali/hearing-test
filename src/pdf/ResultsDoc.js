@@ -1,19 +1,13 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Map } from 'immutable'
-import { identity, map, zip } from 'lodash'
+import { fromJS } from 'immutable'
+import { identity, map } from 'lodash'
 
 import configs from 'src/configs.js'
-import {
-  Ear,
-  QuestionnaireField,
-  QuestionnaireGroup,
-  TestFrequencies,
-} from 'src/constants.js'
+import { Ear, QuestionnaireField, QuestionnaireGroup } from 'src/constants.js'
 import getQuestionnaire from 'src/questionnaire.js'
 import Audiogram from 'src/components/Audiogram.js'
-
-const TEST_FREQUENCIES = TestFrequencies[configs.EXTENT]
+import HearingLossCodeSummary from 'src/components/HearingLossCodeSummary.js'
 
 /**
  * Results Doc
@@ -33,12 +27,8 @@ class ResultsDoc extends PureComponent {
   render() {
     const { audiograms, codes, questionnaire } = this.props
 
-    const leftAudiogramData = new Map(
-      zip(TEST_FREQUENCIES, audiograms[Ear.LEFT])
-    )
-    const rightAudiogramData = new Map(
-      zip(TEST_FREQUENCIES, audiograms[Ear.RIGHT])
-    )
+    const leftAudiogramData = fromJS(audiograms[Ear.LEFT])
+    const rightAudiogramData = fromJS(audiograms[Ear.RIGHT])
 
     const audiogramRatio = 350 / 280
     const audiogramWidth = 220
@@ -74,11 +64,13 @@ class ResultsDoc extends PureComponent {
               <div className="Col">
                 <h5>Left ear</h5>
                 <div className="HearingLossCode">{codes[Ear.LEFT]}</div>
+                <HearingLossCodeSummary code={codes[Ear.LEFT]} />
               </div>
 
               <div className="Col">
                 <h5>Right ear</h5>
                 <div className="HearingLossCode">{codes[Ear.RIGHT]}</div>
+                <HearingLossCodeSummary code={codes[Ear.RIGHT]} />
               </div>
             </div>
           </div>
