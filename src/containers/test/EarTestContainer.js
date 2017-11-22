@@ -214,7 +214,7 @@ class EarTestContainer extends Component {
                         ear,
                         frequency,
                         direction,
-                        clamp(currentVolume + 2, minVolume, 0)
+                        clamp(currentVolume + 4, minVolume, 0)
                       )}
                   >
                     <VolumeChangeIcon name="plus" color={BLUE} />{' '}
