@@ -17,7 +17,7 @@ import {
 } from 'src/constants.js'
 import { mayOutputDebugInfo } from 'src/environment.js'
 import Audio from 'src/components/Audio.js'
-import Button, { ButtonStyle } from 'src/components/Button.js'
+import { Button, ButtonStyle } from 'src/components/Button.js'
 import Icon from 'src/components/Icon.js'
 import StepProgress from 'src/components/StepProgress.js'
 import { BLACK, BLUE, GRAY, WHITE } from 'src/styles/colors.js'
@@ -53,13 +53,6 @@ const VolumeChangeIcon = styled(Icon)`
   height: 20px;
   margin-right: 4px;
   margin-left: -4px;
-`
-
-const CommitButton = styled(NarrowButton)`
-  transition: opacity 0.15s;
-  opacity: ${props => (props.isClickable ? 1 : 0.5)};
-  cursor: ${props => (props.isClickable ? 'pointer' : 'default')};
-  pointer-events: ${props => (props.isClickable ? 'auto' : 'none')};
 `
 
 const ResetIcon = styled(Icon)`
@@ -222,15 +215,12 @@ class EarTestContainer extends Component {
                   </VolumeChangeButton>
                 </Col>
                 <Col size={1 / 2}>
-                  <CommitButton
+                  <Button
                     buttonStyle={ButtonStyle.ALLURING}
-                    isClickable={
-                      currentVolume > FrequencyStartVolume[frequency]
-                    }
                     onClick={this.next}
                   >
                     <T>I can hear it</T>
-                  </CommitButton>
+                  </Button>
                 </Col>
               </Row>
 
@@ -277,16 +267,12 @@ class EarTestContainer extends Component {
                   </VolumeChangeButton>
                 </Col>
                 <Col size={1 / 2}>
-                  <CommitButton
+                  <Button
                     buttonStyle={ButtonStyle.ALLURING}
-                    isClickable={
-                      currentVolume <
-                      earVolumes.getIn([frequency, TestDirection.UP]) + 10
-                    }
                     onClick={this.next}
                   >
                     <T>{`I can't hear it`}</T>
-                  </CommitButton>
+                  </Button>
                 </Col>
               </Row>
 
