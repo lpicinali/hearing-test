@@ -202,5 +202,5 @@ export function getMedianCode(codes) {
  */
 export function isIndicatingHearingLoss(code) {
   const [, severity] = code.split('')
-  return parseInt(severity) >= 3
+  return parseInt(severity) >= 2
 }
