@@ -61,7 +61,13 @@ class ResultsStep extends Component {
           <T>These are your hearing test results.</T>{' '}
           <T
             message="{{ link:Click here }} for more information about the 3D Tune-In project and apps."
-            link={<A href="http://3d-tune-in.eu/" target="_blank" />}
+            link={
+              <A
+                href="http://3d-tune-in.eu/"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            }
           />
         </P>
 
