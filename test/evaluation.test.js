@@ -192,6 +192,8 @@ describe('isIndicatingHearingLoss()', () => {
     expect(isIndicatingHearingLoss('G0')).to.equal(false)
     expect(isIndicatingHearingLoss('H0')).to.equal(false)
     expect(isIndicatingHearingLoss('I0')).to.equal(false)
+    expect(isIndicatingHearingLoss('J0')).to.equal(false)
+    expect(isIndicatingHearingLoss('K0')).to.equal(false)
 
     expect(isIndicatingHearingLoss('A1')).to.equal(false)
     expect(isIndicatingHearingLoss('B1')).to.equal(false)
@@ -202,6 +204,8 @@ describe('isIndicatingHearingLoss()', () => {
     expect(isIndicatingHearingLoss('G1')).to.equal(false)
     expect(isIndicatingHearingLoss('H1')).to.equal(false)
     expect(isIndicatingHearingLoss('I1')).to.equal(false)
+    expect(isIndicatingHearingLoss('J1')).to.equal(false)
+    expect(isIndicatingHearingLoss('K1')).to.equal(false)
 
     expect(isIndicatingHearingLoss('A2')).to.equal(true)
     expect(isIndicatingHearingLoss('B2')).to.equal(true)
@@ -212,6 +216,8 @@ describe('isIndicatingHearingLoss()', () => {
     expect(isIndicatingHearingLoss('G2')).to.equal(true)
     expect(isIndicatingHearingLoss('H2')).to.equal(true)
     expect(isIndicatingHearingLoss('I2')).to.equal(true)
+    expect(isIndicatingHearingLoss('J2')).to.equal(true)
+    expect(isIndicatingHearingLoss('K2')).to.equal(true)
 
     expect(isIndicatingHearingLoss('A6')).to.equal(true)
     expect(isIndicatingHearingLoss('B6')).to.equal(true)
@@ -222,5 +228,7 @@ describe('isIndicatingHearingLoss()', () => {
     expect(isIndicatingHearingLoss('G6')).to.equal(true)
     expect(isIndicatingHearingLoss('H6')).to.equal(true)
     expect(isIndicatingHearingLoss('I6')).to.equal(true)
+    expect(isIndicatingHearingLoss('J6')).to.equal(true)
+    expect(isIndicatingHearingLoss('K6')).to.equal(true)
   })
 })
