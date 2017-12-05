@@ -4,6 +4,10 @@ import { max } from 'lodash'
 import { SILENCE } from 'src/constants.js'
 
 export function normalize(arr) {
+  if (arr.every(x => x === 0)) {
+    return arr
+  }
+
   const maxValue = max(arr)
   return arr.map(x => x / maxValue)
 }

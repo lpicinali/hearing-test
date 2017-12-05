@@ -32,13 +32,15 @@ export const CodeCurveTypeScales = {
  * Maps hearing loss code severity levels to a maximum dB HL value
  */
 export const CodeSeverityValues = {
-  '0': 10,
-  '1': 21,
-  '2': 33,
-  '3': 48,
-  '4': 63,
-  '5': 81,
-  '6': 91,
+  // Using an all-zero value throws off calculations for low-severity
+  // audiograms. For instance, an F0 audiogram will yield a code of A0.
+  '0': 0.0001,
+  '1': 10,
+  '2': 20,
+  '3': 30,
+  '4': 40,
+  '5': 50,
+  '6': 60,
 }
 
 export function convertSPLtoHL(frequency, dbSPL) {
