@@ -26,37 +26,42 @@ function* calculateAudiograms() {
 
     const testValues = yield select(state => state.get('test'))
 
-    // Left ear
-    const leftEarVolumes = testValues.get(Ear.LEFT).toJS()
-    const leftEarAudiogram = yield call(
-      calculateAudiogramFromHearingTestResult,
-      leftEarVolumes
-    )
-    yield put(setResultAudiogram(Ear.LEFT, leftEarAudiogram))
+    try {
+      // Left ear
+      const leftEarVolumes = testValues.get(Ear.LEFT).toJS()
+      const leftEarAudiogram = yield call(
+        calculateAudiogramFromHearingTestResult,
+        leftEarVolumes
+      )
+      yield put(setResultAudiogram(Ear.LEFT, leftEarAudiogram))
 
-    const leftEarCodes = yield call(
-      calculateHearingLossCodesFromAudiogram,
-      leftEarAudiogram
-    )
-    const leftEarCode = yield call(getMedianCode, leftEarCodes)
-    yield put(setResultCode(Ear.LEFT, leftEarCode))
+      const leftEarCodes = yield call(
+        calculateHearingLossCodesFromAudiogram,
+        leftEarAudiogram
+      )
+      const leftEarCode = yield call(getMedianCode, leftEarCodes)
+      yield put(setResultCode(Ear.LEFT, leftEarCode))
 
-    // Right ear
-    const rightEarVolumes = testValues.get(Ear.RIGHT).toJS()
-    const rightEarAudiogram = yield call(
-      calculateAudiogramFromHearingTestResult,
-      rightEarVolumes
-    )
-    yield put(setResultAudiogram(Ear.RIGHT, rightEarAudiogram))
+      // Right ear
+      const rightEarVolumes = testValues.get(Ear.RIGHT).toJS()
+      const rightEarAudiogram = yield call(
+        calculateAudiogramFromHearingTestResult,
+        rightEarVolumes
+      )
+      yield put(setResultAudiogram(Ear.RIGHT, rightEarAudiogram))
 
-    const rightEarCodes = yield call(
-      calculateHearingLossCodesFromAudiogram,
-      rightEarAudiogram
-    )
-    const rightEarCode = yield call(getMedianCode, rightEarCodes)
-    yield put(setResultCode(Ear.RIGHT, rightEarCode))
+      const rightEarCodes = yield call(
+        calculateHearingLossCodesFromAudiogram,
+        rightEarAudiogram
+      )
+      const rightEarCode = yield call(getMedianCode, rightEarCodes)
+      yield put(setResultCode(Ear.RIGHT, rightEarCode))
 
-    yield call(history.push, AppUrl.RESULTS)
+      yield call(history.push, AppUrl.RESULTS)
+    } catch (err) {
+      console.log('Could not hearing loss codes:')
+      console.log(err)
+    }
   }
 }
 
