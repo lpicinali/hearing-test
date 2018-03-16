@@ -37,6 +37,7 @@
     "history": "^4.6.3",
     "immutable": "^3.8.1",
     "immutable-props": "^1.1.0",
+    "is-touch-device": "^1.0.1",
     "kewler": "^1.0.8",
     "lioness": "^0.2.8",
     "lodash": "^4.17.4",

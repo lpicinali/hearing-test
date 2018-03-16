@@ -1,5 +1,5 @@
 /* global XMLHttpRequest, document, window */
-import { max } from 'lodash'
+import { forEach, max } from 'lodash'
 
 import { SILENCE } from 'src/constants.js'
 
@@ -70,4 +70,26 @@ export function downloadAsFile(blob, filename) {
     document.body.removeChild(tempLink)
     window.URL.revokeObjectURL(blobURL)
   }
+}
+
+/**
+ * Submits a POST request to a new window
+ */
+export function openPostRequestInNewWindow({ url, body }) {
+  const form = document.createElement('form')
+  form.setAttribute('method', 'post')
+  form.setAttribute('action', url)
+  form.setAttribute('target', 'view')
+
+  forEach(body, (fieldValue, fieldKey) => {
+    const hiddenField = document.createElement('input')
+    hiddenField.setAttribute('type', 'hidden')
+    hiddenField.setAttribute('name', fieldKey)
+    hiddenField.setAttribute('value', fieldValue)
+    form.appendChild(hiddenField)
+  })
+
+  document.body.appendChild(form)
+  window.open('', 'view')
+  form.submit()
 }

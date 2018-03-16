@@ -1,5 +1,6 @@
 import { all, call, put, select, take } from 'redux-saga/effects'
 import tinytime from 'tinytime'
+import isTouchDevice from 'is-touch-device'
 
 import {
   downloadResultsError,
@@ -17,7 +18,7 @@ import {
 import history from 'src/history.js'
 import fetchResultsPdf from 'src/pdf/fetchResultsPdf.js'
 import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
-import { downloadAsFile } from 'src/utils.js'
+import { downloadAsFile, openPostRequestInNewWindow } from 'src/utils.js'
 
 function* calculateAudiograms() {
   while (true) {
@@ -81,13 +82,23 @@ function* doResultDownloads() {
     try {
       const html = yield call(renderResultsDocString, resultsDocProps)
 
-      const pdfBlob = yield call(fetchResultsPdf, { html })
-      const dateSuffix = tinytime('{YYYY}{Mo}{DD}', { padMonth: true }).render(
-        new Date()
-      )
-      const pdfFilename = `3D Tune-In Hearing Test Results ${dateSuffix}.pdf`
-      yield call(downloadAsFile, pdfBlob, pdfFilename)
-      yield put(downloadResultsSuccess())
+      if (isTouchDevice() === true) {
+        // Touch devices: Open PDF in a new window
+        yield call(openPostRequestInNewWindow, {
+          url: configs.pdfUrl,
+          body: { text: html },
+        })
+        yield put(downloadResultsSuccess())
+      } else {
+        // Non-touch devices: Download PDF as a file
+        const pdfBlob = yield call(fetchResultsPdf, { html })
+        const dateSuffix = tinytime('{YYYY}{Mo}{DD}', {
+          padMonth: true,
+        }).render(new Date())
+        const pdfFilename = `3D Tune-In Hearing Test Results ${dateSuffix}.pdf`
+        yield call(downloadAsFile, pdfBlob, pdfFilename)
+        yield put(downloadResultsSuccess())
+      }
     } catch (err) {
       console.error(err)
       yield put(downloadResultsError(err))
