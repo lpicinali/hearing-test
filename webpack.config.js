@@ -35,6 +35,7 @@ module.exports = {
         QUESTIONNAIRE: JSON.stringify(process.env.QUESTIONNAIRE || '0'),
         EXTENT: JSON.stringify(process.env.EXTENT || null),
         CODES: JSON.stringify(process.env.CODES || '0'),
+        DEV_PDF_HOST: JSON.stringify(process.env.DEV_PDF_HOST || null),
       },
     }),
   ],

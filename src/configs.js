@@ -5,15 +5,14 @@ const EXTENT =
   process.env.EXTENT === TestExtent.TRIMMED
     ? TestExtent.TRIMMED
     : TestExtent.NORMAL
-
 const HAS_QUESTIONNAIRE = process.env.QUESTIONNAIRE === '1'
-
 const HAS_CODES = process.env.CODES === '1'
+const DEV_PDF_HOST = process.env.DEV_PDF_HOST || 'localhost'
 
 const configs = {
   [AppEnvironment.DEVELOPMENT]: {
     siteUrl: 'http://localhost:8263',
-    pdfUrl: 'http://localhost:8265/pdf',
+    pdfUrl: `http://${DEV_PDF_HOST}:8265/pdf`,
     EXTENT,
     HAS_CODES,
     HAS_QUESTIONNAIRE,
