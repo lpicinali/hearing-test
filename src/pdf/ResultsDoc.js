@@ -121,7 +121,7 @@ class ResultsDoc extends PureComponent {
               (field, questionKey) => (
                 <p key={questionKey}>
                   {field.minLabel}/{field.maxLabel}:{' '}
-                  {questionnaire[questionKey]}/7
+                  {questionnaire[questionKey] + 1}/7
                 </p>
               )
             )}
@@ -137,7 +137,7 @@ class ResultsDoc extends PureComponent {
                   <strong>{field.label}</strong>
                   <br />
                   {field.minLabel}/{field.maxLabel}:{' '}
-                  {questionnaire[questionKey]}/7
+                  {questionnaire[questionKey] + 1}/7
                 </p>
               )
             )}
@@ -149,7 +149,8 @@ class ResultsDoc extends PureComponent {
               </strong>
               <br />
               {recommendationQuestion.minLabel}/{recommendationQuestion.maxLabel}:{' '}
-              {questionnaire[QuestionnaireField.RECOMMENDATION_LIKELIHOOD]}/10
+              {questionnaire[QuestionnaireField.RECOMMENDATION_LIKELIHOOD] +
+                1}/10
             </p>
           </div>
         )}
