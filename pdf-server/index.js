@@ -12,7 +12,12 @@ const phantomPath = path.resolve(__dirname, '../node_modules/.bin/phantomjs')
 
 app.use(morgan('combined'))
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+    limit: '1mb',
+  })
+)
 
 app.use((req, res, next) => {
   if (req.query.rawInput) {
