@@ -91,9 +91,11 @@ export function getProjectedAudiogram(audiogram, scale) {
 export function calculateAudiogramFromHearingTestResult(earVolumes) {
   // Throw a RangeError if one or more of the provided frequencies
   // are not supported.
-  if (keys(earVolumes).some(x => AUDIOGRAM_FREQUENCIES.includes(x) === false)) {
-    throw new RangeError('Unsupported frequency provided')
-  }
+  forEach(earVolumes, (volume, frequency) => {
+    if (AUDIOGRAM_FREQUENCIES.includes(frequency) === false) {
+      throw new RangeError(`Unsupported frequency provided: ${frequency}`)
+    }
+  })
 
   // Get mean values from UP/DOWN values
   const meanEarVolumes = reduce(
@@ -140,9 +142,11 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
 export function calculateHearingLossCodesFromAudiogram(audiogram) {
   // Throw a RangeError if one or more of the provided frequencies
   // are not supported.
-  if (keys(audiogram).some(x => AUDIOGRAM_FREQUENCIES.includes(x) === false)) {
-    throw new RangeError('Unsupported frequency provided')
-  }
+  forEach(audiogram, (volume, frequency) => {
+    if (AUDIOGRAM_FREQUENCIES.includes(frequency) === false) {
+      throw new RangeError(`Unsupported frequency provided: ${frequency}`)
+    }
+  })
 
   // Determine the scale(s) closest to the input audiogram
   const frequencyIndices = keys(audiogram).map(frequency =>
