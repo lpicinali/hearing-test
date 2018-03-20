@@ -1,4 +1,14 @@
-import { keys, map, max, mean, reduce, sortBy, values } from 'lodash'
+import {
+  forEach,
+  forOwn,
+  keys,
+  map,
+  max,
+  mean,
+  reduce,
+  sortBy,
+  values,
+} from 'lodash'
 
 import { AUDIOGRAM_FREQUENCIES } from 'src/constants.js'
 import { normalize, pickArr } from 'src/utils.js'
@@ -54,6 +64,23 @@ export function getAverageDistance(arr1, arr2) {
 }
 
 /**
+ * This function returns a copy of an object with all properties
+ * that have a NaN value removed. It does so in a way that works
+ * on iOS 10.x where numeric keys and float values wreaks havoc.
+ *
+ * @see https://github.com/vuejs/vue/issues/5348
+ */
+function omitNaNs(object) {
+  const result = { ...object }
+  forOwn(object, (value, key) => {
+    if (isNaN(value)) {
+      delete result[key]
+    }
+  })
+  return result
+}
+
+/**
  * Returns an audiogram with all missing frequency values filled
  * out using the given scale.
  */
@@ -87,6 +114,9 @@ export function getProjectedAudiogram(audiogram, scale) {
 /**
  * Takes a set of hearing test values (one UP and one DOWN values
  * per frequency) and returns an audiogram object.
+ *
+ * NOTE: There is a bunch of omitNaNs() here. They circumvent a bug
+ * in iOS and Safari described in the omitNaNs's comment above.
  */
 export function calculateAudiogramFromHearingTestResult(earVolumes) {
   // Throw a RangeError if one or more of the provided frequencies
@@ -100,8 +130,8 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
   // Get mean values from UP/DOWN values
   const meanEarVolumes = reduce(
     earVolumes,
-    (aggr, volumes, frequency) => ({
-      ...aggr,
+    (acc, volumes, frequency) => ({
+      ...acc,
       [frequency]: mean(values(volumes)),
     }),
     {}
@@ -109,9 +139,9 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
 
   // Convert to dbHL
   const dbHLEarVolumes = reduce(
-    meanEarVolumes,
-    (aggr, volume, frequency) => ({
-      ...aggr,
+    omitNaNs(meanEarVolumes),
+    (acc, volume, frequency) => ({
+      ...acc,
       [frequency]: convertSPLtoHL(frequency, volume),
     }),
     {}
@@ -124,15 +154,16 @@ export function calculateAudiogramFromHearingTestResult(earVolumes) {
   // is the desired behaviour.
   const firstFrequency = keys(earVolumes)[0]
   const normalizedVolumes = reduce(
-    dbHLEarVolumes,
-    (aggr, volume, frequency) => ({
-      ...aggr,
+    omitNaNs(dbHLEarVolumes),
+    (acc, volume, frequency) => ({
+      ...acc,
       [frequency]: volume - dbHLEarVolumes[firstFrequency],
     }),
     {}
   )
 
-  return normalizedVolumes
+  const cleanedNormalizedVolumes = omitNaNs(normalizedVolumes)
+  return cleanedNormalizedVolumes
 }
 
 /**
