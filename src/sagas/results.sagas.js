@@ -18,7 +18,11 @@ import {
 import history from 'src/history.js'
 import fetchResultsPdf from 'src/pdf/fetchResultsPdf.js'
 import renderResultsDocString from 'src/pdf/renderResultsDocString.js'
-import { downloadAsFile, openPostRequestInNewWindow } from 'src/utils.js'
+import {
+  downloadAsFile,
+  omitNaNs,
+  openPostRequestInNewWindow,
+} from 'src/utils.js'
 
 function* calculateAudiograms() {
   while (true) {
@@ -74,8 +78,12 @@ function* doResultDownloads() {
       select(state => state.get('results')),
     ])
 
+    // NOTE: See omitNaN's description comment on why it is used
     const resultsDocProps = {
-      audiograms: results.get('audiograms').toJS(),
+      audiograms: {
+        [Ear.LEFT]: omitNaNs(results.getIn(['audiograms', Ear.LEFT]).toJS()),
+        [Ear.RIGHT]: omitNaNs(results.getIn(['audiograms', Ear.RIGHT]).toJS()),
+      },
     }
     if (configs.HAS_CODES === true) {
       resultsDocProps.codes = results.get('codes').toJS()

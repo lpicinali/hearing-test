@@ -1,17 +1,7 @@
-import {
-  forEach,
-  forOwn,
-  keys,
-  map,
-  max,
-  mean,
-  reduce,
-  sortBy,
-  values,
-} from 'lodash'
+import { forEach, keys, map, max, mean, reduce, sortBy, values } from 'lodash'
 
 import { AUDIOGRAM_FREQUENCIES } from 'src/constants.js'
-import { normalize, pickArr } from 'src/utils.js'
+import { normalize, omitNaNs, pickArr } from 'src/utils.js'
 
 export const SPLtoHLMap = {
   '125': 45,
@@ -64,23 +54,6 @@ export function getAverageDistance(arr1, arr2) {
 }
 
 /**
- * This function returns a copy of an object with all properties
- * that have a NaN value removed. It does so in a way that works
- * on iOS 10.x where numeric keys and float values wreaks havoc.
- *
- * @see https://github.com/vuejs/vue/issues/5348
- */
-function omitNaNs(object) {
-  const result = { ...object }
-  forOwn(object, (value, key) => {
-    if (isNaN(value)) {
-      delete result[key]
-    }
-  })
-  return result
-}
-
-/**
  * Returns an audiogram with all missing frequency values filled
  * out using the given scale.
  */
@@ -116,7 +89,7 @@ export function getProjectedAudiogram(audiogram, scale) {
  * per frequency) and returns an audiogram object.
  *
  * NOTE: There is a bunch of omitNaNs() here. They circumvent a bug
- * in iOS and Safari described in the omitNaNs's comment above.
+ * in iOS and Safari described in omitNaNs's comment.
  */
 export function calculateAudiogramFromHearingTestResult(earVolumes) {
   // Throw a RangeError if one or more of the provided frequencies

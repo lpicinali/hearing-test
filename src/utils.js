@@ -1,5 +1,5 @@
 /* global XMLHttpRequest, document, window */
-import { forEach, max } from 'lodash'
+import { forEach, forOwn, max } from 'lodash'
 
 import { SILENCE } from 'src/constants.js'
 
@@ -14,6 +14,23 @@ export function normalize(arr) {
 
 export function pickArr(arr, indices) {
   return arr.filter((x, i) => indices.includes(i))
+}
+
+/**
+ * This function returns a copy of an object with all properties
+ * that have a NaN value removed. It does so in a way that works
+ * on iOS 10.x where numeric keys and float values wreaks havoc.
+ *
+ * @see https://github.com/vuejs/vue/issues/5348
+ */
+export function omitNaNs(object) {
+  const result = { ...object }
+  forOwn(object, (value, key) => {
+    if (isNaN(value)) {
+      delete result[key]
+    }
+  })
+  return result
 }
 
 export function decibelsToGain(value) {
