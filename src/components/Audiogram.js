@@ -100,6 +100,37 @@ AudiogramPoint.propTypes = {
   cy: PropTypes.number.isRequired,
 }
 
+const AudiogramPointTooltip = ({ value, cx, cy, ...props }) => (
+  <g {...props}>
+    <rect
+      x={cx - 20}
+      y={cy - 30}
+      width={40}
+      height={20}
+      rx={3}
+      ry={3}
+      fill={DARK_BLUE}
+    />
+    <text
+      x={cx}
+      y={cy - 16}
+      textAnchor="middle"
+      style={{
+        fontSize: 10,
+        fill: SILVER,
+      }}
+    >
+      {value} dB
+    </text>
+  </g>
+)
+
+AudiogramPointTooltip.propTypes = {
+  value: PropTypes.number.isRequired,
+  cx: PropTypes.number.isRequired,
+  cy: PropTypes.number.isRequired,
+}
+
 /**
  * Interactive audiogram graph component
  */
@@ -366,6 +397,18 @@ class Audiogram extends Component {
                 />
               ))
               .toArray()}
+          </g>
+
+          {/* Value tooltips */}
+          <g>
+            {data.map((value, frequency) => (
+              <AudiogramPointTooltip
+                cx={getFrequencyX(frequency)}
+                cy={getDecibelY(value)}
+                value={value}
+                key={frequency}
+              />
+            ))}
           </g>
         </svg>
       </div>
