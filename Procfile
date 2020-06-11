@@ -1,1 +1,1 @@
-web: npm run l10n:pull && npm run build && npm start
+web: npm run build && npm start
