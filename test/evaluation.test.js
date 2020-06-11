@@ -1,9 +1,9 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 // import { spy } from 'sinon'
-import { forEach, keys, pick, reduce, zipObject } from 'lodash'
+import { forEach, keys, pick, random, range, reduce, shuffle, zipObject } from 'lodash'
 
-import { AUDIOGRAM_FREQUENCIES, TestDirection } from 'src/constants.js'
+import { AUDIOGRAM_FREQUENCIES, FrequencyStartVolume, TestDirection } from 'src/constants.js'
 import * as evaluation from 'src/evaluation.js'
 import { normalize, pickArr } from 'src/utils.js'
 
@@ -70,6 +70,56 @@ describe('calculateAudiogramFromHearingTestResult()', () => {
     const results3 = calculateAudiogramFromHearingTestResult(input3)
     expect(results3).to.have.keys(AUDIOGRAM_FREQUENCIES)
   })
+
+  it('returns audiograms for a bunch of random hearing test results', () => {
+    range(0, 100).forEach(() => {
+      const volumes = AUDIOGRAM_FREQUENCIES.reduce((acc, frequency) => ({
+        ...acc,
+        [frequency]: {
+          UP: random(FrequencyStartVolume[frequency], 0),
+          DOWN: random(FrequencyStartVolume[frequency], 0),
+        },
+      }), {})
+      const audiogram = calculateAudiogramFromHearingTestResult(volumes)
+      // console.log({ volumes, audiogram })
+      expect(audiogram[AUDIOGRAM_FREQUENCIES[0]]).to.be.a('number')
+      expect(audiogram[AUDIOGRAM_FREQUENCIES[1]]).to.be.a('number')
+      expect(audiogram[AUDIOGRAM_FREQUENCIES[2]]).to.be.a('number')
+      expect(audiogram[AUDIOGRAM_FREQUENCIES[3]]).to.be.a('number')
+      expect(audiogram[AUDIOGRAM_FREQUENCIES[4]]).to.be.a('number')
+      expect(audiogram[AUDIOGRAM_FREQUENCIES[5]]).to.be.a('number')
+      expect(audiogram[AUDIOGRAM_FREQUENCIES[6]]).to.be.a('number')
+
+      const codes = calculateHearingLossCodesFromAudiogram(audiogram)
+      codes.forEach(code => {
+        expect(code).to.have.lengthOf(2)
+      })
+    })
+  })
+
+  it('returns audiograms for test results with 0 diff', () => {
+    const volumes = AUDIOGRAM_FREQUENCIES.reduce((acc, frequency) => ({
+      ...acc,
+      [frequency]: {
+        UP: -60,
+        DOWN: -70,
+      },
+    }), {})
+    const audiogram = calculateAudiogramFromHearingTestResult(volumes)
+    // console.log({ volumes, audiogram })
+    expect(audiogram[AUDIOGRAM_FREQUENCIES[0]]).to.be.a('number')
+    expect(audiogram[AUDIOGRAM_FREQUENCIES[1]]).to.be.a('number')
+    expect(audiogram[AUDIOGRAM_FREQUENCIES[2]]).to.be.a('number')
+    expect(audiogram[AUDIOGRAM_FREQUENCIES[3]]).to.be.a('number')
+    expect(audiogram[AUDIOGRAM_FREQUENCIES[4]]).to.be.a('number')
+    expect(audiogram[AUDIOGRAM_FREQUENCIES[5]]).to.be.a('number')
+    expect(audiogram[AUDIOGRAM_FREQUENCIES[6]]).to.be.a('number')
+
+    const codes = calculateHearingLossCodesFromAudiogram(audiogram)
+    codes.forEach(code => {
+      expect(code).to.have.lengthOf(2)
+    })
+  })
 })
 
 describe('calculateHearingLossCodesFromAudiogram()', () => {
@@ -99,6 +149,20 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
         expect(
           calculateHearingLossCodesFromAudiogram(audiogram)
         ).to.deep.equal([code])
+      })
+    })
+
+    describe('something for all combinations of audiograms', () => {
+      it('for 125, 250, 500, 1000, 2000, 4000, 8000 Hz', () => {
+        range(0, 1000).forEach((i) => {
+          const allValues = range(0, 15).map((i) => -20 + 10 * i)
+          const audiogram = AUDIOGRAM_FREQUENCIES.reduce((acc, frequency) => ({
+            ...acc,
+            [frequency]: shuffle(allValues)[0],
+          }), {})
+          const codes = calculateHearingLossCodesFromAudiogram(audiogram)
+          codes.forEach(code => expect(code).to.have.lengthOf(2))
+        })
       })
     })
 
