@@ -1,0 +1,1119 @@
+{
+  "charset": "utf-8",
+  "headers": {
+    "mime-version": "1.0",
+    "content-type": "text/plain; charset=UTF-8",
+    "content-transfer-encoding": "8bit",
+    "x-generator": "POEditor.com",
+    "project-id-version": "Hearing test",
+    "language": "es"
+  },
+  "translations": {
+    "": {
+      "": {
+        "msgid": "",
+        "msgstr": [
+          "MIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nX-Generator: POEditor.com\nProject-Id-Version: Hearing test\nLanguage: es\n"
+        ]
+      },
+      "3D Tune-In Hearing Test": {
+        "msgid": "3D Tune-In Hearing Test",
+        "comments": {
+          "reference": "src/components/Header.js:33"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Calibration": {
+        "msgid": "Calibration",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:23"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Start with silence": {
+        "msgid": "Start with silence",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:29"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Put on your headphones and set the volume the 0.": {
+        "msgid": "Put on your headphones and set the volume the 0.",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:33"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Continue": {
+        "msgid": "Continue",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:36\nsrc/containers/calibration/CalibrationStep.js:54\nsrc/containers/calibration/CalibrationStep.js:80"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Adjust audio level": {
+        "msgid": "Adjust audio level",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:45"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Headphones positioning": {
+        "msgid": "Headphones positioning",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:67"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Check that you are wearing your headphones correctly.": {
+        "msgid": "Check that you are wearing your headphones correctly.",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:71"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Thank you!": {
+        "msgid": "Thank you!",
+        "comments": {
+          "reference": "src/containers/EndView.js:12"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Hearing Test": {
+        "msgid": "Hearing Test",
+        "comments": {
+          "reference": "src/containers/HomeView.js:56"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Welcome to the 3D Tune-In hearing test.": {
+        "msgid": "Welcome to the 3D Tune-In hearing test.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:61"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Disclaimer": {
+        "msgid": "Disclaimer",
+        "comments": {
+          "reference": "src/containers/HomeView.js:72"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Take the test": {
+        "msgid": "Take the test",
+        "comments": {
+          "reference": "src/containers/HomeView.js:145"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Evaluation questionnaire": {
+        "msgid": "Evaluation questionnaire",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:89"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Web hearing test": {
+        "msgid": "Web hearing test",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:91"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Example:": {
+        "msgid": "Example:",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:107"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "attractive": {
+        "msgid": "attractive",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:111\nsrc/containers/QuestionnaireStep.js:291"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "unattractive": {
+        "msgid": "unattractive",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:112\nsrc/containers/QuestionnaireStep.js:292"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "agree": {
+        "msgid": "agree",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:150"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "disagree": {
+        "msgid": "disagree",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:151"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "not understandable": {
+        "msgid": "not understandable",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:157"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "understandable": {
+        "msgid": "understandable",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:158"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "creative": {
+        "msgid": "creative",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:163"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "dull": {
+        "msgid": "dull",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:164"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "easy to learn": {
+        "msgid": "easy to learn",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:170"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "difficult to learn": {
+        "msgid": "difficult to learn",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:171"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "valuable": {
+        "msgid": "valuable",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:176"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "inferior": {
+        "msgid": "inferior",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:177"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "boring": {
+        "msgid": "boring",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:182"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "exciting": {
+        "msgid": "exciting",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:183"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "not interesting": {
+        "msgid": "not interesting",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:188"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "interesting": {
+        "msgid": "interesting",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:189"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "unpredictable": {
+        "msgid": "unpredictable",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:194"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "predictable": {
+        "msgid": "predictable",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:195"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "fast": {
+        "msgid": "fast",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:200"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "slow": {
+        "msgid": "slow",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:201"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "inventive": {
+        "msgid": "inventive",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:206"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "conventional": {
+        "msgid": "conventional",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:207"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "obstructive": {
+        "msgid": "obstructive",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:212"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "supportive": {
+        "msgid": "supportive",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:213"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "good": {
+        "msgid": "good",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:218"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "bad": {
+        "msgid": "bad",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:219"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "complicated": {
+        "msgid": "complicated",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:224"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "easy": {
+        "msgid": "easy",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:225"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "unlikable": {
+        "msgid": "unlikable",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:230"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "pleasing": {
+        "msgid": "pleasing",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:231"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "usual": {
+        "msgid": "usual",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:236"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "leading edge": {
+        "msgid": "leading edge",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:237"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "unpleasant": {
+        "msgid": "unpleasant",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:242"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "pleasant": {
+        "msgid": "pleasant",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:243"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "secure": {
+        "msgid": "secure",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:248"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "not secure": {
+        "msgid": "not secure",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:249"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "motivating": {
+        "msgid": "motivating",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:254"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "demotivating": {
+        "msgid": "demotivating",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:255"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "meets expectations": {
+        "msgid": "meets expectations",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:261"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "does not meet expectations": {
+        "msgid": "does not meet expectations",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:262"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "inefficient": {
+        "msgid": "inefficient",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:267"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "efficient": {
+        "msgid": "efficient",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:268"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "clear": {
+        "msgid": "clear",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:273"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "confusing": {
+        "msgid": "confusing",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:274"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "impractical": {
+        "msgid": "impractical",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:279"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "practical": {
+        "msgid": "practical",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:280"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "organized": {
+        "msgid": "organized",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:285"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "cluttered": {
+        "msgid": "cluttered",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:286"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "friendly": {
+        "msgid": "friendly",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:297"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "unfriendly": {
+        "msgid": "unfriendly",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:298"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "conservative": {
+        "msgid": "conservative",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:303"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "innovative": {
+        "msgid": "innovative",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:304"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "1. The hearing test application meets my requirements": {
+        "msgid": "1. The hearing test application meets my requirements",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:315"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "strongly agree": {
+        "msgid": "strongly agree",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:322\nsrc/containers/QuestionnaireStep.js:337\nsrc/containers/QuestionnaireStep.js:349\nsrc/containers/QuestionnaireStep.js:365"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "strongly disagree": {
+        "msgid": "strongly disagree",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:323\nsrc/containers/QuestionnaireStep.js:338\nsrc/containers/QuestionnaireStep.js:350\nsrc/containers/QuestionnaireStep.js:366"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "3. This hearing test application is easy to use": {
+        "msgid": "3. This hearing test application is easy to use",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:343"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "not at all likely": {
+        "msgid": "not at all likely",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:381"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "extremely likely": {
+        "msgid": "extremely likely",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:382"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Many thanks for your time completing this questionnaire.": {
+        "msgid": "Many thanks for your time completing this questionnaire.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:395"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Submitting...": {
+        "msgid": "Submitting...",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:402"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Submit answers": {
+        "msgid": "Submit answers",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:402"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Hearing test results": {
+        "msgid": "Hearing test results",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:68"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Hearing loss severity score": {
+        "msgid": "Hearing loss severity score",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:81"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Left ear": {
+        "msgid": "Left ear",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:126\nsrc/containers/results/ResultsStep.js:93\nsrc/containers/test/EarTestContainer.js:160"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Right ear": {
+        "msgid": "Right ear",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:102\nsrc/containers/results/ResultsStep.js:141\nsrc/containers/test/EarTestContainer.js:160"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Audiograms": {
+        "msgid": "Audiograms",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:113"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "name@example.com": {
+        "msgid": "name@example.com",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:181"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Email me the results": {
+        "msgid": "Email me the results",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:183"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "{{ link:Click here }} for more information about the 3D Tune-In project and apps.": {
+        "msgid": "{{ link:Click here }} for more information about the 3D Tune-In project and apps.",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:73"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Step {{ step }} of {{ numSteps }}": {
+        "msgid": "Step {{ step }} of {{ numSteps }}",
+        "comments": {
+          "reference": "src/containers/test/EarTestContainer.js:162"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Increase": {
+        "msgid": "Increase",
+        "comments": {
+          "reference": "src/containers/test/EarTestContainer.js:172"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Increase volume": {
+        "msgid": "Increase volume",
+        "comments": {
+          "reference": "src/containers/test/EarTestContainer.js:195"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "I can hear it": {
+        "msgid": "I can hear it",
+        "comments": {
+          "reference": "src/containers/test/EarTestContainer.js:203"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Decrease": {
+        "msgid": "Decrease",
+        "comments": {
+          "reference": "src/containers/test/EarTestContainer.js:224"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Decrease volume": {
+        "msgid": "Decrease volume",
+        "comments": {
+          "reference": "src/containers/test/EarTestContainer.js:246"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Testing your hearing": {
+        "msgid": "Testing your hearing",
+        "comments": {
+          "reference": "src/containers/test/TestStep.js:36"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Initialising hearing test...": {
+        "msgid": "Initialising hearing test...",
+        "comments": {
+          "reference": "src/containers/AudioLibraryProvider.js:96"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "These are your hearing test results.": {
+        "msgid": "These are your hearing test results.",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:72"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Help us improve": {
+        "msgid": "Help us improve",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:163"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Take the questionnaire": {
+        "msgid": "Take the questionnaire",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:172"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Reset": {
+        "msgid": "Reset",
+        "comments": {
+          "reference": "src/containers/test/EarTestContainer.js:217\nsrc/containers/test/EarTestContainer.js:263"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Adjust the audio level until this sound is comfortably audible.": {
+        "msgid": "Adjust the audio level until this sound is comfortably audible.",
+        "comments": {
+          "reference": "src/containers/calibration/CalibrationStep.js:49"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Here you can take a hearing test to get an estimate of you level ofhearing. The test takes about 5 minutes.": {
+        "msgid": "Here you can take a hearing test to get an estimate of you level ofhearing. The test takes about 5 minutes.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:64"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "This software nas been developed within the 3D Tune-In project(3D-games for TUNing and lEarniNg about hearing aids).": {
+        "msgid": "This software nas been developed within the 3D Tune-In project(3D-games for TUNing and lEarniNg about hearing aids).",
+        "comments": {
+          "reference": "src/containers/HomeView.js:76"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "3D Tune-In is a project ﬁnanced by the European Commission withinthe European Programme HORIZON 2020 — Research and InnovationAction — contract number 644051.": {
+        "msgid": "3D Tune-In is a project ﬁnanced by the European Commission withinthe European Programme HORIZON 2020 — Research and InnovationAction — contract number 644051.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:82"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "For additional information and details on 3D Tune-In, please visitthe project web site: www.3d-tune-in.eu": {
+        "msgid": "For additional information and details on 3D Tune-In, please visitthe project web site: www.3d-tune-in.eu",
+        "comments": {
+          "reference": "src/containers/HomeView.js:89"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "The contents of this software are owned by the 3D Tune-InConsortium.": {
+        "msgid": "The contents of this software are owned by the 3D Tune-InConsortium.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:95"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "This test allows you to estimate your hearing threshold. Pleasebear in mind that the software implements a demonstrative test,and in no case should it be considered as a medical diagnosis. Itsresults may not indicate any medical condition or have any medicalpurpose.": {
+        "msgid": "This test allows you to estimate your hearing threshold. Pleasebear in mind that the software implements a demonstrative test,and in no case should it be considered as a medical diagnosis. Itsresults may not indicate any medical condition or have any medicalpurpose.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:101"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Please follow the instructions carefully for correct usage of thetest.": {
+        "msgid": "Please follow the instructions carefully for correct usage of thetest.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:110"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "You will initially be guided though a simple procedure foradjusting the volume on your device. High volumes can cause damageto your hearing. Please find your comfortable level and maintainit during the entire procedure.": {
+        "msgid": "You will initially be guided though a simple procedure foradjusting the volume on your device. High volumes can cause damageto your hearing. Please find your comfortable level and maintainit during the entire procedure.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:116"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "The 3D Tune-In Consortium will not be held responsible for anydamage related to incorrect usage of the test by users.": {
+        "msgid": "The 3D Tune-In Consortium will not be held responsible for anydamage related to incorrect usage of the test by users.",
+        "comments": {
+          "reference": "src/containers/HomeView.js:124"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "I understand all these conditions, and I confirm that I amtaking this test under my sole responsibility": {
+        "msgid": "I understand all these conditions, and I confirm that I amtaking this test under my sole responsibility",
+        "comments": {
+          "reference": "src/containers/HomeView.js:137"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "We would now like to evaluate your experience using our web-basedhearing test. For the assessment of the test, please fill out thefollowing questionnaire. The questionnaire consists of pairs ofcontrasting attributes that may apply to the test. The checkboxsbetween the attributes represent gradations between the opposites.You can express your agreement with the attributes by ticking thecheckbox that most closely reflects your impression.": {
+        "msgid": "We would now like to evaluate your experience using our web-basedhearing test. For the assessment of the test, please fill out thefollowing questionnaire. The questionnaire consists of pairs ofcontrasting attributes that may apply to the test. The checkboxsbetween the attributes represent gradations between the opposites.You can express your agreement with the attributes by ticking thecheckbox that most closely reflects your impression.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:96"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "This response would mean that you rate the application as moreattractive than unattractive.": {
+        "msgid": "This response would mean that you rate the application as moreattractive than unattractive.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:115"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Please decide spontaneously. Don’t think too long about yourdecision to make sure that you convey your original impression.": {
+        "msgid": "Please decide spontaneously. Don’t think too long about yourdecision to make sure that you convey your original impression.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:121"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Sometimes you may not be completely sure about your agreement with aparticular attribute or you may find that the attribute does notapply completely to the particular product. Nevertheless, pleasetick a checkbox in every line.": {
+        "msgid": "Sometimes you may not be completely sure about your agreement with aparticular attribute or you may find that the attribute does notapply completely to the particular product. Nevertheless, pleasetick a checkbox in every line.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:127"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "It is your personal opinion that counts. Please remember: there isno wrong or right answer!": {
+        "msgid": "It is your personal opinion that counts. Please remember: there isno wrong or right answer!",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:135"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Please assess the hearing test now by ticking one checkbox per line.": {
+        "msgid": "Please assess the hearing test now by ticking one checkbox per line.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:142"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Finally here are some further questions to further evaluate yourexperience with the hearing test application.": {
+        "msgid": "Finally here are some further questions to further evaluate yourexperience with the hearing test application.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:308"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "2. Using this hearing test application is a frustrating experience": {
+        "msgid": "2. Using this hearing test application is a frustrating experience",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:328"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "4. I have to spend too much time correcting things with thishearing test application.": {
+        "msgid": "4. I have to spend too much time correcting things with thishearing test application.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:355"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "Lastly, to what extent would you recommend this hearing testapplication to another adult with cystic fibrosis?": {
+        "msgid": "Lastly, to what extent would you recommend this hearing testapplication to another adult with cystic fibrosis?",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:371"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "We could not submit the questionnaire at this time. Please waita minute or two and try submitting the form again.": {
+        "msgid": "We could not submit the questionnaire at this time. Please waita minute or two and try submitting the form again.",
+        "comments": {
+          "reference": "src/containers/QuestionnaireStep.js:408"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "You can use these codes to automatically calibrate any of the 3DTune-In applications, so make a note of them.": {
+        "msgid": "You can use these codes to automatically calibrate any of the 3DTune-In applications, so make a note of them.",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:84"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "These are diagrams that describe your hearing threshold fordifferent frequencies.": {
+        "msgid": "These are diagrams that describe your hearing threshold fordifferent frequencies.",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:117"
+        },
+        "msgstr": [
+          ""
+        ]
+      },
+      "We would like know about your experience taking this test.Please take a few minutes to complete our questionnaire.": {
+        "msgid": "We would like know about your experience taking this test.Please take a few minutes to complete our questionnaire.",
+        "comments": {
+          "reference": "src/containers/results/ResultsStep.js:166"
+        },
+        "msgstr": [
+          ""
+        ]
+      }
+    }
+  }
+}
