@@ -1,5 +1,5 @@
 /* global XMLHttpRequest, document, window */
-import { forEach, forOwn, max } from 'lodash'
+import { forEach, forOwn, max, min } from 'lodash'
 
 import { SILENCE } from 'src/constants.js'
 
@@ -8,8 +8,12 @@ export function normalize(arr) {
     return arr
   }
 
+  const minValue = min(arr)
   const maxValue = max(arr)
-  return arr.map(x => x / maxValue)
+  if (minValue === maxValue) {
+    return arr.fill(0)
+  }
+  return arr.map(x => (x - minValue) / (maxValue - minValue))
 }
 
 export function pickArr(arr, indices) {

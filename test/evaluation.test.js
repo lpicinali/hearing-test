@@ -154,7 +154,7 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
 
     describe('something for all combinations of audiograms', () => {
       it('for 125, 250, 500, 1000, 2000, 4000, 8000 Hz', () => {
-        range(0, 1000).forEach((i) => {
+        range(0, 1000).forEach(() => {
           const allValues = range(0, 15).map((i) => -20 + 10 * i)
           const audiogram = AUDIOGRAM_FREQUENCIES.reduce((acc, frequency) => ({
             ...acc,
@@ -222,6 +222,17 @@ describe('calculateHearingLossCodesFromAudiogram()', () => {
       it('with 500, 1000 and 4000 Hz', () => {
         testPartialAudiogramPlotting(['500', '1000', '4000'])
       })
+    })
+
+    it('audiograms with zeros into codes', () => {
+      const audiogram = {
+        '1000': -53,
+        '2000': -8.5,
+        '4000': -20.5,
+        '500': 0,
+      }
+      const results = calculateHearingLossCodesFromAudiogram(audiogram)
+      expect(results.length).to.be.above(0)
     })
   })
 })
