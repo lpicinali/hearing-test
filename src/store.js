@@ -6,11 +6,15 @@ import rootReducer from 'src/reducers/rootReducer.js'
 import rootSaga from 'src/sagas/rootSaga.js'
 
 const sagaMiddleware = createSagaMiddleware()
+const basicPersist = store => next => action => {
+  localStorage.setItem('store', JSON.stringify(store.getState()))
+  return next(action)
+}
 
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(sagaMiddleware),
+    applyMiddleware(sagaMiddleware, basicPersist),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 )
